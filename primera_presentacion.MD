@@ -43,7 +43,7 @@ Los principales desafíos del proyecto incluyen:
 Durante la elaboración de propuesta del proyecto, se evaluaron diversos simuladores digitales disponibles en la actualidad, entre los que destacan:
 
 - Proteus: Ofrece simulación avanzada de circuitos y microcontroladores, pero su enfoque comercial implica licencias costosas y su complejidad excede los requerimientos didácticos del proyecto.
-- Multisim: Proporciona herramientas robustas para diseño y simulación de circuitos, sin embargo y al igual que la opción anterior, tiene un efoque comercial lo que implica pagar una licencia.
+- Multisim: Proporciona herramientas robustas para diseño y simulación de circuitos, sin embargo y al igual que la opción anterior, tiene un enfoque comercial lo que implica pagar una licencia.
 - CircuitVerse: Simulador online con interfaz moderna. A pesar de su portabilidad (debido a que es un sitio web), puede volverse inestable al estar ejecutándose dentro de un navegador.
 - Digital: Alternativa a Logisim con características modernas, pero con una comunidad más reducida y menos recursos didácticos disponibles. De manera adicional, su comunidad ha criticado su nombre debido a que dificulta su búsqueda en motores de búsqueda (valga la redundancia).
 
@@ -56,7 +56,7 @@ Se seleccionó Logisim Evolution debido a sus ventajas específicas para este pr
 - Posibilita la implementación modular de la arquitectura completa del M32.
 - Facilita la integración con material didáctico existente en la universidad.
 
-De manera adicional, tambien se destacan algunas referencias a proyectos similares a este tales como:
+De manera adicional, también se destacan algunas referencias a proyectos similares a éste tales como:
 
 - Implementaciones previas en Logisim de otros microprocesadores: Ya que existen otros microprocesadores implementados en Logisim Evolution, como el MIPS de 32 bits o modelos simplificados de procesadores x86.
 - Simuladores externos: tales como herramientas como MARIE.js o Ripes permiten estudiar la ejecución de instrucciones en microprocesadores educativos.
