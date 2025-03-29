@@ -5,11 +5,11 @@ Buenas tardes estimados compañeros y profesores, me presento, soy Fabián Ferra
 ## Temario
 El temario de esta presentación es el siguiente:
 
-- (Comenzaré esta presentación dando a conocer el) Objetivo de la Presentación en la diapositiva X
-- (En segundo lugar daré a conocer la) Introducción y Contexto del problema en la diapositiva X
-- (Luego continuaré dando a conocer la) Problemática a Abordar en la diapositiva X
-- (Continuaré con la presentación de) Sistemas o Estudios Similares en la diapositiva X
-- (Y daré término a la presentación dando a conocer las) Conclusiones de la presentación en la diapositiva X
+- (Comenzaré esta presentación dando a conocer el) Objetivo de la Presentación en la diapositiva 3
+- (En segundo lugar daré a conocer la) Introducción y Contexto del problema en la diapositiva 4
+- (Luego continuaré dando a conocer la) Problemática a Abordar en la diapositiva 5
+- (Continuaré con la presentación de) Sistemas o Estudios Similares en la diapositiva 6
+- (Y daré término a la presentación dando a conocer las) Conclusiones de la presentación en la diapositiva 13
 
 ## Objetivo de la Presentación
 (El objetivo general de esta presentación es) presentar el tema de anteproyecto de título sobre el diseño e implementación del microprocesador M32 en Logisim Evolution para justificar su relevancia y las problemáticas a abordar.
