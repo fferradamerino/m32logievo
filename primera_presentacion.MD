@@ -6,10 +6,10 @@ Buenas tardes estimados compañeros y profesores, me presento, soy Fabián Ferra
 El temario de esta presentación es el siguiente:
 
 - (Comenzaré esta presentación dando a conocer el) Objetivo de la Presentación en la diapositiva 3
-- (En segundo lugar daré a conocer la) Introducción y Contexto del problema en la diapositiva 4
-- (Luego continuaré dando a conocer la) Problemática a Abordar en la diapositiva 5
-- (Continuaré con la presentación de) Sistemas o Estudios Similares en la diapositiva 6
-- (Y daré término a la presentación dando a conocer las) Conclusiones de la presentación en la diapositiva 13
+- (En segundo lugar daré a conocer la) Introducción y Contexto del problema en la diapositiva 5
+- (Luego continuaré dando a conocer la) Problemática a Abordar en la diapositiva 7
+- (Continuaré con la presentación de) Sistemas o Estudios Similares en la diapositiva 9
+- (Y daré término a la presentación dando a conocer las) Conclusiones de la presentación en la diapositiva 18
 
 ## Objetivo de la Presentación
 (El objetivo general de esta presentación es) presentar el tema de anteproyecto de título sobre el diseño e implementación del microprocesador M32 en Logisim Evolution para justificar su relevancia y las problemáticas a abordar.
@@ -67,4 +67,4 @@ De manera adicional, también se destacan algunas referencias a proyectos simila
 
 La implementación del M32 en Logisim Evolution permitirá a los estudiantes experimentar con una arquitectura educativa sin necesidad de recurrir a técnicas de ejecución en papel. Específicamente, los estudiantes podrán añadir instrucciones nuevas a la arquitectura con mayor facilidad, e incluso añadir técnicas de optimización de ejecución de instrucciones, lo que a largo plazo podría añadir una ventana a estudiar tópicos más avanzados dentro de la asignatura.
 
-Este anteproyecto establece las bases para el desarrollo y validación de un modelo funcional del M32 en un entorno de simulación accesible y ampliamente utilizado.
+Este anteproyecto establece las bases para el desarrollo de un modelo funcional del M32 en un entorno de simulación accesible y ampliamente utilizado.
