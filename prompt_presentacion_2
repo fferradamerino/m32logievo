@@ -1,0 +1,34 @@
+¡Lo logré! Solo tuve dos problemas: mencioné mal el año del simulador Hades, y tuve poco contacto visual. Pero más allá de eso, todo bien.
+Ahora bien, tengo que elaborar la presentación para la próxima semana. Esta presentación es sobre:
+- Descripción de la organización:
+ - La organización es la Universidad del Bío-Bío
+ - El simulador está orientado a la asignatura de Arquitectura de Computadores
+ - Se debe dar una explicación básica del M32 en este punto (creo, no anoté bien esa parte)
+ - Esto (el proyecto) debe estar dentro del contexto de la carrera
+- Descripción del problema
+ - El problema, como tal, es implementar el M32
+ - Debo recalcar que ya existe una versión previa implementada en Hades
+- Resultado de la primera reunión de trabajo con el cliente
+ - Indicar que se conversó con el "cliente" (estudiantes y profesores de la carrera). Más abajo se entrega más información sobre las entrevistas.
+ 
+# Entrevistas al cliente (estudiantes y profesores de la carrera).
+
+## Entrevista profesor 1
+- ¿Qué otras características le gustaría que tuviese el simulador en su implementación?
+Respuesta: Osea, para mi lo que es clave es que se viera como en la "hoja" [en referencia al diagrama/arquitectura del M32]. Bueno la hoja no lo muestra muy bien lo que te decía recién, que dijera "sabes que llamando una suma de registro, de valores que están en la RAM, entonces como ese elemento pasa por el bus de datos y llega al procesador". Y que se vayan prendiendo las piezas donde se ejecuta esa instrucción, ¿"cachái" o no? Y lo otro que es súper importante que, de repente no se ve mucho, es qué es lo que está pasando con el automata del M32 [en alusión a la Control Unit del M32], porque no se si el simulador hace eso, porque es ahí es donde se decodifica la instrucción. Eso para mi es clave.
+
+- ¿Qué información le gustaría usted que el simulador le entregara a los usuarios respecto al M32? Como estados de los registros, por ejemplo
+Respuesta: A mi lo que es relevante es cuando mirabamos la "hojita" [en referencia al diagrama/arquitectura del M32], que cuando tu mandabas una instrucción que venía del bus de datos afuera o que venía de la RAM hacia el procesador, que te mostrara como van los ciclos fetch, como se va alimentando el procesador. Que se ilumine la circuitería, para "cachar" justamente qué es lo que va pasando en ese momento por ese componente.
+
+- ¿Qué tipos de ejercicios le gustaría realizar usted a los estudiantes con este tipo de simulador, si es que se llegase a implementar uno?
+Respuesta: Me acuerdo que haciamos unos ejercicios donde ellos tenían que modificar cosas dentro del M32 para agregar instrucciones nuevas o cosas como esas.
+
+## Entrevista profesor 2
+- ¿Qué otras características le gustaría que tuviese el simulador en su implementación?
+Respuesta: Ehh... uhmm... primero poder probarlo. Probarlo por módulos. Si tuviera la Unidad de Control, tuviera la ALU, poder probarlo por separado, y ver que señales están emitiendo. Y ver señales que se están emitiendo en cada ciclo del reloj, para poder ir depurando si eso está bien o no.
+
+- ¿Qué información le gustaría usted que el simulador le entregara a los usuarios respecto al M32? Como estados de los registros, por ejemplo
+Respuesta: La instrucción que se está ejecutando, las señales, y los valores de los registros. Adicional a eso, todos los componentes, y ademas si hay componentes como memoria, las señales que tengo dando vuelta en la memoria. Sí, las señales en realidad, los ciclos de reloj, los valores de los registros, y que si eso va a ser gráfico que se vaya viendo en pantalla iluminando las señales.
+
+- ¿Qué tipos de ejercicios le gustaría realizar usted a los estudiantes con este tipo de simulador, si es que se llegase a implementar uno?
+Respuesta: ¿Con el procesador ya implementado? Bueno, lo que se hace comunmente, que es implementar nuevas instrucciones, y ver qué señales se tendrían que implementar para que funcionaran. Sobre todo si es una arquitectura de 32 bits, y si necesita implementar una instrucción de 64 bits. O los accesos a memoria, para que acceda a posiciones, a memorias más grandes, o a posiciones más específicas o una carga y descarga. Eh, eso.
