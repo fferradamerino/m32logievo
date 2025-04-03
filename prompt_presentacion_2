@@ -32,3 +32,15 @@ Respuesta: La instrucción que se está ejecutando, las señales, y los valores 
 
 - ¿Qué tipos de ejercicios le gustaría realizar usted a los estudiantes con este tipo de simulador, si es que se llegase a implementar uno?
 Respuesta: ¿Con el procesador ya implementado? Bueno, lo que se hace comunmente, que es implementar nuevas instrucciones, y ver qué señales se tendrían que implementar para que funcionaran. Sobre todo si es una arquitectura de 32 bits, y si necesita implementar una instrucción de 64 bits. O los accesos a memoria, para que acceda a posiciones, a memorias más grandes, o a posiciones más específicas o una carga y descarga. Eh, eso.
+
+## Entrevista a estudiante 1 y 2
+- ¿Qué otras características le gustaría que tuviese el simulador en su implementación?
+Respuesta: Ehh... que permitiera hacer las conexiones y te dijera si es "successful", o hay un error en algún punto. Y que te señalara en qué punto está fallando.
+
+- ¿Qué información le gustaría usted que el simulador le entregara a los usuarios respecto al M32? Como estados de los registros, por ejemplo
+Respuesta: ¿Podría ser uno que otro concepto, algo como una notita aparte? Algo como "este funciona para tal cosa", "este otro funciona bajo estos parámetros".
+(Aquí habla el segundo compañero) Que haya una guía, un soporte para que nos indicara como usar bien el simulador, o una cosa así. Un tutorial.
+
+- ¿Qué tipos de ejercicios le gustaría realizar usted a los estudiantes con este tipo de simulador, si es que se llegase a implementar uno?
+Respuesta: Ejercicios de certamenes, para que pase piola. Jejej, no, ejercicios de los test/certamenes de los años anteriores.
+(Aquí habla el segundo compañero) Pero hablando de qué pueda o no simular, eh que pueda realizar mecanismos con máquinas Turing. Sería interesante como para ver el comportamiento de máquinas de Turing antes ciertos conceptos.
