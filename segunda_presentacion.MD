@@ -5,10 +5,12 @@
 Buenas tardes estimados compañeros y profesores. Hoy presentaré los temas relacionados a la organización, problemas y resultados de la primera reunión con los clientes, respecto a un simulador para el microprocesador M32 en la herramienta Logisim Evolution, en el contexto de la asignatura de Arquitectura de Computadores en la Universidad del Bío-Bío.
 
 El temario de la presentación será el siguiente:
-- Primero, presentaré la Descripción de la Organización en la diapositiva X
-- Luego, presentaré la Descripción del Problema en la diapositiva X
-- Con eso en mente, presentaré los Resultados de la Primera Reunión con los clientes en la diapositiva X
-- Y finalmente presentaré la conclusión en la diapositiva X
+
+- Primero, presentaré la Descripción de la Organización en la diapositiva 3
+- Luego, presentaré la Descripción del Problema en la diapositiva 4
+- Con eso en mente, presentaré los Resultados de la Primera Reunión con los clientes en la diapositiva 5
+- Seguido de ello, presentaré los Perfiles de usuario en las diapositivas 6 y 7
+- Y finalmente presentaré la conclusión en la diapositiva 8
 
 ## 2. Descripción de la Organización
 
@@ -39,6 +41,7 @@ Para comprender mejor las necesidades y expectativas de los usuarios finales, se
 ### Entrevistas con docentes de la carrera:
 El primer perfil de usuario del simulador de M32 son los docentes de la carrera de Ingeniería Civil en Informática. Para este grupo se entrevistaron tres docentes que han dado clases sobre esta arquitectura: el profesor Fernando Santolaya, la profesora Martita Muñoz, y el profesor Juan Carlos Figueroa.
 Las necesidades determinadas en base a las entrevistas realizadas a los potenciales clientes son:
+
 - Visualización del procesador M32 en un formato gráfico intuitivo basado en su diagrama arquitectónico.
 - Iluminación de los componentes en ejecución para visualizar el flujo de datos e instrucciones.
 - Representación detallada del autómata de la Unidad de Control para entender la decodificación de instrucciones.
@@ -47,6 +50,7 @@ Las necesidades determinadas en base a las entrevistas realizadas a los potencia
 - Visualización en pantalla de registros, señales y componentes activos en tiempo real.
 
 Además, se identificaron las siguientes oportunidades:
+
 - Uso del simulador como herramienta pedagógica para mostrar cómo se ejecutan instrucciones en el M32.
 - Realización de ejercicios donde los estudiantes modifiquen la arquitectura del M32 para agregar nuevas instrucciones.
 - Implementación de instrucciones complejas de 64 bits o variaciones en los accesos a memoria.
@@ -54,12 +58,14 @@ Además, se identificaron las siguientes oportunidades:
 ### Entrevista con estudiantes de la carrera
 El segundo perfil de usuario determinado durante las entrevistas sobre el simulador es el de los estudiantes de la carrera. Se destaca que los estudiantes entrevistados ya han aprobado la asignatura de Arquitectura de Computadores.
 Las necesidades determinadas de este perfil son las siguientes:
+
 - Interfaz interactiva que permita realizar conexiones y detectar errores automáticamente.
 - Mensajes de retroalimentación sobre los errores detectados en la simulación.
 - Notas o guías contextuales que expliquen conceptos clave sobre el funcionamiento del M32.
 - Un tutorial o sistema de ayuda integrado para facilitar el aprendizaje del simulador.
 
 Además, se identificaron las siguientes oportunidades:
+
 - Uso del simulador como apoyo para resolver ejercicios de certámenes y evaluaciones previas.
 - Experimentación con conceptos más avanzados, como simulaciones de máquinas de Turing (autómatas) dentro del entorno del M32.
 
