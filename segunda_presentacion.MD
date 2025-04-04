@@ -49,7 +49,7 @@ Las necesidades determinadas en base a las entrevistas realizadas a los potencia
 Además, se identificaron las siguientes oportunidades:
 - Uso del simulador como herramienta pedagógica para mostrar cómo se ejecutan instrucciones en el M32.
 - Realización de ejercicios donde los estudiantes modifiquen la arquitectura del M32 para agregar nuevas instrucciones.
-- Implementación de nuevas instrucciones de 64 bits o variaciones en los accesos a memoria.
+- Implementación de instrucciones complejas de 64 bits o variaciones en los accesos a memoria.
 
 ### Entrevista con estudiantes de la carrera
 El segundo perfil de usuario determinado durante las entrevistas sobre el simulador es el de los estudiantes de la carrera. Se destaca que los estudiantes entrevistados ya han aprobado la asignatura de Arquitectura de Computadores.
