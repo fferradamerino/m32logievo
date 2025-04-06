@@ -2,7 +2,7 @@
 
 ## 1. Introducción
 
-Buenas tardes estimados compañeros y profesores. Hoy presentaré los temas relacionados a la organización, problemas y resultados de la primera reunión con los clientes, respecto a un simulador para el microprocesador M32 en la herramienta Logisim Evolution, en el contexto de la asignatura de Arquitectura de Computadores en la Universidad del Bío-Bío.
+Buenas tardes estimados compañeros y profesores. Hoy presentaré los temas relacionados a la organización, definición del problema y resultados de la primera reunión con el cliente, respecto a un simulador para el microprocesador M32 en la herramienta Logisim Evolution, en el contexto de la asignatura de Arquitectura de Computadores en la Universidad del Bío-Bío.
 
 El temario de la presentación será el siguiente:
 
@@ -24,19 +24,17 @@ Se recalca que este proyecto busca proporcionar una herramienta visual e interac
 
 ## 3. Descripción del Problema
 
-El problema principal es la necesidad de una implementación mejorada del M32 que ofrezca una visualización clara del funcionamiento del procesador. Si bien Hades ofrece una implementación funcional, el hecho de que no sea compatible con los sistemas operativos modernos significa un problema, más que una ayuda.
+El problema principal es la necesidad de una implementación mejorada del M32 que ofrezca una visualización clara del funcionamiento del procesador. Específicamente, se busca eliminar el problema de tener que trabajar a lápiz y papel a la hora de tener que resolver ejercicios de arquitecturas de procesadores, lo cual presenta una oportunidad de mejorar el rendimiento de los estudiantes de la asignatura de Arquitectura de computadores.
 
-Por ello, el objetivo del proyecto es re-implementar en un nuevo simulador (Logisim Evolution en nuestro caso) que no solo replique la funcionalidad del M32 a nivel de componente, sino que también brinde una experiencia educativa enriquecida, con elementos visuales y capacidades de depuración.
+Si bien ya existe una implementación funcional de M32 en Hades realizada por estudiantes tesistas de Ingeniería Civil en Informática, el hecho de que Hades no sea compatible con los sistemas operativos modernos significa una limitación considerable.
+
+Por ello, el objetivo del proyecto es re-implementar M32 en un nuevo simulador (Logisim Evolution en nuestro caso) que no solo replique la funcionalidad del M32 a nivel de componente, sino que también brinde una experiencia educativa enriquecida, con elementos visuales y capacidades de depuración, las cuales son entregadas directamente al usuario por el simulador Logisim Evolution.
 
 ## 4. Resultados de la Primera Reunión con el Cliente
 
-Para comprender mejor las necesidades y expectativas de los usuarios finales, se llevaron a cabo entrevistas con profesores y estudiantes de la carrera. Estos son los puntos clave obtenidos:
+Para poder desarrollar una visión clara de las necesidades de los usuarios de este simulador, se llevaron a cabo entrevistas con profesores y estudiantes de la carrera. Con esta información, se logró definir dos perfiles claves de usuario: docentes y estudiantes de Arquitectura de Computadores.
 
-- La visualización del flujo de datos, que necesita una representación visual del paso de los datos a través de los buses y componentes del procesador.
-- El estado del autómata del M32, el cual resulta fundamental para mostrar cómo la Unidad de Control procesa y decodifica las instrucciones.
-- La depuración modular, ya que los profesores desean la capacidad de probar los módulos del procesador por separado.
-- Los registros de estados y señales, ya que es necesario mostrar las señales emitidas en cada ciclo de reloj, los valores de los registros y la memoria.
-- Y finalmente, la interactividad y asistencia, donde se requiere un mecanismo de validación de conexiones, un tutorial y guías de uso.
+Ambos perfiles concuerdan con la necesidad de tener una forma de visualizar el estado de los registros y del flujo de datos del procesador. De manera adicional, ambos perfiles también sugieren el uso del simulador para ejercicios de implementación de instrucciones y mejoras a la arquitectura.
 
 ### Entrevistas con docentes de la carrera:
 El primer perfil de usuario del simulador de M32 son los docentes de la carrera de Ingeniería Civil en Informática. Para este grupo se entrevistaron tres docentes que han dado clases sobre esta arquitectura: el profesor Fernando Santolaya, la profesora Martita Muñoz, y el profesor Juan Carlos Figueroa.
