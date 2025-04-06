@@ -4,11 +4,12 @@ Buenas tardes estimados compañeros y profesores. Hoy presentaré los temas rela
 
 El temario de la presentación será el siguiente:
 
-- Primero, presentaré la Descripción de la Organización en la diapositiva 3
-- Luego, presentaré la Descripción del Problema en la diapositiva 4
-- Con eso en mente, presentaré los Resultados de la Primera Reunión con los clientes en la diapositiva 5
-- Seguido de ello, presentaré los Perfiles de usuario en las diapositivas 6 y 7
-- Y finalmente presentaré la conclusión en la diapositiva 8
+- Primero, presentaré los Objetivos de la Presentación en la diapositiva 3
+- Seguido de ello, presentaré la Descripción de la Organización en la diapositiva 4
+- Luego, presentaré la Descripción del Problema en la diapositiva 5
+- Con eso en mente, presentaré los Resultados de la Primera Reunión con los clientes en la diapositiva 6
+- Seguido de ello, presentaré los Perfiles de usuario en las diapositivas 7 y 8
+- Y finalmente presentaré la conclusión en la diapositiva 9
 
 ## 1. Objetivos de la presentación
 Los objetivos de esta presentación son:
@@ -72,7 +73,7 @@ Además, se identificaron las siguientes oportunidades:
 
 ## 6. Conclusión
 
-En conclusión, la implementación de este simulador busca mejorar la comprensión del procesador M32, proporcionando herramientas visuales interactivas y capacidades de depuración. A partir de las entrevistas con profesores y estudiantes, se han identificado una serie de requerimientos clave para diseñar una herramienta educativa efectiva.
+En conclusión, la implementación de este simulador busca mejorar la comprensión del procesador M32, proporcionando herramientas interactivas y depuración. A partir de las entrevistas con profesores y estudiantes, se han identificado una serie de requerimientos clave para diseñar una herramienta educativa efectiva.
 
 ¡Gracias por su atención!
 
