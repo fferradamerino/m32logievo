@@ -1,8 +1,6 @@
 # Guion de Presentación: Simulador del Microprocesador M32
 
-## 1. Introducción
-
-Buenas tardes estimados compañeros y profesores. Hoy presentaré los temas relacionados a la organización, definición del problema y resultados de la primera reunión con el cliente, respecto a un simulador para el microprocesador M32 en la herramienta Logisim Evolution, en el contexto de la asignatura de Arquitectura de Computadores en la Universidad del Bío-Bío.
+Buenas tardes estimados compañeros y profesores. Hoy presentaré los temas relacionados a la organización, definición del problema y resultados de la primera reunión con el cliente, respecto al tema de Diseño, Implementación y Simulación de la Arquitectura del Microprocesador M32 en Logisim Evolution
 
 El temario de la presentación será el siguiente:
 
@@ -12,23 +10,29 @@ El temario de la presentación será el siguiente:
 - Seguido de ello, presentaré los Perfiles de usuario en las diapositivas 6 y 7
 - Y finalmente presentaré la conclusión en la diapositiva 8
 
+## 1. Objetivos de la presentación
+Los objetivos de esta presentación son:
+	Describir la organización que será usuario del resultado del proyecto
+	Describir el problema asociado al tema del proyecto
+	Indicar el resultado de la primera reunión con el cliente del tema del proyecto
+
 ## 2. Descripción de la Organización
 
 La organización que hará uso de esta herramienta es la Universidad del Bío-Bío. La Universidad del Bío-Bío es una institución que ofrece una serie de carreras orientadas a la tecnología, dentro de las cuales está la carrera de Ingeniería Civil en Informática. Otra carrera que destaca dentro de este ámbito es la carrera de Ingeniería de Ejecución en Computación e Informática, en la sede Concepción.
 
-Dentro de la carrera de Ingeniería Civil en Informática, la asignatura de Arquitectura de Computadores es la que se enfoca en entregar el conocimiento necesario para comprender los principios del diseño y operación de procesadores.
+Tanto en la carrera de Ingeniería Civil en Informática, como en la carrera de Ingeniería de Ejecución en Computación e Informática, la asignatura de Arquitectura de Computadores es la que se enfoca en entregar el conocimiento necesario para comprender los principios del diseño y operación de procesadores.
 
-El microprocesador M32 es un procesador docente utilizado en esta asignatura para enseñar la estructura y el comportamiento de una arquitectura de CPU. Actualmente, se dispone de una versión previa implementada en el simulador Hades, pero este al encontrarse desactualizado (principalmente debido a que está implementado en Java 1.4), supone una limitación a la hora de aprender sobre lo ya mencionado.
+El microprocesador M32 es un procesador docente utilizado en esta asignatura para enseñar la estructura y el comportamiento de una arquitectura de CPU. Se dispone de una versión previa implementada en Hades por tesistas de años anteriores, pero este al encontrarse desactualizado, supone una limitación a la hora de aprender sobre arquitectura de procesadores.
 
-Se recalca que este proyecto busca proporcionar una herramienta visual e interactiva para el aprendizaje de los conceptos clave del procesador M32, destacando su funcionamiento interno y la interacción entre sus componentes. Por lo tanto, este nuevo simulador buscará ser una herramienta didáctica más completa, permitiendo visualizar el paso de datos, la ejecución de instrucciones y el funcionamiento interno de la Unidad de Control.
+Se recalca que este proyecto busca proporcionar una herramienta visual e interactiva para el aprendizaje de los conceptos clave del procesador M32, destacando su funcionamiento interno y la interacción entre sus componentes. Por lo tanto, esta nuevo simulación buscará ser una herramienta didáctica más completa, permitiendo visualizar el paso de datos, la ejecución de instrucciones y el funcionamiento interno de la Unidad de Control (la que será implementada utilizando la técnica de microprogramación).
 
 ## 3. Descripción del Problema
 
 El problema principal es la necesidad de una implementación mejorada del M32 que ofrezca una visualización clara del funcionamiento del procesador. Específicamente, se busca eliminar el problema de tener que trabajar a lápiz y papel a la hora de tener que resolver ejercicios de arquitecturas de procesadores, lo cual presenta una oportunidad de mejorar el rendimiento de los estudiantes de la asignatura de Arquitectura de computadores.
 
-Si bien ya existe una implementación funcional de M32 en Hades realizada por estudiantes tesistas de Ingeniería Civil en Informática, el hecho de que Hades no sea compatible con los sistemas operativos modernos significa una limitación considerable.
+De manera adicional, el contenido relacionado a algunos tópicos en Arquitectura de Computadores no se pueden estudiar con la profundidad que debería tener. Tópicos tales como la microprogramación, pipelining avanzado o incluso memorias caché, no alcanzan a ser repasados lo que deja a la Universidad del Bío-Bío en una situación de desventaja, comparado con otras universidades del país.
 
-Por ello, el objetivo del proyecto es re-implementar M32 en un nuevo simulador (Logisim Evolution en nuestro caso) que no solo replique la funcionalidad del M32 a nivel de componente, sino que también brinde una experiencia educativa enriquecida, con elementos visuales y capacidades de depuración, las cuales son entregadas directamente al usuario por el simulador Logisim Evolution.
+Tal como se mencionó anteriormente, si bien ya existe una implementación funcional de M32 en Hades realizada por estudiantes tesistas de Ingeniería Civil en Informática, el hecho de que Hades no sea compatible con los sistemas operativos modernos significa una limitación considerable.
 
 ## 4. Resultados de la Primera Reunión con el Cliente
 
@@ -53,25 +57,22 @@ Además, se identificaron las siguientes oportunidades:
 - Realización de ejercicios donde los estudiantes modifiquen la arquitectura del M32 para agregar nuevas instrucciones.
 - Implementación de instrucciones complejas de 64 bits o variaciones en los accesos a memoria.
 
-### Entrevista con estudiantes de la carrera
-El segundo perfil de usuario determinado durante las entrevistas sobre el simulador es el de los estudiantes de la carrera. Se destaca que los estudiantes entrevistados ya han aprobado la asignatura de Arquitectura de Computadores.
+### Entrevistas con estudiantes de la carrera
+El segundo perfil de usuario determinado durante las entrevistas sobre el simulador es el de los estudiantes de la carrera, que ya han aprobado la asignatura de Arquitectura de Computadores.
 Las necesidades determinadas de este perfil son las siguientes:
 
 - Interfaz interactiva que permita realizar conexiones y detectar errores automáticamente.
-- Mensajes de retroalimentación sobre los errores detectados en la simulación.
+- Retroalimentación sobre los errores detectados en la simulación.
 - Notas o guías contextuales que expliquen conceptos clave sobre el funcionamiento del M32.
-- Un tutorial o sistema de ayuda integrado para facilitar el aprendizaje del simulador.
 
 Además, se identificaron las siguientes oportunidades:
 
 - Uso del simulador como apoyo para resolver ejercicios de certámenes y evaluaciones previas.
-- Experimentación con conceptos más avanzados, como simulaciones de máquinas de Turing (autómatas) dentro del entorno del M32.
+- Experimentación con conceptos más avanzados, como simulaciones de autómatas a nivel ensamblador.
 
 ## 6. Conclusión
 
-En resumen, la implementación de este simulador busca mejorar la comprensión del procesador M32, proporcionando herramientas visuales interactivas y capacidades de depuración. A partir de las entrevistas con profesores y estudiantes, se han identificado una serie de requerimientos clave para diseñar una herramienta educativa efectiva.
-
-Los siguientes pasos consisten en continuar analizando el panorama de los clientes, y del ámbito en el cual el proyecto se llevará a cabo.
+En conclusión, la implementación de este simulador busca mejorar la comprensión del procesador M32, proporcionando herramientas visuales interactivas y capacidades de depuración. A partir de las entrevistas con profesores y estudiantes, se han identificado una serie de requerimientos clave para diseñar una herramienta educativa efectiva.
 
 ¡Gracias por su atención!
 
