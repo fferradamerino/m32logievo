@@ -13,9 +13,9 @@ El temario de la presentación será el siguiente:
 
 ## 1. Objetivos de la presentación
 Los objetivos de esta presentación son:
-	Describir la organización que será usuario del resultado del proyecto
-	Describir el problema asociado al tema del proyecto
-	Indicar el resultado de la primera reunión con el cliente del tema del proyecto
+- Describir la organización que será usuario del resultado del proyecto
+- Describir el problema asociado al tema del proyecto
+- Indicar el resultado de la primera reunión con el cliente del tema del proyecto
 
 ## 2. Descripción de la Organización
 
