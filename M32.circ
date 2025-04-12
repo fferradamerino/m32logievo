@@ -765,4 +765,33 @@
     <wire from="(990,570)" to="(1020,570)"/>
     <wire from="(990,680)" to="(1030,680)"/>
   </circuit>
+  <circuit name="BRANCHUNIT">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="BRANCHUNIT"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(250,360)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="0" loc="(340,360)" name="Splitter">
+      <a name="fanout" val="4"/>
+      <a name="incoming" val="4"/>
+    </comp>
+    <comp lib="1" loc="(500,290)" name="NOT Gate"/>
+    <comp lib="1" loc="(500,310)" name="NOT Gate"/>
+    <comp lib="1" loc="(500,330)" name="NOT Gate"/>
+    <comp lib="1" loc="(500,350)" name="NOT Gate"/>
+    <wire from="(250,360)" to="(340,360)"/>
+    <wire from="(360,320)" to="(440,320)"/>
+    <wire from="(360,330)" to="(450,330)"/>
+    <wire from="(360,340)" to="(460,340)"/>
+    <wire from="(360,350)" to="(470,350)"/>
+    <wire from="(440,290)" to="(440,320)"/>
+    <wire from="(440,290)" to="(470,290)"/>
+    <wire from="(450,310)" to="(450,330)"/>
+    <wire from="(450,310)" to="(470,310)"/>
+    <wire from="(460,330)" to="(460,340)"/>
+    <wire from="(460,330)" to="(470,330)"/>
+  </circuit>
 </project>
