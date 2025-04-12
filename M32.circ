@@ -1329,6 +1329,95 @@
     <wire from="(920,210)" to="(920,280)"/>
     <wire from="(930,300)" to="(960,300)"/>
   </circuit>
+  <circuit name="ALU">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="ALU"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(1020,430)" name="Splitter">
+      <a name="facing" val="north"/>
+      <a name="fanout" val="4"/>
+      <a name="incoming" val="4"/>
+    </comp>
+    <comp lib="0" loc="(1290,200)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Z"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(180,190)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="YPrima"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(180,310)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="XPrima"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(180,400)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="Carry"/>
+    </comp>
+    <comp lib="0" loc="(180,450)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="OP"/>
+      <a name="width" val="4"/>
+    </comp>
+    <comp lib="0" loc="(980,270)" name="Splitter">
+      <a name="facing" val="south"/>
+      <a name="fanout" val="32"/>
+      <a name="incoming" val="32"/>
+    </comp>
+    <comp lib="2" loc="(890,200)" name="Multiplexer">
+      <a name="select" val="4"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp loc="(1140,340)" name="AND32"/>
+    <comp loc="(430,190)" name="SUBCARRY"/>
+    <comp loc="(740,190)" name="SRA_ALU"/>
+    <comp loc="(740,330)" name="SRL_ALU"/>
+    <wire from="(1010,380)" to="(1010,410)"/>
+    <wire from="(1010,380)" to="(1140,380)"/>
+    <wire from="(1140,340)" to="(1140,380)"/>
+    <wire from="(1150,320)" to="(1150,390)"/>
+    <wire from="(180,190)" to="(210,190)"/>
+    <wire from="(180,310)" to="(500,310)"/>
+    <wire from="(180,400)" to="(190,400)"/>
+    <wire from="(180,450)" to="(200,450)"/>
+    <wire from="(190,230)" to="(190,400)"/>
+    <wire from="(190,230)" to="(210,230)"/>
+    <wire from="(200,210)" to="(200,450)"/>
+    <wire from="(200,210)" to="(210,210)"/>
+    <wire from="(200,450)" to="(870,450)"/>
+    <wire from="(430,190)" to="(470,190)"/>
+    <wire from="(470,190)" to="(470,210)"/>
+    <wire from="(470,210)" to="(470,350)"/>
+    <wire from="(470,210)" to="(520,210)"/>
+    <wire from="(470,350)" to="(520,350)"/>
+    <wire from="(500,310)" to="(500,330)"/>
+    <wire from="(500,310)" to="(510,310)"/>
+    <wire from="(500,330)" to="(520,330)"/>
+    <wire from="(510,190)" to="(510,310)"/>
+    <wire from="(510,190)" to="(520,190)"/>
+    <wire from="(740,190)" to="(770,190)"/>
+    <wire from="(740,200)" to="(740,330)"/>
+    <wire from="(740,200)" to="(850,200)"/>
+    <wire from="(770,190)" to="(770,210)"/>
+    <wire from="(770,210)" to="(850,210)"/>
+    <wire from="(870,280)" to="(870,450)"/>
+    <wire from="(890,200)" to="(910,200)"/>
+    <wire from="(910,200)" to="(910,340)"/>
+    <wire from="(910,200)" to="(980,200)"/>
+    <wire from="(910,340)" to="(920,340)"/>
+    <wire from="(980,200)" to="(1290,200)"/>
+    <wire from="(980,200)" to="(980,270)"/>
+    <wire from="(990,290)" to="(990,320)"/>
+    <wire from="(990,320)" to="(1150,320)"/>
+    <wire from="(990,390)" to="(1150,390)"/>
+    <wire from="(990,390)" to="(990,410)"/>
+  </circuit>
   <circuit name="SELECSALTO">
     <a name="appearance" val="logisim_evolution"/>
     <a name="circuit" val="SELECSALTO"/>
@@ -1750,6 +1839,7 @@
     <comp lib="0" loc="(710,490)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
+      <a name="label" val="CarryPrima"/>
       <a name="output" val="true"/>
     </comp>
     <comp lib="1" loc="(340,190)" name="NOT Gate">
@@ -1851,5 +1941,663 @@
     <wire from="(440,360)" to="(530,360)"/>
     <wire from="(580,300)" to="(650,300)"/>
     <wire from="(580,380)" to="(650,380)"/>
+  </circuit>
+  <circuit name="SRA_ALU">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="SRA_ALU"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(160,190)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="X"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(160,310)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="Y"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1640,180)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Z"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(190,310)" name="Splitter">
+      <a name="facing" val="south"/>
+      <a name="fanout" val="32"/>
+      <a name="incoming" val="32"/>
+    </comp>
+    <comp loc="(1220,180)" name="SRA2"/>
+    <comp loc="(1480,180)" name="SRA1"/>
+    <comp loc="(440,180)" name="SRA16"/>
+    <comp loc="(710,180)" name="SRA8"/>
+    <comp loc="(970,180)" name="SRA4"/>
+    <wire from="(1000,200)" to="(1000,390)"/>
+    <wire from="(1220,180)" to="(1260,180)"/>
+    <wire from="(1260,200)" to="(1260,400)"/>
+    <wire from="(1480,180)" to="(1640,180)"/>
+    <wire from="(160,190)" to="(200,190)"/>
+    <wire from="(160,310)" to="(190,310)"/>
+    <wire from="(200,180)" to="(200,190)"/>
+    <wire from="(200,180)" to="(220,180)"/>
+    <wire from="(220,200)" to="(220,280)"/>
+    <wire from="(220,280)" to="(570,280)"/>
+    <wire from="(440,180)" to="(490,180)"/>
+    <wire from="(470,330)" to="(470,360)"/>
+    <wire from="(470,360)" to="(570,360)"/>
+    <wire from="(480,330)" to="(480,370)"/>
+    <wire from="(480,370)" to="(580,370)"/>
+    <wire from="(490,200)" to="(490,270)"/>
+    <wire from="(490,270)" to="(580,270)"/>
+    <wire from="(490,330)" to="(490,380)"/>
+    <wire from="(490,380)" to="(750,380)"/>
+    <wire from="(500,330)" to="(500,390)"/>
+    <wire from="(500,390)" to="(1000,390)"/>
+    <wire from="(510,330)" to="(510,400)"/>
+    <wire from="(510,400)" to="(1260,400)"/>
+    <wire from="(570,280)" to="(570,360)"/>
+    <wire from="(580,270)" to="(580,370)"/>
+    <wire from="(710,180)" to="(750,180)"/>
+    <wire from="(750,200)" to="(750,380)"/>
+    <wire from="(970,180)" to="(1000,180)"/>
+  </circuit>
+  <circuit name="SRL_ALU">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="SRL_ALU"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(160,190)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="X"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(160,310)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="Y"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(1640,180)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Z"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(190,310)" name="Splitter">
+      <a name="facing" val="south"/>
+      <a name="fanout" val="32"/>
+      <a name="incoming" val="32"/>
+    </comp>
+    <comp loc="(1220,180)" name="SRL2"/>
+    <comp loc="(1480,180)" name="SRL1"/>
+    <comp loc="(440,180)" name="SRL16"/>
+    <comp loc="(710,180)" name="SRL8"/>
+    <comp loc="(970,180)" name="SRL4"/>
+    <wire from="(1000,200)" to="(1000,390)"/>
+    <wire from="(1220,180)" to="(1260,180)"/>
+    <wire from="(1260,200)" to="(1260,400)"/>
+    <wire from="(1480,180)" to="(1640,180)"/>
+    <wire from="(160,190)" to="(200,190)"/>
+    <wire from="(160,310)" to="(190,310)"/>
+    <wire from="(200,180)" to="(200,190)"/>
+    <wire from="(200,180)" to="(220,180)"/>
+    <wire from="(220,200)" to="(220,280)"/>
+    <wire from="(220,280)" to="(570,280)"/>
+    <wire from="(440,180)" to="(490,180)"/>
+    <wire from="(470,330)" to="(470,360)"/>
+    <wire from="(470,360)" to="(570,360)"/>
+    <wire from="(480,330)" to="(480,370)"/>
+    <wire from="(480,370)" to="(580,370)"/>
+    <wire from="(490,200)" to="(490,270)"/>
+    <wire from="(490,270)" to="(580,270)"/>
+    <wire from="(490,330)" to="(490,380)"/>
+    <wire from="(490,380)" to="(750,380)"/>
+    <wire from="(500,330)" to="(500,390)"/>
+    <wire from="(500,390)" to="(1000,390)"/>
+    <wire from="(510,330)" to="(510,400)"/>
+    <wire from="(510,400)" to="(1260,400)"/>
+    <wire from="(570,280)" to="(570,360)"/>
+    <wire from="(580,270)" to="(580,370)"/>
+    <wire from="(710,180)" to="(750,180)"/>
+    <wire from="(750,200)" to="(750,380)"/>
+    <wire from="(970,180)" to="(1000,180)"/>
+  </circuit>
+  <circuit name="SRA16">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="SRA16"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(240,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="X"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(240,240)" name="Constant">
+      <a name="value" val="0x10"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(240,290)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="Enable"/>
+    </comp>
+    <comp lib="0" loc="(630,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Y"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp loc="(570,160)" name="SRAX"/>
+    <wire from="(240,160)" to="(350,160)"/>
+    <wire from="(240,240)" to="(310,240)"/>
+    <wire from="(240,290)" to="(320,290)"/>
+    <wire from="(310,180)" to="(310,240)"/>
+    <wire from="(310,180)" to="(350,180)"/>
+    <wire from="(320,200)" to="(320,290)"/>
+    <wire from="(320,200)" to="(350,200)"/>
+    <wire from="(570,160)" to="(630,160)"/>
+  </circuit>
+  <circuit name="SRA8">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="SRA8"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(240,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="X"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(240,240)" name="Constant">
+      <a name="value" val="0x8"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(240,290)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="Enable"/>
+    </comp>
+    <comp lib="0" loc="(630,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Y"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp loc="(570,160)" name="SRAX"/>
+    <wire from="(240,160)" to="(350,160)"/>
+    <wire from="(240,240)" to="(310,240)"/>
+    <wire from="(240,290)" to="(320,290)"/>
+    <wire from="(310,180)" to="(310,240)"/>
+    <wire from="(310,180)" to="(350,180)"/>
+    <wire from="(320,200)" to="(320,290)"/>
+    <wire from="(320,200)" to="(350,200)"/>
+    <wire from="(570,160)" to="(630,160)"/>
+  </circuit>
+  <circuit name="SRA4">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="SRA4"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(240,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="X"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(240,240)" name="Constant">
+      <a name="value" val="0x4"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(240,290)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="Enable"/>
+    </comp>
+    <comp lib="0" loc="(630,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Y"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp loc="(570,160)" name="SRAX"/>
+    <wire from="(240,160)" to="(350,160)"/>
+    <wire from="(240,240)" to="(310,240)"/>
+    <wire from="(240,290)" to="(320,290)"/>
+    <wire from="(310,180)" to="(310,240)"/>
+    <wire from="(310,180)" to="(350,180)"/>
+    <wire from="(320,200)" to="(320,290)"/>
+    <wire from="(320,200)" to="(350,200)"/>
+    <wire from="(570,160)" to="(630,160)"/>
+  </circuit>
+  <circuit name="SRA2">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="SRA2"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(240,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="X"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(240,240)" name="Constant">
+      <a name="value" val="0x2"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(240,290)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="Enable"/>
+    </comp>
+    <comp lib="0" loc="(630,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Y"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp loc="(570,160)" name="SRAX"/>
+    <wire from="(240,160)" to="(350,160)"/>
+    <wire from="(240,240)" to="(310,240)"/>
+    <wire from="(240,290)" to="(320,290)"/>
+    <wire from="(310,180)" to="(310,240)"/>
+    <wire from="(310,180)" to="(350,180)"/>
+    <wire from="(320,200)" to="(320,290)"/>
+    <wire from="(320,200)" to="(350,200)"/>
+    <wire from="(570,160)" to="(630,160)"/>
+  </circuit>
+  <circuit name="SRA1">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="SRA1"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(240,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="X"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(240,240)" name="Constant">
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(240,290)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="Enable"/>
+    </comp>
+    <comp lib="0" loc="(630,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Y"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp loc="(570,160)" name="SRAX"/>
+    <wire from="(240,160)" to="(350,160)"/>
+    <wire from="(240,240)" to="(310,240)"/>
+    <wire from="(240,290)" to="(320,290)"/>
+    <wire from="(310,180)" to="(310,240)"/>
+    <wire from="(310,180)" to="(350,180)"/>
+    <wire from="(320,200)" to="(320,290)"/>
+    <wire from="(320,200)" to="(350,200)"/>
+    <wire from="(570,160)" to="(630,160)"/>
+  </circuit>
+  <circuit name="SRL16">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="SRL16"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(240,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="X"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(240,240)" name="Constant">
+      <a name="value" val="0x10"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(240,290)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="Enable"/>
+    </comp>
+    <comp lib="0" loc="(630,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Y"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp loc="(570,160)" name="SRLX"/>
+    <wire from="(240,160)" to="(350,160)"/>
+    <wire from="(240,240)" to="(310,240)"/>
+    <wire from="(240,290)" to="(320,290)"/>
+    <wire from="(310,180)" to="(310,240)"/>
+    <wire from="(310,180)" to="(350,180)"/>
+    <wire from="(320,200)" to="(320,290)"/>
+    <wire from="(320,200)" to="(350,200)"/>
+    <wire from="(570,160)" to="(630,160)"/>
+  </circuit>
+  <circuit name="SRL8">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="SRL8"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(240,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="X"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(240,240)" name="Constant">
+      <a name="value" val="0x8"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(240,290)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="Enable"/>
+    </comp>
+    <comp lib="0" loc="(630,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Y"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp loc="(570,160)" name="SRLX"/>
+    <wire from="(240,160)" to="(350,160)"/>
+    <wire from="(240,240)" to="(310,240)"/>
+    <wire from="(240,290)" to="(320,290)"/>
+    <wire from="(310,180)" to="(310,240)"/>
+    <wire from="(310,180)" to="(350,180)"/>
+    <wire from="(320,200)" to="(320,290)"/>
+    <wire from="(320,200)" to="(350,200)"/>
+    <wire from="(570,160)" to="(630,160)"/>
+  </circuit>
+  <circuit name="SRL4">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="SRL4"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(240,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="X"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(240,240)" name="Constant">
+      <a name="value" val="0x4"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(240,290)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="Enable"/>
+    </comp>
+    <comp lib="0" loc="(630,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Y"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp loc="(570,160)" name="SRLX"/>
+    <wire from="(240,160)" to="(350,160)"/>
+    <wire from="(240,240)" to="(310,240)"/>
+    <wire from="(240,290)" to="(320,290)"/>
+    <wire from="(310,180)" to="(310,240)"/>
+    <wire from="(310,180)" to="(350,180)"/>
+    <wire from="(320,200)" to="(320,290)"/>
+    <wire from="(320,200)" to="(350,200)"/>
+    <wire from="(570,160)" to="(630,160)"/>
+  </circuit>
+  <circuit name="SRL2">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="SRL2"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(240,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="X"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(240,240)" name="Constant">
+      <a name="value" val="0x2"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(240,290)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="Enable"/>
+    </comp>
+    <comp lib="0" loc="(630,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Y"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp loc="(570,160)" name="SRLX"/>
+    <wire from="(240,160)" to="(350,160)"/>
+    <wire from="(240,240)" to="(310,240)"/>
+    <wire from="(240,290)" to="(320,290)"/>
+    <wire from="(310,180)" to="(310,240)"/>
+    <wire from="(310,180)" to="(350,180)"/>
+    <wire from="(320,200)" to="(320,290)"/>
+    <wire from="(320,200)" to="(350,200)"/>
+    <wire from="(570,160)" to="(630,160)"/>
+  </circuit>
+  <circuit name="SRL1">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="SRL1"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(240,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="X"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(240,240)" name="Constant">
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(240,290)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="Enable"/>
+    </comp>
+    <comp lib="0" loc="(630,160)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="Y"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp loc="(570,160)" name="SRLX"/>
+    <wire from="(240,160)" to="(350,160)"/>
+    <wire from="(240,240)" to="(310,240)"/>
+    <wire from="(240,290)" to="(320,290)"/>
+    <wire from="(310,180)" to="(310,240)"/>
+    <wire from="(310,180)" to="(350,180)"/>
+    <wire from="(320,200)" to="(320,290)"/>
+    <wire from="(320,200)" to="(350,200)"/>
+    <wire from="(570,160)" to="(630,160)"/>
+  </circuit>
+  <circuit name="SRAX">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="SRAX"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(290,260)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="COUNT"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(300,190)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="X"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(300,300)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="Enable"/>
+    </comp>
+    <comp lib="0" loc="(640,220)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="OUTPT"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="2" loc="(500,220)" name="Multiplexer">
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="3" loc="(420,230)" name="Shifter">
+      <a name="shift" val="ar"/>
+      <a name="width" val="32"/>
+    </comp>
+    <wire from="(290,260)" to="(300,260)"/>
+    <wire from="(300,190)" to="(330,190)"/>
+    <wire from="(300,240)" to="(300,260)"/>
+    <wire from="(300,240)" to="(380,240)"/>
+    <wire from="(300,300)" to="(310,300)"/>
+    <wire from="(310,260)" to="(310,300)"/>
+    <wire from="(310,260)" to="(480,260)"/>
+    <wire from="(330,190)" to="(330,220)"/>
+    <wire from="(330,190)" to="(430,190)"/>
+    <wire from="(330,220)" to="(380,220)"/>
+    <wire from="(420,230)" to="(470,230)"/>
+    <wire from="(430,190)" to="(430,210)"/>
+    <wire from="(430,210)" to="(470,210)"/>
+    <wire from="(480,240)" to="(480,260)"/>
+    <wire from="(500,220)" to="(640,220)"/>
+  </circuit>
+  <circuit name="SRLX">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="SRLX"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(290,260)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="COUNT"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(300,190)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="X"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(300,300)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="Enable"/>
+    </comp>
+    <comp lib="0" loc="(640,220)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="OUTPT"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="2" loc="(500,220)" name="Multiplexer">
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="3" loc="(420,230)" name="Shifter">
+      <a name="shift" val="lr"/>
+      <a name="width" val="32"/>
+    </comp>
+    <wire from="(290,260)" to="(300,260)"/>
+    <wire from="(300,190)" to="(330,190)"/>
+    <wire from="(300,240)" to="(300,260)"/>
+    <wire from="(300,240)" to="(380,240)"/>
+    <wire from="(300,300)" to="(310,300)"/>
+    <wire from="(310,260)" to="(310,300)"/>
+    <wire from="(310,260)" to="(480,260)"/>
+    <wire from="(330,190)" to="(330,220)"/>
+    <wire from="(330,190)" to="(430,190)"/>
+    <wire from="(330,220)" to="(380,220)"/>
+    <wire from="(420,230)" to="(470,230)"/>
+    <wire from="(430,190)" to="(430,210)"/>
+    <wire from="(430,210)" to="(470,210)"/>
+    <wire from="(480,240)" to="(480,260)"/>
+    <wire from="(500,220)" to="(640,220)"/>
+  </circuit>
+  <circuit name="AND32">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="AND32"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(290,500)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="X"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(320,500)" name="Splitter">
+      <a name="fanout" val="32"/>
+      <a name="incoming" val="32"/>
+    </comp>
+    <comp lib="0" loc="(600,330)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="output" val="true"/>
+    </comp>
+    <comp lib="1" loc="(580,330)" name="AND Gate">
+      <a name="inputs" val="32"/>
+      <a name="size" val="70"/>
+    </comp>
+    <wire from="(290,500)" to="(320,500)"/>
+    <wire from="(340,180)" to="(350,180)"/>
+    <wire from="(340,190)" to="(360,190)"/>
+    <wire from="(340,200)" to="(370,200)"/>
+    <wire from="(340,210)" to="(380,210)"/>
+    <wire from="(340,220)" to="(390,220)"/>
+    <wire from="(340,230)" to="(400,230)"/>
+    <wire from="(340,240)" to="(410,240)"/>
+    <wire from="(340,250)" to="(420,250)"/>
+    <wire from="(340,260)" to="(430,260)"/>
+    <wire from="(340,270)" to="(440,270)"/>
+    <wire from="(340,280)" to="(450,280)"/>
+    <wire from="(340,290)" to="(460,290)"/>
+    <wire from="(340,300)" to="(470,300)"/>
+    <wire from="(340,310)" to="(480,310)"/>
+    <wire from="(340,320)" to="(490,320)"/>
+    <wire from="(340,330)" to="(500,330)"/>
+    <wire from="(340,340)" to="(510,340)"/>
+    <wire from="(340,350)" to="(510,350)"/>
+    <wire from="(340,360)" to="(510,360)"/>
+    <wire from="(340,370)" to="(510,370)"/>
+    <wire from="(340,380)" to="(510,380)"/>
+    <wire from="(340,390)" to="(510,390)"/>
+    <wire from="(340,400)" to="(510,400)"/>
+    <wire from="(340,410)" to="(510,410)"/>
+    <wire from="(340,420)" to="(510,420)"/>
+    <wire from="(340,430)" to="(510,430)"/>
+    <wire from="(340,440)" to="(510,440)"/>
+    <wire from="(340,450)" to="(510,450)"/>
+    <wire from="(340,460)" to="(510,460)"/>
+    <wire from="(340,470)" to="(510,470)"/>
+    <wire from="(340,480)" to="(510,480)"/>
+    <wire from="(340,490)" to="(510,490)"/>
+    <wire from="(350,170)" to="(350,180)"/>
+    <wire from="(350,170)" to="(510,170)"/>
+    <wire from="(360,180)" to="(360,190)"/>
+    <wire from="(360,180)" to="(510,180)"/>
+    <wire from="(370,190)" to="(370,200)"/>
+    <wire from="(370,190)" to="(510,190)"/>
+    <wire from="(380,200)" to="(380,210)"/>
+    <wire from="(380,200)" to="(510,200)"/>
+    <wire from="(390,210)" to="(390,220)"/>
+    <wire from="(390,210)" to="(510,210)"/>
+    <wire from="(400,220)" to="(400,230)"/>
+    <wire from="(400,220)" to="(510,220)"/>
+    <wire from="(410,230)" to="(410,240)"/>
+    <wire from="(410,230)" to="(510,230)"/>
+    <wire from="(420,240)" to="(420,250)"/>
+    <wire from="(420,240)" to="(510,240)"/>
+    <wire from="(430,250)" to="(430,260)"/>
+    <wire from="(430,250)" to="(510,250)"/>
+    <wire from="(440,260)" to="(440,270)"/>
+    <wire from="(440,260)" to="(510,260)"/>
+    <wire from="(450,270)" to="(450,280)"/>
+    <wire from="(450,270)" to="(510,270)"/>
+    <wire from="(460,280)" to="(460,290)"/>
+    <wire from="(460,280)" to="(510,280)"/>
+    <wire from="(470,290)" to="(470,300)"/>
+    <wire from="(470,290)" to="(510,290)"/>
+    <wire from="(480,300)" to="(480,310)"/>
+    <wire from="(480,300)" to="(510,300)"/>
+    <wire from="(490,310)" to="(490,320)"/>
+    <wire from="(490,310)" to="(510,310)"/>
+    <wire from="(500,320)" to="(500,330)"/>
+    <wire from="(500,320)" to="(510,320)"/>
+    <wire from="(580,330)" to="(600,330)"/>
   </circuit>
 </project>
