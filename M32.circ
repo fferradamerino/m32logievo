@@ -1481,6 +1481,46 @@
     <wire from="(990,390)" to="(1150,390)"/>
     <wire from="(990,390)" to="(990,410)"/>
   </circuit>
+  <circuit name="IR">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="IR"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(190,320)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="WRIR"/>
+    </comp>
+    <comp lib="0" loc="(300,190)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="INPT"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(300,270)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="CLOCK"/>
+    </comp>
+    <comp lib="0" loc="(550,190)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="OUTPT"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="4" loc="(370,160)" name="Register">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="width" val="32"/>
+    </comp>
+    <wire from="(190,320)" to="(200,320)"/>
+    <wire from="(200,250)" to="(200,320)"/>
+    <wire from="(200,250)" to="(310,250)"/>
+    <wire from="(300,190)" to="(370,190)"/>
+    <wire from="(300,270)" to="(340,270)"/>
+    <wire from="(310,210)" to="(310,250)"/>
+    <wire from="(310,210)" to="(370,210)"/>
+    <wire from="(340,230)" to="(340,270)"/>
+    <wire from="(340,230)" to="(370,230)"/>
+    <wire from="(430,190)" to="(550,190)"/>
+  </circuit>
   <circuit name="SELECSALTO">
     <a name="appearance" val="logisim_evolution"/>
     <a name="circuit" val="SELECSALTO"/>
