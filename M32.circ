@@ -1521,6 +1521,95 @@
     <wire from="(340,230)" to="(370,230)"/>
     <wire from="(430,190)" to="(550,190)"/>
   </circuit>
+  <circuit name="RSEL">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="RSEL"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(120,110)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="I"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(120,180)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="RDDEST"/>
+    </comp>
+    <comp lib="0" loc="(140,410)" name="Splitter">
+      <a name="facing" val="south"/>
+      <a name="fanout" val="32"/>
+      <a name="incoming" val="32"/>
+    </comp>
+    <comp lib="0" loc="(190,170)" name="Splitter">
+      <a name="facing" val="south"/>
+      <a name="fanout" val="32"/>
+      <a name="incoming" val="32"/>
+    </comp>
+    <comp lib="0" loc="(330,210)" name="Splitter">
+      <a name="facing" val="north"/>
+      <a name="fanout" val="5"/>
+      <a name="incoming" val="5"/>
+    </comp>
+    <comp lib="0" loc="(390,450)" name="Splitter">
+      <a name="facing" val="north"/>
+      <a name="fanout" val="5"/>
+      <a name="incoming" val="5"/>
+    </comp>
+    <comp lib="0" loc="(390,510)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="north"/>
+      <a name="label" val="s2"/>
+      <a name="output" val="true"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(490,500)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="north"/>
+      <a name="label" val="s1"/>
+      <a name="output" val="true"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(530,170)" name="Splitter">
+      <a name="facing" val="south"/>
+      <a name="fanout" val="32"/>
+      <a name="incoming" val="32"/>
+    </comp>
+    <comp lib="0" loc="(560,430)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="north"/>
+      <a name="label" val="d"/>
+      <a name="output" val="true"/>
+      <a name="width" val="5"/>
+    </comp>
+    <comp lib="0" loc="(720,210)" name="Splitter">
+      <a name="facing" val="north"/>
+      <a name="fanout" val="5"/>
+      <a name="incoming" val="5"/>
+    </comp>
+    <comp lib="2" loc="(490,370)" name="Multiplexer">
+      <a name="facing" val="south"/>
+      <a name="width" val="5"/>
+    </comp>
+    <wire from="(120,110)" to="(140,110)"/>
+    <wire from="(120,180)" to="(170,180)"/>
+    <wire from="(140,110)" to="(140,410)"/>
+    <wire from="(140,110)" to="(190,110)"/>
+    <wire from="(170,180)" to="(170,350)"/>
+    <wire from="(170,350)" to="(470,350)"/>
+    <wire from="(190,110)" to="(190,170)"/>
+    <wire from="(190,110)" to="(530,110)"/>
+    <wire from="(330,210)" to="(480,210)"/>
+    <wire from="(390,450)" to="(390,510)"/>
+    <wire from="(480,210)" to="(480,290)"/>
+    <wire from="(480,290)" to="(480,340)"/>
+    <wire from="(480,290)" to="(560,290)"/>
+    <wire from="(490,370)" to="(490,500)"/>
+    <wire from="(500,320)" to="(500,340)"/>
+    <wire from="(500,320)" to="(720,320)"/>
+    <wire from="(530,110)" to="(530,170)"/>
+    <wire from="(560,290)" to="(560,430)"/>
+    <wire from="(720,210)" to="(720,320)"/>
+  </circuit>
   <circuit name="SELECSALTO">
     <a name="appearance" val="logisim_evolution"/>
     <a name="circuit" val="SELECSALTO"/>
