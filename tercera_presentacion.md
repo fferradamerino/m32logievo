@@ -46,20 +46,14 @@ El flujo optimizado que se propone después de haber implementado M32 en Logisim
 Con esto se logra crear una forma de enseñanza consistente y con feedback mejorado, lo que lleva a una mejor forma de aprendizaje para el estudiante.
 
 # Características de la solución: modificaciones en tiempo real
-Con esta herramienta, añadir una instrucción como MULT (multiplicación) sería un proceso tangible:
-
-- El estudiante modificaría el autómata de la Unidad de Control para incluir los estados necesarios.
-- Logisim mostraría errores si hay conflictos en las señales.
-- Al simular, vería cómo la ALU usa registros temporales para calcular el resultado, paso a paso.
+Con esta herramienta, añadir una instrucción como MULT (multiplicación) sería un proceso tangible donde el estudiante modificaría el autómata de la Unidad de Control para incluir los estados necesarios. En el caso de inconsistencias, Logisim mostraría errores si hay conflictos en las señales. Al simular, se vería cómo la ALU usa registros temporales para calcular el resultado, paso a paso.
 
 # Características de la solución: Guías e información dentro del simulador
+Una de las características principales de la solución es la incorporación de guías visuales integradas en la simulación. Cada componente del procesador, como registros, unidades de control o memorias, incluye una tarjeta informativa en la esquina superior izquierda.
+Estas tarjetas explican de forma resumida la función del chip, permitiendo que cualquier persona que interactúe con el simulador, ya sea un estudiante, docente o evaluador, pueda comprender rápidamente el propósito de cada módulo sin necesidad de recurrir a documentación externa.
 
 # Integración con Material Didáctico Existente
-La solución se alinea con los recursos actuales de la universidad:
-
-- Las guías de laboratorio se actualizarán con ejercicios prácticos en Logisim.
-- Los profesores podrán crear demostraciones en vivo, como ejecutar una instrucción ciclo por ciclo.
-- Los estudiantes tendrán acceso a plantillas modulares para experimentar con optimizaciones como pipelining."
+La solución se alinea con los recursos actuales de la universidad, donde las guías de laboratorio se actualizarán con ejercicios prácticos en Logisim. Adicionalmente, los profesores podrán crear demostraciones en vivo, como ejecutar una instrucción ciclo por ciclo. También, los estudiantes tendrán acceso a plantillas modulares para experimentar con optimizaciones como pipelining."
 
 # Conclusiones
 En conclusión, este proyecto resolverá las limitaciones actuales mediante:
