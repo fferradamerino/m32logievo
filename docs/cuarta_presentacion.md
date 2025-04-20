@@ -23,7 +23,7 @@ El objetivo general del proyecto se establece como:
 
 - Diseñar e implementar una versión funcional del procesador M32 en Logisim Evolution, que incluya capacidades de depuración y documentación interactiva, con el fin de apoyar la enseñanza de arquitectura de computadores mediante una herramienta visual e intuitiva.
 
-Para lograr este objetivo, se establecen los siguientes objetivos generales:
+Para lograr este objetivo, se establecen los siguientes objetivos específicos:
 
 - Implementar todos los módulos funcionales del microprocesador M32 en Logisim Evolution, respetando su arquitectura original.
 - Incorporar documentación embebida en la herramienta que describa el propósito y funcionamiento de cada componente.
