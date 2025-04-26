@@ -153,8 +153,8 @@ def parsear_archivo(tokens):
 	return instrucciones
 	
 def main():
-	if len(sys.argv) != 2:
-		print("Uso: microensamblador.py archivo.s")
+	if len(sys.argv) != 3:
+		print("Uso: microensamblador.py archivo.s salida.bin")
 		return
 	
 	if not os.path.isfile(sys.argv[1]):
@@ -164,6 +164,9 @@ def main():
 	with open(sys.argv[1]) as file:
 		archivo = file.read()
 		tokens = tokenizar_archivo(archivo)
-		print(parsear_archivo(tokens))
+		if os.path.isfile(sys.argv[2]):
+			raise Exception("El archivo de salida ya existe")
+		with open(sys.argv[2], "wb") as salida:
+			salida.write(parsear_archivo(tokens))
 	
 main()
