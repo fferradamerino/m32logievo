@@ -1,7 +1,7 @@
 import os.path
 import sys
 
-# Cada microinstrucción son 4 bytes
+# Cada microinstrucción son 8 bytes
 class Microinstruccion:
 	def __init__(self, linea, labels_encontrados, pos_en_memoria):
 		self.wr_pc = True if "wr_pc" in linea else False
@@ -9,15 +9,23 @@ class Microinstruccion:
 		self.rd_dest = True if "rd_dest" in linea else False
 		self.wr_ir = True if "wr_ir" in linea else False
 		self.sel_reg = True if "sel_reg" in linea else False
-		self.op_y_sel = True if "op_y_sel" in linea else False
-		self.op_alu = True if "op_alu" in linea else False
+		self.op_y_sel_1 = True if "op_y_sel_1" in linea else False
+		self.op_y_sel_2 = True if "op_y_sel_2" in linea else False
+		self.op_alu_1 = True if "op_alu_1" in linea else False
+		self.op_alu_2 = True if "op_alu_2" in linea else False
+		self.op_alu_3 = True if "op_alu_3" in linea else False
+		self.op_alu_4 = True if "op_alu_4" in linea else False
 		self.wr_sr = True if "wr_sr" in linea else False
 		self.sel_d = True if "sel_d" in linea else False
 		self.wr_ar = True if "wr_ar" in linea else False
-		self.op_abi = True if "op_abi" in linea else False
-		self.op_dbi = True if "op_dbi" in linea else False
+		self.op_abi_1 = True if "op_abi_1" in linea else False
+		self.op_abi_2 = True if "op_abi_2" in linea else False
+		self.op_dbi_1 = True if "op_dbi_1" in linea else False
+		self.op_dbi_2 = True if "op_dbi_2" in linea else False
+		self.op_dbi_3 = True if "op_dbi_3" in linea else False
 		self.en_d = True if "en_d" in linea else False
 		self.en_a = True if "en_a" in linea else False
+		self.fetch = True if "fetch" in linea else False
 			
 		self.next_addr = self.label_addr(linea[-1], labels_encontrados, pos_en_memoria)
 	
@@ -28,15 +36,23 @@ class Microinstruccion:
 		print("wr_rd", self.rd_dest)
 		print("wr_ir", self.wr_ir)
 		print("sel_reg", self.sel_reg)
-		print("op_y_sel", self.op_y_sel)
-		print("op_alu", self.op_alu)
+		print("op_y_sel_1", self.op_y_sel_1)
+		print("op_y_sel_2", self.op_y_sel_2)
+		print("op_alu_1", self.op_alu_1)
+		print("op_alu_2", self.op_alu_2)
+		print("op_alu_3", self.op_alu_3)
+		print("op_alu_4", self.op_alu_4)
 		print("wr_sr", self.wr_sr)
 		print("sel_d", self.sel_d)
 		print("wr_ar", self.wr_ar)
-		print("op_abi", self.op_abi)
-		print("op_dbi", self.op_dbi)
+		print("op_abi_1", self.op_abi_1)
+		print("op_abi_2", self.op_abi_2)
+		print("op_dbi_1", self.op_dbi_1)
+		print("op_dbi_2", self.op_dbi_2)
+		print("op_dbi_3", self.op_dbi_3)
 		print("en_d", self.en_d)
 		print("en_a", self.en_a)
+		print("fetch", self.fetch)
 		print("next_addr", self.next_addr)
 	
 	# El último token es hacia donde se debe ir en el microprograma
@@ -60,16 +76,24 @@ class Microinstruccion:
 		codificacion |= (1 << 2) if self.rd_dest else 0
 		codificacion |= (1 << 3) if self.wr_ir else 0
 		codificacion |= (1 << 4) if self.sel_reg else 0
-		codificacion |= (1 << 5) if self.op_y_sel else 0
-		codificacion |= (1 << 6) if self.op_alu else 0
-		codificacion |= (1 << 7) if self.wr_sr else 0
-		codificacion |= (1 << 8) if self.sel_d else 0
-		codificacion |= (1 << 9) if self.wr_ar else 0
-		codificacion |= (1 << 10) if self.op_abi else 0
-		codificacion |= (1 << 11) if self.op_dbi else 0
-		codificacion |= (1 << 12) if self.en_d else 0
-		codificacion |= (1 << 13) if self.en_a else 0
-		codificacion |= self.next_addr << 14
+		codificacion |= (1 << 5) if self.op_y_sel_1 else 0
+		codificacion |= (1 << 6) if self.op_y_sel_2 else 0
+		codificacion |= (1 << 7) if self.op_alu_1 else 0
+		codificacion |= (1 << 8) if self.op_alu_2 else 0
+		codificacion |= (1 << 9) if self.op_alu_3 else 0
+		codificacion |= (1 << 10) if self.op_alu_4 else 0
+		codificacion |= (1 << 11) if self.wr_sr else 0
+		codificacion |= (1 << 12) if self.sel_d else 0
+		codificacion |= (1 << 13) if self.wr_ar else 0
+		codificacion |= (1 << 14) if self.op_abi_1 else 0
+		codificacion |= (1 << 15) if self.op_abi_2 else 0
+		codificacion |= (1 << 16) if self.op_dbi_1 else 0
+		codificacion |= (1 << 17) if self.op_dbi_2 else 0
+		codificacion |= (1 << 18) if self.op_dbi_3 else 0
+		codificacion |= (1 << 19) if self.en_d else 0
+		codificacion |= (1 << 20) if self.en_a else 0
+		codificacion |= (1 << 21) if self.fetch else 0
+		codificacion |= self.next_addr << 22
 		
 		return codificacion
 
