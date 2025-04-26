@@ -1,4 +1,5 @@
 import os.path
+import struct
 import sys
 
 # Cada microinstrucción son 8 bytes
@@ -95,7 +96,7 @@ class Microinstruccion:
 		codificacion |= (1 << 21) if self.fetch else 0
 		codificacion |= self.next_addr << 22
 		
-		return codificacion
+		return struct.pack('!Q', codificacion)
 
 def tokenizar_archivo(archivo):
 	lineas = []
@@ -144,10 +145,10 @@ def parsear_archivo(tokens):
 			microinstrucciones.append(Microinstruccion(linea, labels_encontrados, pos_en_memoria))
 			pos_en_memoria += 4
 	
-	instrucciones = []	
+	instrucciones = b''	
 	for microinstruccion in microinstrucciones:
-		print(microinstruccion.dbg_print())
-		instrucciones.append(microinstruccion.codificar())
+		microinstruccion.dbg_print()
+		instrucciones += microinstruccion.codificar()
 		
 	return instrucciones
 	
