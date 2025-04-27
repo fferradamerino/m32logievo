@@ -24,8 +24,18 @@ A modo de objetivos específicos:
 
 # Metodología escogida
 - Metodología escogida: XP (programación extrema)
-- Cantidad de sprints: 8 (1 semana cada uno)
-- Los sprints no consideran actividades de planificación de proyecto, presentaciones con los profesores, o estudios de usabilidad
+- Cantidad de sprints: 11 (1 a 2 semanas cada uno)
+	- Sprint 1, 2 semanas: Implementación de M32 en Logisim Evolution
+	- Sprint 2, 1 semana: Primeras pruebas de usabilidad
+	- Sprint 3, 1 semana: Correcciones a la version inicial
+	- Sprint 4, 1 semana: Documentación de componentes
+	- Sprint 5, 1 semana: Segunda prueba de usabilidad
+	- Sprint 6, 1 semana: Correcciones a la segunda versión
+	- Sprint 7, 1 semana: Documentación del automata de la unidad de control
+	- Sprint 8, 1 semana: Última prueba de usabilidad
+	- Sprint 9, 1 semana: Correcciones finales
+	- Sprint 10, 2 semana: Escritura de programas de ejemplo para M32
+	- Sprint 11, 2 semana: Documentación del proyecto (informe final)
 
 # Conjunto de tecnologías a utilizar
 - Logisim como simulador
