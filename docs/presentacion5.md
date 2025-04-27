@@ -7,6 +7,7 @@ El temario de esta presentación es el siguiente:
 
 - Primero, presentaré los objetivos de la presentación
 - Seguido de ello, presentaré la metodología que se utilizará para trabajar
+- En base a lo anterior, se presentará el que consiste la metodología escogida
 - Con lo anterior en mente, se procederá a describir la planificación de los sprints
 - Posterior a eso, presentaré el conjunto de tecnologías que se utilizarán en el proyecto
 - Y finalmente presentaré las conclusiones de esta presentación
