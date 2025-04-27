@@ -7,6 +7,7 @@ El temario de esta presentación es el siguiente:
 
 - Primero, presentaré los objetivos de la presentación
 - Seguido de ello, presentaré la metodología que se utilizará para trabajar
+- Con lo anterior en mente, se procederá a describir la planificación de los sprints
 - Posterior a eso, presentaré el conjunto de tecnologías que se utilizarán en el proyecto
 - Y finalmente presentaré las conclusiones de esta presentación
 
@@ -23,32 +24,58 @@ A modo de objetivos específicos:
 - Presentar el conjunto de tecnologías a utilizar en la elaboración del proyecto
 
 # Metodología escogida
-- Metodología escogida: XP (programación extrema)
-- Cantidad de sprints: 11 (1 a 2 semanas cada uno)
-	- Sprint 1, 2 semanas: Implementación de M32 en Logisim Evolution
-	- Sprint 2, 1 semana: Primeras pruebas de usabilidad
-	- Sprint 3, 1 semana: Correcciones a la version inicial
-	- Sprint 4, 1 semana: Documentación de componentes
-	- Sprint 5, 1 semana: Segunda prueba de usabilidad
-	- Sprint 6, 1 semana: Correcciones a la segunda versión
-	- Sprint 7, 1 semana: Documentación del automata de la unidad de control
-	- Sprint 8, 1 semana: Última prueba de usabilidad
-	- Sprint 9, 1 semana: Correcciones finales
-	- Sprint 10, 2 semana: Escritura de programas de ejemplo para M32
-	- Sprint 11, 2 semana: Documentación del proyecto (informe final)
+Para el desarrollo del proyecto se ha seleccionado la metodología XP (Extreme Programming), debido a su enfoque ágil, iterativo y flexible, ideal para adaptarse a los posibles cambios y mejoras que puedan surgir durante el diseño e implementación del microprocesador.
+
+La programación extrema, conocida como XP (Extreme Programming), es una metodología ágil de desarrollo de software que se centra en mejorar la calidad del producto y la capacidad de adaptarse a los cambios del cliente. Propone ciclos de trabajo cortos y sostenibles, donde se realizan reuniones semanales de planificación junto al cliente para definir y ajustar las funcionalidades prioritarias. Entre sus principios destacan:
+
+- Las entregas frecuentes
+- La simplicidad en el diseño
+- La programación por parejas
+- La propiedad colectiva del código
+- El desarrollo orientado a pruebas.
+
+Además, fomenta la integración continua de nuevas funcionalidades, la refactorización constante para mejorar el código, y el uso de metáforas que faciliten la comunicación técnica con el cliente. Todo esto bajo un ritmo de trabajo saludable, priorizando siempre la motivación del equipo. Gracias a estas prácticas, XP permite desarrollar proyectos más flexibles, colaborativos y enfocados en las necesidades reales del usuario.
+
+# Planificación de los sprints
+Se han planificado 11 sprints, distribuidos en un rango de 1 a 2 semanas de duración cada uno, de la siguiente manera:
+
+- Sprint 1 (2 semanas): Implementación inicial del microprocesador M32 en Logisim Evolution.
+- Sprint 2 (1 semana): Realización de las primeras pruebas de usabilidad sobre la implementación.
+- Sprint 3 (1 semana): Corrección de errores detectados en la primera versión.
+- Sprint 4 (1 semana): Documentación de los componentes diseñados.
+- Sprint 5 (1 semana): Ejecución de una segunda ronda de pruebas de usabilidad.
+- Sprint 6 (1 semana): Correcciones basadas en los resultados de la segunda prueba.
+- Sprint 7 (1 semana): Documentación detallada del autómata de la unidad de control.
+- Sprint 8 (1 semana): Tercera y última ronda de pruebas de usabilidad.
+- Sprint 9 (1 semana): Aplicación de correcciones finales.
+- Sprint 10 (2 semanas): Desarrollo de programas de ejemplo que validen el funcionamiento del M32.
+- Sprint 11 (2 semanas): Elaboración del informe final de documentación del proyecto.
 
 # Conjunto de tecnologías a utilizar
-- Logisim como simulador
-- Python para automatizar la creación de programas de ejemplo y la microprogramación (es decir, crear scripts de Python para convertir programas en ensamblador M32 a ejecutables binarios, o programas en "micro-ensamblador" a un programa binario que se pueda cargar en una ROM dentro de la Control Unit)
-- Java para la creación de plugins, en el caso de que sea necesario
+El conjunto de tecnologías seleccionadas para este proyecto busca soportar tanto la implementación como la automatización de tareas recurrentes, facilitando así el proceso de desarrollo y validación. Estas tecnologías son:
+
+- Logisim Evolution (en su versión de Agosto 2024, 3.9.0): Utilizado como simulador de circuitos digitales, permitirá construir, probar y depurar la arquitectura del microprocesador M32 de manera visual e interactiva.
+- Python (en su versión 3.x): Se utilizará para la creación de scripts de automatización, incluyendo:
+ - La generación automática de programas de ejemplo en lenguaje ensamblador M32 y su conversión a formato binario ejecutable.
+ - La conversión de programas escritos en un "micro-ensamblador" específico a formatos binarios que puedan ser cargados en la ROM de la unidad de control.
+- Java (en su versión 21): Se considerará para el desarrollo de plugins o extensiones personalizados en Logisim Evolution, en caso de ser necesario para mejorar las capacidades del simulador o integrar funcionalidades específicas.
+
+# Hardware necesario
+Para llevar a cabo el proyecto de implementación y simulación del microprocesador M32, se requiere un hardware básico pero suficiente para ejecutar de manera fluida las herramientas seleccionadas. Aquí se destaca que la elección de herramientas mencionadas previamente tenían como objetivo, adicionalmente, el que sean multiplataforma. Los requisitos principales son:
+
+- CPU de doble núcleo o superior (para este proyecto se está utilizando un equipo con un procesador Intel Pentium Silver N5000).
+- Al menos 4 GB, aunque se recomienda 8 GB para trabajar cómodamente con múltiples aplicaciones abiertas (Logisim Evolution, Python, IDEs de desarrollo, entre otros).
+- Un mínimo de 2GB de espacio disponible, considerando la instalación de Logisim, entornos de programación y almacenamiento de archivos de proyecto.
+- Sistema Operativo Windows, Linux o macOS. Todas las herramientas utilizadas son multiplataforma.
+- Resolución de pantalla mínima de 1280x720 para visualizar adecuadamente los circuitos, y acceso a internet para descargas y consultas técnicas.
 
 # Conclusiones
-En conclusión, se puede indicar lo siguiente tanto de la metodología seleccionada, como del conjunto de tecnologías a utilizar:
+En conclusión, respecto a la metodología y el conjunto de tecnologías seleccionadas para el proyecto, se concluye lo siguiente:
 
-- La metodología escogida prioriza el trabajo ágil a través del desarrollo de aquellos componentes y módulos que sean de prioridad en el momento.
-- El conjunto de tecnologías seleccionado tiene como objetivo crear herramientas que faciliten la implementación de programas de ejemplo y de componentes del M32
+- La metodología XP (Extreme Programming) permitirá un desarrollo ágil y flexible, enfocado en la entrega continua de avances y en la rápida adaptación frente a cambios o problemas que puedan surgir durante el proceso de diseño e implementación.
+- El conjunto de tecnologías elegido, Logisim Evolution, Python y Java, busca no solo facilitar la construcción y validación del microprocesador M32, sino también optimizar tareas de automatización y extender las capacidades del simulador si fuera necesario.
 
-Junto a ello, también se indica que ambos (tanto la metodología como el conjunto de tecnologías) priorizan la flexibilidad ante problemas y cambios durante el desarrollo.
+En conjunto, tanto la metodología como las tecnologías priorizan la flexibilidad, la iteración constante y la adaptabilidad, factores que son fundamentales para el éxito del proyecto en sus distintas etapas de desarrollo.
 
 # Agradecimientos
 ¡Muchas gracias por su atención!
