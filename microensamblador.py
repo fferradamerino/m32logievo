@@ -26,6 +26,8 @@ class Microinstruccion:
 		self.op_dbi_3 = True if "op_dbi_3" in linea else False
 		self.en_d = True if "en_d" in linea else False
 		self.en_a = True if "en_a" in linea else False
+		self.rd = True if "rd" in linea else False
+		self.wr = True if "wr" in linea else False
 		self.fetch = True if "fetch" in linea else False
 			
 		self.next_addr = self.label_addr(linea[-1], labels_encontrados, pos_en_memoria)
@@ -34,7 +36,7 @@ class Microinstruccion:
 		print("** DEBUG PRINT **")
 		print("wr_pc", self.wr_pc)
 		print("wr_rd", self.wr_rd)
-		print("wr_rd", self.rd_dest)
+		print("rd_dest", self.rd_dest)
 		print("wr_ir", self.wr_ir)
 		print("sel_reg", self.sel_reg)
 		print("op_y_sel_1", self.op_y_sel_1)
@@ -53,6 +55,8 @@ class Microinstruccion:
 		print("op_dbi_3", self.op_dbi_3)
 		print("en_d", self.en_d)
 		print("en_a", self.en_a)
+		print("rd", self.rd)
+		print("wr", self.wr)
 		print("fetch", self.fetch)
 		print("next_addr", self.next_addr)
 	
@@ -93,8 +97,10 @@ class Microinstruccion:
 		codificacion |= (1 << 18) if self.op_dbi_3 else 0
 		codificacion |= (1 << 19) if self.en_d else 0
 		codificacion |= (1 << 20) if self.en_a else 0
-		codificacion |= (1 << 21) if self.fetch else 0
-		codificacion |= self.next_addr << 22
+		codificacion |= (1 << 21) if self.rd else 0
+		codificacion |= (1 << 22) if self.wr else 0
+		codificacion |= (1 << 23) if self.fetch else 0
+		codificacion |= self.next_addr << 24
 		
 		return struct.pack('!Q', codificacion)
 
@@ -139,6 +145,8 @@ def parsear_archivo(tokens):
 	
 	for token in tokens:
 		linea = tokenizar_linea(token)
+		if len(linea) < 1:
+			continue
 		if linea[0][-1] == ":":
 			labels_encontrados.append((linea[:len(token) - 1][0][:-1], pos_en_memoria))
 		else:
