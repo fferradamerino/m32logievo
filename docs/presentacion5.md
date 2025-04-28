@@ -27,13 +27,7 @@ A modo de objetivos específicos:
 # Metodología escogida
 Para el desarrollo del proyecto se ha seleccionado la metodología XP (Extreme Programming), debido a su enfoque ágil, iterativo y flexible, ideal para adaptarse a los posibles cambios y mejoras que puedan surgir durante el diseño e implementación del microprocesador.
 
-La programación extrema, conocida como XP (Extreme Programming), es una metodología ágil de desarrollo de software que se centra en mejorar la calidad del producto y la capacidad de adaptarse a los cambios del cliente. Propone ciclos de trabajo cortos y sostenibles, donde se realizan reuniones semanales de planificación junto al cliente para definir y ajustar las funcionalidades prioritarias. Entre sus principios destacan:
-
-- Las entregas frecuentes
-- La simplicidad en el diseño
-- La programación por parejas
-- La propiedad colectiva del código
-- El desarrollo orientado a pruebas.
+La programación extrema, conocida como XP (Extreme Programming), es una metodología ágil de desarrollo de software que se centra en mejorar la calidad del producto y la capacidad de adaptarse a los cambios del cliente. Propone ciclos de trabajo cortos y sostenibles, donde se realizan reuniones semanales de planificación junto al cliente para definir y ajustar las funcionalidades prioritarias.
 
 Además, fomenta la integración continua de nuevas funcionalidades, la refactorización constante para mejorar el código, y el uso de metáforas que faciliten la comunicación técnica con el cliente. Todo esto bajo un ritmo de trabajo saludable, priorizando siempre la motivación del equipo. Gracias a estas prácticas, XP permite desarrollar proyectos más flexibles, colaborativos y enfocados en las necesidades reales del usuario.
 
@@ -60,6 +54,10 @@ El conjunto de tecnologías seleccionadas para este proyecto busca soportar tant
  - La generación automática de programas de ejemplo en lenguaje ensamblador M32 y su conversión a formato binario ejecutable.
  - La conversión de programas escritos en un "micro-ensamblador" específico a formatos binarios que puedan ser cargados en la ROM de la unidad de control.
 - Java (en su versión 21): Se considerará para el desarrollo de plugins o extensiones personalizados en Logisim Evolution, en caso de ser necesario para mejorar las capacidades del simulador o integrar funcionalidades específicas.
+- Para editar código se utilizará Visual Studio Code y/o Vim, dependiendo de la situación.
+ - Visual Studio Code en su versión 1.99
+ - Vim en su versión 9.1
+- Adicionalmente, se utilizarán Makefiles para automatizar la generación de binarios en ensamblador.
 
 # Hardware necesario
 Para llevar a cabo el proyecto de implementación y simulación del microprocesador M32, se requiere un hardware básico pero suficiente para ejecutar de manera fluida las herramientas seleccionadas. Aquí se destaca que la elección de herramientas mencionadas previamente tenían como objetivo, adicionalmente, el que sean multiplataforma. Los requisitos principales son:
