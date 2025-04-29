@@ -3301,4 +3301,42 @@
     <wire from="(500,320)" to="(510,320)"/>
     <wire from="(580,330)" to="(600,330)"/>
   </circuit>
+  <circuit name="AR">
+    <a name="appearance" val="logisim_evolution"/>
+    <a name="circuit" val="AR"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <comp lib="0" loc="(450,390)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="WR_AR"/>
+    </comp>
+    <comp lib="0" loc="(460,440)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="CLK"/>
+    </comp>
+    <comp lib="0" loc="(470,290)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="INPT"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(660,370)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="OUTPT"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="4" loc="(530,340)" name="Register">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="width" val="32"/>
+    </comp>
+    <wire from="(450,390)" to="(530,390)"/>
+    <wire from="(460,440)" to="(520,440)"/>
+    <wire from="(470,290)" to="(510,290)"/>
+    <wire from="(510,290)" to="(510,370)"/>
+    <wire from="(510,370)" to="(530,370)"/>
+    <wire from="(520,410)" to="(520,440)"/>
+    <wire from="(520,410)" to="(530,410)"/>
+    <wire from="(590,370)" to="(660,370)"/>
+  </circuit>
 </project>
