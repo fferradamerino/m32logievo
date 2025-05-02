@@ -71,7 +71,7 @@ class Microinstruccion:
 			if x[0] == label:
 				return x[1]
 			
-		raise Exception("Label no encontrado")
+		raise Exception("Label no encontrado: " + label)
 	
 	def codificar(self):
 		codificacion = 0

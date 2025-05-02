@@ -48,7 +48,7 @@ bcond:
 	wr_pc op_y_sel_2 op_y_sel_1 fetch1
 	
 bcond_2:
-	wr_pc op_y_sel_1 
+	wr_pc op_y_sel_1 fetch1
 	
 stb:
 	fetch1
@@ -95,7 +95,7 @@ ldsh_2:
 ldsb:
 	sel_reg op_y_sel_2 wr_ar op_abi_2 en_a fetch1
 
-ldsb_2
+ldsb_2:
 	wr_rd sel_d op_dbi_3 op_abi_2 en_a rd fetch1
 	
 ldu_2:
