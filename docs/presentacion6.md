@@ -57,6 +57,13 @@ En cuanto al estudio económico, en proyectos como este, puede ser un poco compl
 
 Aunque el flujo de caja no es estrictamente aplicable a este proyecto, lo importante es destacar que, al ser una iniciativa educativa, los costos son mínimos, y los beneficios académicos a largo plazo para los estudiantes justifican ampliamente cualquier gasto asociado.
 
+# Estudio económico: licencias de software
+Un punto clave en el análisis económico es la consideración de las licencias de software necesarias para el desarrollo del proyecto. En este caso, uno de los principales beneficios es que todas las herramientas utilizadas (Logisim Evolution, Python, Java y Visual Studio Code) son de acceso gratuito.
+
+Logisim Evolution es un simulador de circuitos digitales de código abierto, lo que elimina cualquier barrera económica relacionada con licencias comerciales. De igual manera, Python y Java, utilizados para el desarrollo de herramientas auxiliares y plugins respectivamente, son lenguajes de programación de uso libre y ampliamente soportados por la comunidad. Por último, Visual Studio Code, el editor principal usado durante el desarrollo, también es gratuito y de código abierto en su base, lo que permite una personalización flexible sin costos adicionales.
+
+El uso exclusivo de software libre y gratuito promueve la autonomía tanto del desarrollador como del usuario final, facilitando el acceso a herramientas potentes sin restricciones económicas. Esto refuerza aún más la viabilidad económica del proyecto, manteniendo los costos operacionales al mínimo mientras se maximiza el valor académico y técnico.
+
 # Conclusiones
 En resumen, el proyecto de diseño e implementación de la arquitectura del microprocesador M32 en Logisim Evolution es completamente viable desde una perspectiva operativa, técnica y económica. Este proyecto no solo cumple con los objetivos académicos de la asignatura, sino que también proporciona una experiencia valiosa para los estudiantes, permitiéndoles aprender sobre los principios de la arquitectura de microprocesadores de una manera interactiva y accesible.
 
