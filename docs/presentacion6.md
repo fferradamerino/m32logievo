@@ -55,7 +55,7 @@ En cuanto al estudio económico, en proyectos como este, puede ser un poco compl
 - Costo de las herramientas de desarrollo: En este caso, Logisim Evolution es una herramienta gratuita, lo que elimina los costos de licencias de software.
 - Costos operacionales: Pueden incluir la energía utilizada durante las horas de trabajo, el tiempo invertido por los desarrolladores y los docentes que supervisan el proyecto.
 
-Aunque el flujo de caja no es estrictamente aplicable a este proyecto, lo importante es destacar que, al ser una iniciativa educativa, los costos son mínimos, y los beneficios académicos a largo plazo para los estudiantes justifican ampliamente cualquier gasto asociado.
+A continuación, se presentarán los cálculos del Valor Actual Neto. Para ello se asumieron datos de conocimiento general tales como el sueldo de un Ingeniero Diseñador de Hardware Junior, o la tasa de descuento del proyecto (el cual se le dió un valor estándar para los cálculos).
 
 # Estudio económico: Valor Actual Neto
 
