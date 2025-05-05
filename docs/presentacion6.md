@@ -32,7 +32,7 @@ Un estudio de factibilidad es un análisis crucial en cualquier proyecto, ya que
 - El estudio técnico que responde a la pregunta: ¿Contamos con la tecnología adecuada y los recursos técnicos necesarios para llevar a cabo el proyecto?
 - El estudio económico que responde a la pregunta: ¿El proyecto es rentable y sostenible en términos financieros?
 
-En resume, este estudio permite tomar decisiones informadas antes de iniciar cualquier implementación, asegurando que los recursos se gestionen adecuadamente y que los objetivos sean alcanzables dentro del marco de tiempo y presupuesto definidos.
+En resumen, este estudio permite tomar decisiones informadas antes de iniciar cualquier implementación, asegurando que los recursos se gestionen adecuadamente y que los objetivos sean alcanzables dentro del marco de tiempo y presupuesto definidos.
 
 # Estudio operativo del proyecto
 Ahora bien, este proyecto tiene como objetivo diseñar y simular la arquitectura de un microprocesador en el entorno de Logisim Evolution. El estudio operativo asegura que este proyecto responde a las necesidades educativas y prácticas del curso de Arquitectura de Computadores. Para ello se establece lo siguiente:
