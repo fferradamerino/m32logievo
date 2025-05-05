@@ -42,7 +42,7 @@ Ahora bien, este proyecto tiene como objetivo diseñar y simular la arquitectura
 - El propósito es que el proyecto no solo sea útil, sino también accesible, lo que asegura que los recursos sean bien aprovechados por todos los involucrados.
 
 # Estudio técnico del proyecto
-El estudio técnico implica la evaluación de los recursos tecnológicos necesarios para llevar a cabo el proyecto. Para los desarrolladores, como en este caso yo, se requieren herramientas y conocimientos específicos:
+El estudio técnico implica la evaluación de los recursos tecnológicos necesarios para llevar a cabo el proyecto. Para los desarrolladores, como es en mi caso, se requieren herramientas y conocimientos específicos:
 
 - Requisitos de hardware: Se necesita una computadora con capacidad suficiente para ejecutar Logisim Evolution de manera fluida, así como hardware adicional para pruebas de simulación si es necesario.
 - Requisitos de software: La herramienta principal es Logisim Evolution, que es un entorno de simulación de circuitos digitales. Además, es fundamental contar con un entorno de desarrollo adecuado, como un editor de texto o un IDE para trabajar en los componentes del microprocesador.
