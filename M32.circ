@@ -56,69 +56,93 @@
     <a name="circuit" val="main"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
-    <comp lib="0" loc="(80,310)" name="Pin">
+    <appear>
+      <rect fill="none" height="55" stroke="#000000" width="77" x="50" y="50"/>
+      <circ-anchor facing="east" x="50" y="60"/>
+      <circ-port dir="in" pin="100,310" x="50" y="60"/>
+    </appear>
+    <comp lib="0" loc="(100,310)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="label" val="CLK"/>
     </comp>
-    <comp lib="2" loc="(1060,190)" name="Multiplexer">
+    <comp lib="2" loc="(260,580)" name="Multiplexer">
+      <a name="facing" val="south"/>
       <a name="width" val="32"/>
     </comp>
-    <comp lib="2" loc="(470,180)" name="Multiplexer">
+    <comp lib="2" loc="(270,330)" name="Multiplexer">
+      <a name="facing" val="south"/>
       <a name="width" val="32"/>
     </comp>
-    <comp loc="(400,170)" name="PC"/>
-    <comp loc="(400,290)" name="RBANK"/>
-    <comp loc="(400,490)" name="RSEL"/>
-    <comp loc="(400,620)" name="IR"/>
-    <comp loc="(720,320)" name="YSEL"/>
-    <comp loc="(720,480)" name="DBI"/>
-    <comp loc="(980,180)" name="ALU"/>
-    <comp loc="(980,370)" name="SR"/>
-    <wire from="(1060,190)" to="(1070,190)"/>
-    <wire from="(1070,100)" to="(1070,190)"/>
-    <wire from="(150,100)" to="(1070,100)"/>
-    <wire from="(150,100)" to="(150,170)"/>
-    <wire from="(150,170)" to="(150,290)"/>
-    <wire from="(150,170)" to="(180,170)"/>
-    <wire from="(150,290)" to="(180,290)"/>
-    <wire from="(150,390)" to="(150,450)"/>
-    <wire from="(150,390)" to="(180,390)"/>
-    <wire from="(150,450)" to="(410,450)"/>
-    <wire from="(160,350)" to="(160,440)"/>
-    <wire from="(160,350)" to="(180,350)"/>
-    <wire from="(160,440)" to="(420,440)"/>
-    <wire from="(170,330)" to="(170,430)"/>
-    <wire from="(170,330)" to="(180,330)"/>
-    <wire from="(170,430)" to="(430,430)"/>
-    <wire from="(400,170)" to="(440,170)"/>
-    <wire from="(400,190)" to="(400,290)"/>
-    <wire from="(400,190)" to="(440,190)"/>
-    <wire from="(400,310)" to="(400,320)"/>
-    <wire from="(400,320)" to="(500,320)"/>
-    <wire from="(400,490)" to="(410,490)"/>
-    <wire from="(400,510)" to="(430,510)"/>
-    <wire from="(400,530)" to="(420,530)"/>
-    <wire from="(400,620)" to="(440,620)"/>
-    <wire from="(410,450)" to="(410,490)"/>
-    <wire from="(420,440)" to="(420,530)"/>
-    <wire from="(430,430)" to="(430,510)"/>
-    <wire from="(440,340)" to="(440,620)"/>
-    <wire from="(440,340)" to="(500,340)"/>
-    <wire from="(470,180)" to="(760,180)"/>
-    <wire from="(720,320)" to="(740,320)"/>
-    <wire from="(720,480)" to="(990,480)"/>
-    <wire from="(740,200)" to="(740,320)"/>
-    <wire from="(740,200)" to="(760,200)"/>
-    <wire from="(80,310)" to="(180,310)"/>
-    <wire from="(980,180)" to="(1030,180)"/>
-    <wire from="(990,200)" to="(1030,200)"/>
-    <wire from="(990,200)" to="(990,480)"/>
+    <comp loc="(200,160)" name="PC">
+      <a name="facing" val="south"/>
+    </comp>
+    <comp loc="(340,200)" name="RBANK">
+      <a name="facing" val="south"/>
+    </comp>
+    <comp loc="(380,370)" name="YSEL">
+      <a name="facing" val="south"/>
+    </comp>
+    <comp loc="(430,430)" name="SR"/>
+    <comp loc="(490,200)" name="RSEL">
+      <a name="facing" val="south"/>
+    </comp>
+    <comp loc="(500,440)" name="BRANCHUNIT">
+      <a name="facing" val="south"/>
+    </comp>
+    <comp loc="(540,600)" name="AR"/>
+    <comp loc="(640,190)" name="IR">
+      <a name="facing" val="south"/>
+    </comp>
+    <comp loc="(650,450)" name="DBI"/>
+    <comp loc="(680,590)" name="ABI"/>
+    <wire from="(120,110)" to="(120,600)"/>
+    <wire from="(120,110)" to="(200,110)"/>
+    <wire from="(120,600)" to="(260,600)"/>
+    <wire from="(200,110)" to="(200,130)"/>
+    <wire from="(200,110)" to="(330,110)"/>
+    <wire from="(200,160)" to="(200,260)"/>
+    <wire from="(200,260)" to="(260,260)"/>
+    <wire from="(260,260)" to="(260,300)"/>
+    <wire from="(260,580)" to="(260,600)"/>
+    <wire from="(260,600)" to="(440,600)"/>
+    <wire from="(270,460)" to="(270,550)"/>
+    <wire from="(270,460)" to="(610,460)"/>
+    <wire from="(280,260)" to="(280,300)"/>
+    <wire from="(280,260)" to="(340,260)"/>
+    <wire from="(330,110)" to="(330,130)"/>
+    <wire from="(330,110)" to="(640,110)"/>
+    <wire from="(340,200)" to="(340,260)"/>
+    <wire from="(370,200)" to="(370,330)"/>
+    <wire from="(390,150)" to="(440,150)"/>
+    <wire from="(390,170)" to="(440,170)"/>
+    <wire from="(390,190)" to="(440,190)"/>
+    <wire from="(420,250)" to="(420,330)"/>
+    <wire from="(420,250)" to="(500,250)"/>
+    <wire from="(430,430)" to="(450,430)"/>
+    <wire from="(440,480)" to="(440,600)"/>
+    <wire from="(440,480)" to="(610,480)"/>
+    <wire from="(440,600)" to="(480,600)"/>
+    <wire from="(500,250)" to="(500,410)"/>
+    <wire from="(500,250)" to="(520,250)"/>
+    <wire from="(520,200)" to="(520,250)"/>
+    <wire from="(520,250)" to="(640,250)"/>
+    <wire from="(540,600)" to="(610,600)"/>
+    <wire from="(640,110)" to="(640,150)"/>
+    <wire from="(640,190)" to="(640,250)"/>
   </circuit>
   <circuit name="PC">
-    <a name="appearance" val="logisim_evolution"/>
+    <a name="appearance" val="custom"/>
     <a name="circuit" val="PC"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
+    <appear>
+      <rect fill="none" height="29" stroke="#000000" width="81" x="120" y="50"/>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="160" y="64">PC</text>
+      <circ-anchor facing="south" x="160" y="80"/>
+      <circ-port dir="in" pin="240,350" x="140" y="80"/>
+      <circ-port dir="in" pin="340,260" x="160" y="50"/>
+      <circ-port dir="out" pin="690,290" x="160" y="80"/>
+    </appear>
     <comp lib="0" loc="(200,350)" name="Clock">
       <a name="facing" val="north"/>
       <a name="label" val="CLK"/>
@@ -186,10 +210,23 @@
     <wire from="(690,270)" to="(690,290)"/>
   </circuit>
   <circuit name="RBANK">
-    <a name="appearance" val="logisim_evolution"/>
+    <a name="appearance" val="custom"/>
     <a name="circuit" val="RBANK"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
+    <appear>
+      <rect fill="none" height="70" stroke="#000000" width="70" x="100" y="50"/>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="136" y="83">RBANK</text>
+      <circ-anchor facing="south" x="120" y="120"/>
+      <circ-port dir="in" pin="190,1150" x="150" y="50"/>
+      <circ-port dir="in" pin="220,1190" x="170" y="110"/>
+      <circ-port dir="in" pin="2420,610" x="170" y="70"/>
+      <circ-port dir="in" pin="2420,990" x="170" y="90"/>
+      <circ-port dir="in" pin="380,280" x="100" y="80"/>
+      <circ-port dir="in" pin="440,210" x="110" y="50"/>
+      <circ-port dir="out" pin="2450,440" x="120" y="120"/>
+      <circ-port dir="out" pin="2460,820" x="150" y="120"/>
+    </appear>
     <comp lib="0" loc="(190,1150)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="label" val="WR"/>
@@ -850,10 +887,18 @@
     <wire from="(990,680)" to="(1030,680)"/>
   </circuit>
   <circuit name="BRANCHUNIT">
-    <a name="appearance" val="logisim_evolution"/>
+    <a name="appearance" val="custom"/>
     <a name="circuit" val="BRANCHUNIT"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
+    <appear>
+      <rect fill="none" height="29" stroke="#000000" width="108" x="110" y="50"/>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="163" y="65">BRANCHUNIT</text>
+      <circ-anchor facing="south" x="160" y="80"/>
+      <circ-port dir="in" pin="140,360" x="160" y="50"/>
+      <circ-port dir="in" pin="430,440" x="110" y="70"/>
+      <circ-port dir="out" pin="1620,620" x="220" y="60"/>
+    </appear>
     <comp lib="0" loc="(140,360)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="south"/>
@@ -868,6 +913,7 @@
     </comp>
     <comp lib="0" loc="(430,440)" name="Pin">
       <a name="appearance" val="classic"/>
+      <a name="label" val="ZVSC"/>
       <a name="width" val="4"/>
     </comp>
     <comp lib="0" loc="(520,440)" name="Splitter">
@@ -1142,10 +1188,19 @@
     <wire from="(990,600)" to="(990,610)"/>
   </circuit>
   <circuit name="ABI">
-    <a name="appearance" val="logisim_evolution"/>
+    <a name="appearance" val="custom"/>
     <a name="circuit" val="ABI"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
+    <appear>
+      <rect fill="none" height="41" stroke="#000000" width="71" x="50" y="50"/>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="86" y="69">ABI</text>
+      <circ-anchor facing="east" x="120" y="60"/>
+      <circ-port dir="in" pin="200,190" x="50" y="70"/>
+      <circ-port dir="in" pin="200,300" x="70" y="50"/>
+      <circ-port dir="out" pin="930,780" x="120" y="80"/>
+      <circ-port dir="out" pin="960,300" x="120" y="60"/>
+    </appear>
     <comp lib="0" loc="(200,190)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="label" val="AIN"/>
@@ -1182,12 +1237,14 @@
     <comp lib="0" loc="(930,780)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
+      <a name="label" val="BEOUT"/>
       <a name="output" val="true"/>
       <a name="width" val="4"/>
     </comp>
     <comp lib="0" loc="(960,300)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
+      <a name="label" val="AOUT"/>
       <a name="output" val="true"/>
       <a name="width" val="30"/>
     </comp>
@@ -1409,6 +1466,15 @@
     <a name="circuit" val="ALU"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
+    <appear>
+      <rect fill="none" height="51" stroke="#000000" width="78" x="121" y="50"/>
+      <circ-anchor facing="south" x="160" y="100"/>
+      <circ-port dir="in" pin="180,400" x="200" y="70"/>
+      <circ-port dir="in" pin="180,450" x="120" y="70"/>
+      <circ-port dir="in" pin="210,110" x="180" y="50"/>
+      <circ-port dir="in" pin="90,110" x="140" y="50"/>
+      <circ-port dir="out" pin="1290,200" x="160" y="100"/>
+    </appear>
     <comp lib="0" loc="(1020,430)" name="Splitter">
       <a name="facing" val="north"/>
       <a name="fanout" val="4"/>
@@ -1560,10 +1626,19 @@
     <wire from="(990,390)" to="(990,410)"/>
   </circuit>
   <circuit name="IR">
-    <a name="appearance" val="logisim_evolution"/>
+    <a name="appearance" val="custom"/>
     <a name="circuit" val="IR"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
+    <appear>
+      <rect fill="none" height="40" stroke="#000000" width="82" x="119" y="50"/>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="160" y="70">IR</text>
+      <circ-anchor facing="south" x="160" y="90"/>
+      <circ-port dir="in" pin="190,320" x="200" y="60"/>
+      <circ-port dir="in" pin="300,190" x="160" y="50"/>
+      <circ-port dir="in" pin="300,270" x="120" y="70"/>
+      <circ-port dir="out" pin="550,190" x="160" y="90"/>
+    </appear>
     <comp lib="0" loc="(190,320)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="label" val="WRIR"/>
@@ -1600,10 +1675,20 @@
     <wire from="(430,190)" to="(550,190)"/>
   </circuit>
   <circuit name="RSEL">
-    <a name="appearance" val="logisim_evolution"/>
+    <a name="appearance" val="custom"/>
     <a name="circuit" val="RSEL"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
+    <appear>
+      <rect fill="none" height="59" stroke="#000000" width="100" x="50" y="50"/>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="99" y="81">RSEL</text>
+      <circ-anchor facing="south" x="100" y="110"/>
+      <circ-port dir="in" pin="120,110" x="130" y="110"/>
+      <circ-port dir="in" pin="120,180" x="150" y="60"/>
+      <circ-port dir="out" pin="390,510" x="50" y="80"/>
+      <circ-port dir="out" pin="490,500" x="50" y="60"/>
+      <circ-port dir="out" pin="560,430" x="50" y="100"/>
+    </appear>
     <comp lib="0" loc="(120,110)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="label" val="I"/>
@@ -1689,10 +1774,19 @@
     <wire from="(720,210)" to="(720,320)"/>
   </circuit>
   <circuit name="YSEL">
-    <a name="appearance" val="logisim_evolution"/>
+    <a name="appearance" val="custom"/>
     <a name="circuit" val="YSEL"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
+    <appear>
+      <rect fill="none" height="40" stroke="#000000" width="112" x="89" y="50"/>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="147" y="70">YSEL</text>
+      <circ-anchor facing="south" x="130" y="90"/>
+      <circ-port dir="in" pin="210,300" x="120" y="50"/>
+      <circ-port dir="in" pin="210,400" x="170" y="50"/>
+      <circ-port dir="in" pin="210,480" x="200" y="80"/>
+      <circ-port dir="out" pin="760,370" x="90" y="80"/>
+    </appear>
     <comp lib="0" loc="(210,300)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="label" val="REGS"/>
@@ -1741,6 +1835,7 @@
     <comp lib="0" loc="(760,370)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
+      <a name="label" val="Y"/>
       <a name="output" val="true"/>
       <a name="width" val="32"/>
     </comp>
@@ -1877,10 +1972,19 @@
     <wire from="(690,370)" to="(760,370)"/>
   </circuit>
   <circuit name="SR">
-    <a name="appearance" val="logisim_evolution"/>
+    <a name="appearance" val="custom"/>
     <a name="circuit" val="SR"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
+    <appear>
+      <rect fill="none" height="40" stroke="#000000" width="70" x="161" y="50"/>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="194" y="70">SR</text>
+      <circ-anchor facing="east" x="230" y="70"/>
+      <circ-port dir="in" pin="420,350" x="210" y="90"/>
+      <circ-port dir="in" pin="440,380" x="180" y="90"/>
+      <circ-port dir="in" pin="450,310" x="160" y="80"/>
+      <circ-port dir="out" pin="610,310" x="230" y="70"/>
+    </appear>
     <comp lib="0" loc="(420,350)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="label" val="WR_SR"/>
@@ -1915,10 +2019,21 @@
     <wire from="(560,310)" to="(610,310)"/>
   </circuit>
   <circuit name="DBI">
-    <a name="appearance" val="logisim_evolution"/>
+    <a name="appearance" val="custom"/>
     <a name="circuit" val="DBI"/>
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
+    <appear>
+      <rect fill="none" height="60" stroke="#000000" width="81" x="189" y="50"/>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="230" y="81">DBI</text>
+      <circ-anchor facing="north" x="230" y="50"/>
+      <circ-port dir="in" pin="160,250" x="190" y="100"/>
+      <circ-port dir="in" pin="160,270" x="260" y="110"/>
+      <circ-port dir="in" pin="170,750" x="190" y="80"/>
+      <circ-port dir="in" pin="190,140" x="270" y="60"/>
+      <circ-port dir="out" pin="1000,220" x="190" y="60"/>
+      <circ-port dir="out" pin="970,530" x="270" y="80"/>
+    </appear>
     <comp lib="0" loc="(1000,220)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
@@ -2052,6 +2167,53 @@
     <wire from="(870,530)" to="(970,530)"/>
     <wire from="(870,620)" to="(870,640)"/>
     <wire from="(870,640)" to="(870,730)"/>
+  </circuit>
+  <circuit name="AR">
+    <a name="appearance" val="custom"/>
+    <a name="circuit" val="AR"/>
+    <a name="circuitnamedboxfixedsize" val="true"/>
+    <a name="simulationFrequency" val="1.0"/>
+    <appear>
+      <rect fill="none" height="41" stroke="#000000" width="62" x="208" y="50"/>
+      <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="240" y="71">AR</text>
+      <circ-anchor facing="east" x="270" y="70"/>
+      <circ-port dir="in" pin="450,390" x="240" y="50"/>
+      <circ-port dir="in" pin="460,440" x="240" y="90"/>
+      <circ-port dir="in" pin="470,290" x="210" y="70"/>
+      <circ-port dir="out" pin="660,370" x="270" y="70"/>
+    </appear>
+    <comp lib="0" loc="(450,390)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="WR_AR"/>
+    </comp>
+    <comp lib="0" loc="(460,440)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="CLK"/>
+    </comp>
+    <comp lib="0" loc="(470,290)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="INPT"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="0" loc="(660,370)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="facing" val="west"/>
+      <a name="label" val="OUTPT"/>
+      <a name="output" val="true"/>
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="4" loc="(530,340)" name="Register">
+      <a name="appearance" val="logisim_evolution"/>
+      <a name="width" val="32"/>
+    </comp>
+    <wire from="(450,390)" to="(530,390)"/>
+    <wire from="(460,440)" to="(520,440)"/>
+    <wire from="(470,290)" to="(510,290)"/>
+    <wire from="(510,290)" to="(510,370)"/>
+    <wire from="(510,370)" to="(530,370)"/>
+    <wire from="(520,410)" to="(520,440)"/>
+    <wire from="(520,410)" to="(530,410)"/>
+    <wire from="(590,370)" to="(660,370)"/>
   </circuit>
   <circuit name="SELECSALTO">
     <a name="appearance" val="logisim_evolution"/>
@@ -3517,44 +3679,6 @@
     <wire from="(500,320)" to="(500,330)"/>
     <wire from="(500,320)" to="(510,320)"/>
     <wire from="(580,330)" to="(600,330)"/>
-  </circuit>
-  <circuit name="AR">
-    <a name="appearance" val="logisim_evolution"/>
-    <a name="circuit" val="AR"/>
-    <a name="circuitnamedboxfixedsize" val="true"/>
-    <a name="simulationFrequency" val="1.0"/>
-    <comp lib="0" loc="(450,390)" name="Pin">
-      <a name="appearance" val="classic"/>
-      <a name="label" val="WR_AR"/>
-    </comp>
-    <comp lib="0" loc="(460,440)" name="Pin">
-      <a name="appearance" val="classic"/>
-      <a name="label" val="CLK"/>
-    </comp>
-    <comp lib="0" loc="(470,290)" name="Pin">
-      <a name="appearance" val="classic"/>
-      <a name="label" val="INPT"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(660,370)" name="Pin">
-      <a name="appearance" val="classic"/>
-      <a name="facing" val="west"/>
-      <a name="label" val="OUTPT"/>
-      <a name="output" val="true"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="4" loc="(530,340)" name="Register">
-      <a name="appearance" val="logisim_evolution"/>
-      <a name="width" val="32"/>
-    </comp>
-    <wire from="(450,390)" to="(530,390)"/>
-    <wire from="(460,440)" to="(520,440)"/>
-    <wire from="(470,290)" to="(510,290)"/>
-    <wire from="(510,290)" to="(510,370)"/>
-    <wire from="(510,370)" to="(530,370)"/>
-    <wire from="(520,410)" to="(520,440)"/>
-    <wire from="(520,410)" to="(530,410)"/>
-    <wire from="(590,370)" to="(660,370)"/>
   </circuit>
   <circuit name="Check_On_Machine">
     <a name="appearance" val="logisim_evolution"/>
