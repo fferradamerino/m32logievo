@@ -1,0 +1,24 @@
+0 - 1 - Lee una palabra
+1 - 2 - Lee media palabra sin signo (sup.)
+1 - 3 - Lee media palabra sin signo (inf.)
+2 - 4 - Lee media palabra con signo (sup.)
+2 - 5 - Lee media palabra con signo (inf.)
+
+3 - 6a - Lee byte sin signo (31:24)
+3 - 6b - Lee byte sin signo (23:16)
+3 - 6c - Lee byte sin signo (15:8)
+3 - 6d - Lee byte sin signo (7:0)
+4 - 7a - Lee byte con signo (31:24)
+4 - 7b - Lee byte con signo (23:16)
+4 - 7c - Lee byte con signo (15:8)
+4 - 7d - Lee byte con signo (7:0)
+
+5 - 8 - Escribe una palabra
+
+6 - 9a - Escribe media palabra (sup.)
+6 - 9b - Escribe media palabra (inf.)
+
+7 - 10a - Escribe byte (31:24)
+7 - 10b - Escribe byte (23:16)
+7 - 10c - Escribe byte (15:8)
+7 - 10d - Escribe byte (7:0)
