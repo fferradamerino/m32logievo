@@ -25,11 +25,43 @@ Adicionalmente, para respetar la estructura de base de datos del modelo entidad-
 
 # Modelo Entidad Relación
 
-- La entidad usuario representa tanto al docente como al estudiante que hará uso del simulador. Información relevante que se debe registrar sobre estos es su nombre y su rol (sea docente o estudiante).
-- Otra entidad relevante es la de simulación de la sesión. Información relevante que se debe registrar sobre estos es la hora de inicio y la hora de fin de la simulación. Esto con el fin de registrar dentro de las bitácoras del proyecto en qué clases el simulador presentó errores o sugerencias.
-- La tercera entidad dentro del modelo es la entidad Instrucción, la que representa una instrucción que se ejecutará dentro del procesador. Esta entidad entrega información relevante tal como el opcode de la instrucción, su mnemotécnico asociado y los operandos de esta instrucción.
-- La cuarta entidad dentro del modelo es la entidad Registro. Este representa una memoria de 4 bytes (32 bits) dentro del procesador, la cual permite realizar operaciones de propósito general (tales como la suma, saltos a direcciones de memoria, etcétera). De esta entidad se necesita saber el nombre del registro, y el valor de este al final de la simulación.
-- Finalmente, la quinta entidad dentro del modelo entidad-relación es la entidad Bloque de Memoria. Esta entidad entrega información importante de en qué lugar se está trabajando dentro de la RAM en el procesador, tal como la dirección de inicio del bloque en la RAM, el tamaño del bloque, y el contenido de este bloque. Aquí se destaca que el tamaño del bloque (debido a las limitaciones de RAM en algunos dispositivos) no debería de pasar de 1GB de memoria RAM.
+Este modelo trata de representar la interacción que tienen los usuarios con el procesador, y como la información referente a su feedback se puede recopilar para mejorar el estado actual del procesador.
+
+# Modelo Entidad Relación: entidad usuario
+
+La entidad usuario representa tanto al docente como al estudiante que hará uso del simulador. Información relevante que se debe registrar sobre estos es su nombre y su rol (sea docente o estudiante).
+
+# Modelo Entidad Relación: entidad sesión de simulación
+
+Otra entidad relevante es la de sesión de simulación. Información relevante que se debe registrar sobre estos es la hora de inicio y la hora de fin de la simulación. Esto con el fin de registrar dentro de las bitácoras del proyecto en qué clases el simulador presentó errores o sugerencias.
+
+# Modelo Entidad Relación: relación entre usuario y sesión de simulación
+
+Un usuario puede iniciar muchas simulaciones (añadir mas texto acá)
+
+# Modelo Entidad Relación: entidad instrucción
+
+La tercera entidad dentro del modelo es la entidad Instrucción, la que representa una instrucción que se ejecutará dentro del procesador. Esta entidad entrega información relevante tal como el opcode de la instrucción, su mnemotécnico asociado y los operandos de esta instrucción.
+
+# Modelo Entidad Relación: relación entre sesión de simulación e instrucción
+
+Dentro de una sesión de simulación se pueden ejecutar múltiples instrucciones
+
+# Modelo Entidad Relación: entidad registro
+
+La cuarta entidad dentro del modelo es la entidad Registro. Este representa una memoria de 4 bytes (32 bits) dentro del procesador, la cual permite realizar operaciones de propósito general (tales como la suma, saltos a direcciones de memoria, etcétera). De esta entidad se necesita saber el nombre del registro, y el valor de este al final de la simulación.
+
+# Modelo Entidad Relación: relación entre instrucción y registro
+
+Muchas instrucciones pueden leer o escribir múltiples registros (añadir más desarrollo sobre esta idea).
+
+# Modelo Entidad Relación: entidad bloque de memoria
+
+Finalmente, la quinta entidad dentro del modelo entidad-relación es la entidad Bloque de Memoria. Esta entidad entrega información importante de en qué lugar se está trabajando dentro de la RAM en el procesador, tal como la dirección de inicio del bloque en la RAM, el tamaño del bloque, y el contenido de este bloque. Aquí se destaca que el tamaño del bloque (debido a las limitaciones de RAM en algunos dispositivos) no debería de pasar de 1GB de memoria RAM.
+
+# Modelo Entidad Relación: relación entre entre registro y bloque de memoria
+
+Múltiples registros pueden apuntar a múltiples regiones de memoria. (desarrollar más este punto)
 
 # Conclusiones
 
