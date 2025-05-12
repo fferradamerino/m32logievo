@@ -19,9 +19,9 @@ Los objetivos de esta presentación son:
 
 # Consideraciones Previas al Análisis del Modelo Entidad Relación
 
-Una de las limitaciones que se presenta para trabajar en este proyecto, es que el proyecto no contempla trabajar en una base de datos: el procesador M32 no almacena información de usuarios en el sentido tradicional.
-A pesar de ello, un modelo ER no suele utilizarse para representar componentes de hardware, este diagrama replantea la simulación de la CPU M32 como un sistema interactivo basado en datos donde los componentes y las interacciones del usuario se tratan como entidades de datos para fines de modelado conceptual.
-Adicionalmente, para respetar la estructura de base de datos del modelo entidad-relación, se hizo uso de claves primarias y foráneas con el fin de definir relaciones dentro del modelo.
+En primer lugar, es importante señalar que este proyecto no contempla el uso de una base de datos relacional como sistema de persistencia principal, ya que el procesador M32 simulado en Logisim no almacena datos de usuarios en un sentido convencional.
+Sin embargo, el modelo entidad-relación se reutiliza aquí como una herramienta conceptual que nos permite representar y modelar las interacciones de los usuarios con el simulador, así como la forma en que estas interacciones pueden generar datos útiles para evaluar y mejorar el sistema.
+Además, se han definido claves primarias y foráneas para dar mayor estructura y coherencia a las relaciones entre entidades, manteniendo así la lógica del modelado ER incluso en un contexto que no es puramente de base de datos.
 
 # Modelo Entidad Relación
 
@@ -34,10 +34,13 @@ La entidad usuario representa tanto al docente como al estudiante que hará uso 
 # Modelo Entidad Relación: entidad sesión de simulación
 
 Otra entidad relevante es la de sesión de simulación. Información relevante que se debe registrar sobre estos es la hora de inicio y la hora de fin de la simulación. Esto con el fin de registrar dentro de las bitácoras del proyecto en qué clases el simulador presentó errores o sugerencias.
+Esta información permite generar una bitácora de uso del simulador, útil tanto para el análisis técnico como pedagógico del desempeño del sistema.
 
 # Modelo Entidad Relación: relación entre usuario y sesión de simulación
 
-Un usuario puede iniciar muchas simulaciones (añadir mas texto acá)
+Un usuario puede iniciar múltiples sesiones de simulación, pero cada sesión está asociada a un único usuario.
+Esto implica una relación de uno a muchos, donde la clave foránea ID de usuario en la entidad sesión establece el vínculo.
+Este diseño permite, por ejemplo, generar informes sobre cuántas simulaciones ha realizado un estudiante específico, o qué docente ha evaluado más el sistema.
 
 # Modelo Entidad Relación: entidad instrucción
 
@@ -45,7 +48,8 @@ La tercera entidad dentro del modelo es la entidad Instrucción, la que represen
 
 # Modelo Entidad Relación: relación entre sesión de simulación e instrucción
 
-Dentro de una sesión de simulación se pueden ejecutar múltiples instrucciones
+Una sesión puede contener muchas instrucciones ejecutadas, lo que genera una relación de uno a muchos desde sesión hacia instrucción.
+De este modo, se puede rastrear el comportamiento de una sesión particular y entender cómo fue utilizado el procesador paso a paso.
 
 # Modelo Entidad Relación: entidad registro
 
@@ -53,18 +57,38 @@ La cuarta entidad dentro del modelo es la entidad Registro. Este representa una 
 
 # Modelo Entidad Relación: relación entre instrucción y registro
 
-Muchas instrucciones pueden leer o escribir múltiples registros (añadir más desarrollo sobre esta idea).
+Las instrucciones pueden leer y/o modificar múltiples registros, y a su vez, un mismo registro puede ser afectado por múltiples instrucciones.
+Esto genera una relación de muchos a muchos, que puede representarse mediante una entidad intermedia (por ejemplo, "ModificaciónRegistro") que registre:
+
+- El tipo de acceso (lectura o escritura)
+- El valor antes y después de la operación
+- La instrucción asociada
+
+Este tipo de modelado permite reconstruir la ejecución a nivel de registros, paso a paso.
 
 # Modelo Entidad Relación: entidad bloque de memoria
 
 Finalmente, la quinta entidad dentro del modelo entidad-relación es la entidad Bloque de Memoria. Esta entidad entrega información importante de en qué lugar se está trabajando dentro de la RAM en el procesador, tal como la dirección de inicio del bloque en la RAM, el tamaño del bloque, y el contenido de este bloque. Aquí se destaca que el tamaño del bloque (debido a las limitaciones de RAM en algunos dispositivos) no debería de pasar de 1GB de memoria RAM.
 
 # Modelo Entidad Relación: relación entre entre registro y bloque de memoria
+Múltiples registros pueden referenciar distintas regiones de la memoria, ya sea para lectura o escritura, y una misma región de memoria puede ser accedida por varios registros.
+Esto también constituye una relación de muchos a muchos, que puede ser modelada mediante una tabla intermedia (por ejemplo, “AccesoMemoria”), con los siguientes campos:
 
-Múltiples registros pueden apuntar a múltiples regiones de memoria. (desarrollar más este punto)
+- Registro que accede
+- Dirección de memoria afectada
+- Tipo de operación (lectura/escritura)
+- Timestamp o momento del acceso
+
+Este nivel de detalle permite modelar cómo fluye la información a nivel de memoria y qué registros actúan como punteros o índices.
 
 # Conclusiones
 
-En conclusión, a pesar de que el modelo entidad relación no pueda implementarse de manera tradicional en una base de datos, considerando este proyecto, es posible registrar información de cada clase sobre M32, lo que ayuda a tener mejor feedback en la mantención del proyecto de Logisim Evolution, y en como la interacción del usuario puede ayudar durante el desarrollo del usuario.
+En conclusión, si bien el modelo entidad-relación no será implementado directamente en una base de datos tradicional, su uso en este proyecto permite:
+
+- Representar de manera estructurada las interacciones entre usuario y simulador
+- Modelar conceptualmente los procesos internos del procesador M32, desde las instrucciones hasta la manipulación de registros y memoria
+- Facilitar el análisis posterior del uso del sistema, la depuración, y la mejora continua del simulador en Logisim Evolution
+
+Este enfoque híbrido entre hardware y modelado de datos aporta una perspectiva innovadora para la gestión del proyecto.
 
 ¡Muchas gracias por su atención!
