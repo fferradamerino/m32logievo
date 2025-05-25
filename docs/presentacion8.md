@@ -8,7 +8,6 @@ El temario de la presentación será el siguiente:
 
 - Primero, presentaré los Objetivos de la Presentación
 - Seguido de ello, presentaré los casos de uso definidos para el proyecto
-- Luego, presentaré las historias de usuario asociadas a los requerimientos del proyecto
 - Seguido de ello, presentaré los mockups que servirán de referencia para la versión final del proyecto
 - Y finalmente presentaré la conclusión
 
