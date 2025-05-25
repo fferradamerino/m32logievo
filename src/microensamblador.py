@@ -28,7 +28,7 @@ class Microinstruccion:
 		self.en_a = True if "en_a" in linea else False
 		self.rd = True if "rd" in linea else False
 		self.wr = True if "wr" in linea else False
-		self.fetch = True if "fetch" in linea else False
+		self.fetch = True if "execute" in linea else False
 			
 		self.next_addr = self.label_addr(linea[-1], labels_encontrados, pos_en_memoria)
 	
@@ -57,7 +57,7 @@ class Microinstruccion:
 		print("en_a", self.en_a)
 		print("rd", self.rd)
 		print("wr", self.wr)
-		print("fetch", self.fetch)
+		print("execute", self.fetch)
 		print("next_addr", self.next_addr)
 	
 	# El último token es hacia donde se debe ir en el microprograma
@@ -102,7 +102,7 @@ class Microinstruccion:
 		codificacion |= (1 << 23) if self.fetch else 0
 		codificacion |= self.next_addr << 24
 		
-		return struct.pack('!Q', codificacion)
+		return struct.pack('!H', codificacion)
 
 def tokenizar_archivo(archivo):
 	lineas = []
@@ -138,6 +138,13 @@ def tokenizar_linea(linea):
 		
 	return tokens
 
+def codificar_direcciones(labels_encontrados):
+	direcciones = b''
+	
+	# TODO
+	
+	return direcciones
+
 def parsear_archivo(tokens):
 	pos_en_memoria = 0 # En bytes
 	labels_encontrados = [] # (label, pos_en_memoria)
@@ -158,11 +165,13 @@ def parsear_archivo(tokens):
 		microinstruccion.dbg_print()
 		instrucciones += microinstruccion.codificar()
 		
-	return instrucciones
+	direcciones = codificar_direcciones()
+
+	return instrucciones, direcciones
 	
 def main():
-	if len(sys.argv) != 3:
-		print("Uso: microensamblador.py archivo.s salida.bin")
+	if len(sys.argv) != 4:
+		print("Uso: microensamblador.py archivo.s microprograma.bin direcciones.bin")
 		return
 	
 	if not os.path.isfile(sys.argv[1]):
@@ -172,9 +181,14 @@ def main():
 	with open(sys.argv[1]) as file:
 		archivo = file.read()
 		tokens = tokenizar_archivo(archivo)
-		if os.path.isfile(sys.argv[2]):
+		
+		if os.path.isfile(sys.argv[2]) or os.path.isfile(sys.argv[3]):
 			raise Exception("El archivo de salida ya existe")
-		with open(sys.argv[2], "wb") as salida:
-			salida.write(parsear_archivo(tokens))
+			
+		instrucciones, direcciones = parsear_archivo(tokens)
+		with open(sys.argv[2], "wb") as a_instrucciones:
+			a_instrucciones.write(instrucciones)
+		with open(sys.argv[3], "wb") as a_direcciones:
+			a_direcciones.write(direcciones)
 	
 main()
