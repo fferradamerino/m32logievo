@@ -1,4 +1,27 @@
-# Presentación 9
+# Guión de presentación frente a la comisión
+
+Buenas tardes estimados compañeros y profesores. Hoy presentaré los temas relacionados al tema de Diseño, Implementación y Simulación de la Arquitectura del Microprocesador M32 en Logisim Evolution
+
+# Temario
+
+El temario de la presentación será el siguiente:
+
+- Primero, presentaré los objetivos de la presentación
+- En segundo lugar, presentaré la introducción a la problemática
+- Luego, presentaré la descripción del problema
+- Seguido de eso, presentaré el proceso de Negocio de la Situación Actual
+- Con ello, presentaré los requerimientos
+- Posteriormente, presentaré el ambiente de ingeniería de software
+- También, presentaré los estudios de factibilidad
+- Luego, presentaré el modelo entidad relación
+- Seguido de eso, presentaré los casos de uso del simulador del microprocesador M32
+- Finalmente, daremos a conocer las conclusiones
+
+## Objetivos de la presentación
+Los objetivos de esta presentación son:
+
+- Presentar la problemática y requerimientos del proyecto
+- Presentar la información elaborada durante la asignatura de Anteproyecto sobre el tema a exponer
 
 ## 1. Introducción a la problemática
 
@@ -20,7 +43,7 @@ Para poder desarrollar una visión clara de las necesidades de los usuarios de e
 
 Ambos perfiles concuerdan con la necesidad de tener una forma de visualizar el estado de los registros y del flujo de datos del procesador. De manera adicional, ambos perfiles también sugieren el uso del simulador para ejercicios de implementación de instrucciones y mejoras a la arquitectura.
 
-#### Entrevistas con docentes de la carrera:
+#### Entrevistas con docentes de la carrera
 El primer perfil de usuario del simulador de M32 son los docentes de la carrera de Ingeniería Civil en Informática. Para este grupo se entrevistaron tres docentes que han dado clases sobre esta arquitectura: el profesor Fernando Santolaya, la profesora Martita Muñoz, y el profesor Juan Carlos Figueroa.
 Las necesidades determinadas en base a las entrevistas realizadas a los potenciales clientes son:
 
@@ -105,7 +128,7 @@ En primer lugar, es importante señalar que este proyecto no contempla el uso de
 Sin embargo, el modelo entidad-relación se reutiliza aquí como una herramienta conceptual que nos permite representar y modelar las interacciones de los usuarios con el simulador, así como la forma en que estas interacciones pueden generar datos útiles para evaluar y mejorar el sistema.
 Dicho modelo considera elementos tales como los registros, el usuario, las microinstrucciones de la Control Unit, etcétera.
 
-# 8. Simulador del microprocesador M32
+# 8. Casos de uso del simulador del microprocesador M32
 
 ## Casos de uso: Introducción a los actores
 
@@ -151,4 +174,4 @@ A modo de conclusión, se puede indicar que:
 
 - El proyecto busca generar una herramienta didáctica concreta que permita mejorar el proceso de enseñanza-aprendizaje en la asignatura de Arquitectura de Computadores, a través de la implementación y documentación del procesador M32 en Logisim Evolution, que pretende facilitar la comprensión de conceptos clave como el flujo de datos, la ejecución de instrucciones, y el comportamiento de la unidad de control.
 
-¡Muchas gracias por su antención!
+¡Muchas gracias por su atención!
