@@ -2,7 +2,7 @@
 
 Buenas tardes estimados compañeros y profesores. Hoy presentaré los temas relacionados al tema de Diseño, Implementación y Simulación de la Arquitectura del Microprocesador M32 en Logisim Evolution
 
-# Temario
+## Temario
 
 El temario de la presentación será el siguiente:
 
@@ -23,40 +23,35 @@ Los objetivos de esta presentación son:
 - Presentar la problemática y requerimientos del proyecto
 - Presentar la información elaborada durante la asignatura de Anteproyecto sobre el tema a exponer
 
-## 1. Introducción a la problemática
+## 1. Introducción a la problemática (Contexto)
 
 El estudio de arquitecturas de microprocesadores es un pilar fundamental en la formación de los estudiantes de la carrera de Ingeniería Civil en Informática en la Universidad del Bío-Bío. El M32 es una arquitectura de microprocesador docente que permite explorar conceptos como la organización de la CPU, la ejecución de instrucciones y la gestión del flujo de datos.
 
-Dado que el uso de herramientas de simulación como Logisim Evolution permite a los estudiantes y profesionales diseñar y probar arquitecturas sin necesidad de hardware real, una implementación del microprocesador M32 en Logisim Evolution es beneficioso ya que entrega a los estudiantes una herramienta interactiva para estudiar la previamente mencionada arquitectura.
+Para el desarrollo de este proyecto se utilizará (como ya se ha mencionado previamente) el procesador M32 del profesor Luis Mateu, académico de la Universidad de Chile.
 
 ## 2. Descripción del Problema
 
 El problema principal es la necesidad de una implementación mejorada del M32 que ofrezca una visualización clara del funcionamiento del procesador. Específicamente, se busca eliminar el problema de tener que trabajar a lápiz y papel a la hora de tener que resolver ejercicios de arquitecturas de procesadores, lo cual presenta una oportunidad de mejorar el rendimiento de los estudiantes de la asignatura de Arquitectura de computadores.
 
-De manera adicional, el contenido relacionado a algunos tópicos en Arquitectura de Computadores no se pueden estudiar con la profundidad que debería tener. Tópicos tales como la microprogramación, pipelining avanzado o incluso memorias caché, no alcanzan a ser repasados lo que deja a la Universidad del Bío-Bío en una situación de desventaja, comparado con otras universidades del país.
+De manera adicional, el contenido relacionado a algunos tópicos en Arquitectura de Computadores no se pueden estudiar con la profundidad que debería tener. Tópicos tales como la microprogramación, pipelining avanzado o incluso memorias caché, no alcanzan a ser repasados lo que deja a los estudiantes con un nivel de conocimiento incompleto respecto al tópico de Arquitectura de Computadores.
 
-Tal como se mencionó anteriormente, si bien ya existe una implementación funcional de M32 en Hades realizada por estudiantes tesistas de Ingeniería Civil en Informática, el hecho de que Hades no sea compatible con los sistemas operativos modernos significa una limitación considerable.
+### Limitaciones actuales
 
-### Resultados de la Primera Reunión con el Cliente
+Existe una implementación funcional de M32 en Hades realizada por estudiantes tesistas en el año 2004. Lamentablemente, Hades no es compatible con sistemas operativos modernos, lo que representa una limitación considerable. Por lo tanto, se requiere una solución actualizada y compatible con tecnologías actuales.
 
-Para poder desarrollar una visión clara de las necesidades de los usuarios de este simulador, se llevaron a cabo entrevistas con profesores y estudiantes de la carrera. Con esta información, se logró definir dos perfiles claves de usuario: docentes y estudiantes de Arquitectura de Computadores.
+### Toma de requerimientos
 
-Ambos perfiles concuerdan con la necesidad de tener una forma de visualizar el estado de los registros y del flujo de datos del procesador. De manera adicional, ambos perfiles también sugieren el uso del simulador para ejercicios de implementación de instrucciones y mejoras a la arquitectura.
+Se realizaron entrevistas con profesores y estudiantes de la carrera: tres docentes; Fernando Santolaya, Martita Muñoz y Juan Carlos Figueroa y a cinco estudiantes de manera presencial. Con esto en mente, se definieron dos perfiles clave de usuario: docentes y estudiantes de Arquitectura de Computadores. Ambos perfiles concuerdan en la necesidad de visualizar el estado de registros y flujo de datos del procesador. Y ambos perfiles sugieren el uso del simulador para ejercicios de implementación de instrucciones y mejoras a la arquitectura.
 
-#### Entrevistas con docentes de la carrera
-El primer perfil de usuario del simulador de M32 son los docentes de la carrera de Ingeniería Civil en Informática. Para este grupo se entrevistaron tres docentes que han dado clases sobre esta arquitectura: el profesor Fernando Santolaya, la profesora Martita Muñoz, y el profesor Juan Carlos Figueroa.
-Las necesidades determinadas en base a las entrevistas realizadas a los potenciales clientes son:
+### Necesidades identificadas
+
+Considerando entonces lo mencionado previamente, se determinaron las siguientes necesidades:
 
 - Visualización del procesador M32.
-- Posibilidad de probar módulos de forma independiente (ALU, Unidad de Control, etc.).
+- Posibilidad de probar módulos de forma independiente (ALU, Unidad de Control, etc).
 - Visualización en pantalla de registros, señales y componentes activos en tiempo real.
-
-#### Entrevistas con estudiantes de la carrera
-El segundo perfil de usuario determinado durante las entrevistas sobre el simulador es el de los estudiantes de la carrera, que ya han aprobado la asignatura de Arquitectura de Computadores.
-Las necesidades determinadas de este perfil son las siguientes:
-
-- Retroalimentación sobre los errores detectados en la simulación.
-- Notas o guías contextuales que expliquen conceptos clave sobre el funcionamiento del M32.
+- Retroalimentación sobre errores detectados en la simulación.
+- Notas o guías contextuales que explican conceptos clave sobre el funcionamiento del M32.
 
 ## 3. Proceso de Negocio de la Situación Actual
 
@@ -68,12 +63,20 @@ Sumado a esto, el docente de laboratorios, al comenzar la unidad, entrega materi
 
 ## 4. Requerimientos
 
-## Objetivos del proyecto
+### Objetivos del proyecto
 El objetivo general del proyecto se establece como:
 
 - Diseñar e implementar una versión funcional del procesador M32 en Logisim Evolution, que incluya capacidades de depuración y documentación interactiva, con el fin de apoyar la enseñanza de arquitectura de computadores mediante una herramienta visual e intuitiva.
 
-## Primeros requerimientos de software
+Los objetivos específicos del proyecto son los siguientes:
+
+- Implementar todos los módulos funcionales del microprocesador M32 en Logisim Evolution, respetando su arquitectura original.
+- Incorporar documentación embebida en la herramienta que describa el propósito y funcionamiento de cada componente.
+- Facilitar la visualización de estados de registros y componentes dentro del procesador M32 en Logisim Evolution
+- Validar el diseño a través de pruebas de usabilidad con docentes o estudiantes de la asignatura.
+- Generar ejemplos de programas que puedan correr en la arquitectura M32, demostrando su funcionalidad educativa.
+
+### Requerimientos funcionales y no funcionales
 Durante la etapa inicial, los requerimientos funcionales más críticos son la implementación de los componentes internos del procesador. Otros requerimientos, como la documentación embebida, se abordarán en etapas posteriores, una vez asegurada la funcionalidad básica.
 
 Para ahondar más en lo que se acaba de mencionar, los requerimientos de este proyecto, al menos los que se preveen durante esta etapa son los siguientes. Primero, tenemos los requisitos funcionales:
@@ -82,6 +85,7 @@ Para ahondar más en lo que se acaba de mencionar, los requerimientos de este pr
 - El usuario debe poder observar el estado de los registros y señales de control en tiempo real.
 - Cada módulo del procesador debe tener una descripción accesible mediante etiquetas.
 - La herramienta debe permitir cargar y ejecutar programas simples escritos para M32.
+- Cada componente (Registros, ALU, ABI, etc) debe construirse con diseño modular
 
 Adicionalmente, tenemos una serie de requisitos no funcionales:
 
@@ -90,8 +94,16 @@ Adicionalmente, tenemos una serie de requisitos no funcionales:
 - El diseño debe seguir un enfoque modular, permitiendo aislar componentes para pruebas individuales, que es del tipo escalabilidad (en el sentido que facilita la creación y modificación dentro de este)
 - La implementación debe ser portable y funcionar sin necesidad de instalación adicional más allá de Logisim Evolution, que es del tipo portabilidad.
 
-## Planificación de requerimientos
-La planificación se basa en una metodología incremental, donde se prioriza primero una implementación funcional básica del procesador M32, para luego iterar en mejoras de usabilidad, documentación y validación por medio de pruebas. Esto permite ajustar el desarrollo en función del feedback recogido durante el proceso.
+## 5. Ambiente de ingeniería de software
+
+### Metodología de desarrollo
+
+Para el desarrollo del proyecto se ha seleccionado la metodología XP (Extreme Programming), debido a su enfoque ágil, iterativo y flexible, ideal para adaptarse a los posibles cambios y mejoras que puedan surgir durante el diseño e implementación del microprocesador.
+
+Además, fomenta la integración continua de nuevas funcionalidades, la refactorización constante para mejorar el código, y el uso de metáforas que faciliten la comunicación técnica con el cliente. Todo esto bajo un ritmo de trabajo saludable, priorizando siempre la motivación del equipo. Gracias a estas prácticas, XP permite desarrollar proyectos más flexibles, colaborativos y enfocados en las necesidades reales del usuario.
+
+### Aplicación de la metodología del proyecto
+La aplicación de la metodología del proyecto se basa en una metodología incremental, donde se prioriza primero una implementación funcional básica del procesador M32, para luego iterar en mejoras de usabilidad, documentación y validación por medio de pruebas. Esto permite ajustar el desarrollo en función del feedback recogido durante el proceso.
 
 Dentro de la planificación se destacan
 - Semana 1 a 4: Implementación de M32 en Logisim Evolution
@@ -102,76 +114,84 @@ Dentro de la planificación se destacan
 
 Se destaca que las pruebas de usabilidad consistirán en entregar la herramienta a estudiantes y docentes del semestre actual, observando su interacción con la interfaz, midiendo tiempos de comprensión, y recolectando feedback durante la actividad.
 
-# 5. Ambiente de ingeniería de software
+### Conjunto de tecnologías a utilizar
 
-## Metodología escogida
-Para el desarrollo del proyecto se ha seleccionado la metodología XP (Extreme Programming), debido a su enfoque ágil, iterativo y flexible, ideal para adaptarse a los posibles cambios y mejoras que puedan surgir durante el diseño e implementación del microprocesador.
+Para este proyecto se utilizarán las siguientes tecnologías de desarrollo:
 
-Además, fomenta la integración continua de nuevas funcionalidades, la refactorización constante para mejorar el código, y el uso de metáforas que faciliten la comunicación técnica con el cliente. Todo esto bajo un ritmo de trabajo saludable, priorizando siempre la motivación del equipo. Gracias a estas prácticas, XP permite desarrollar proyectos más flexibles, colaborativos y enfocados en las necesidades reales del usuario.
+- Logisim Evolution 3.9.0: Simulador de circuitos digitales
+- Python 3.x: Automatización de generación de binarios y programas de prueba
+- Java 21: Posible desarrollo de plugins o extensiones personalizadas
 
-# 6. Estudios de factibilidad
+Además se utilizarán las siguientes herramientas de desarrollo:
 
-## Estudio técnico del proyecto
+- Visual Studio Code y/o Vim, en sus versiones 1.99 y 9.1 respectivamente
+- Makefile para facilitar la automatización de tareas de compilación (ensamblado de binarios).
+
+## 6. Estudios de factibilidad
+
+### Estudio técnico del proyecto
 El único requisito destacable es contar con acceso a una computadora con Logisim Evolution instalado, lo cual es bastante accesible, dado que la herramienta es gratuita y fácil de instalar, junto a un equipo con un procesador de gama baja y 2 GB de RAM.
 
-## Estudio económico del proyecto
+### Estudio económico del proyecto
 
 A continuación, se presentarán los cálculos del Valor Actual Neto.
 
-## Estudio económico: Valor Actual Neto
+### Estudio económico: Valor Actual Neto
 
-El desarrollo del proyecto del procesador M32 considera la contratación de un ingeniero desarrollador de hardware con una remuneración estimada de 1.000.000 de pesos mensuales durante sus primeros años de experiencia laboral. Se requiere una inversión de 4 meses de trabajo, lo que equivale a un costo total de 4.000.000 de pesos. Adicionalmente, se contempla un gasto mensual de 750.000 pesos para la corrección y mantenimiento del sistema. En cuanto al ahorro de tiempo para los profesionales involucrados, el docente de la asignatura trabaja 132 horas mensuales con un valor hora de 20.860 pesos, mientras que el ayudante trabaja 32 horas mensuales a 7.271 pesos la hora. Se proyecta un ahorro anual de 144 horas para el docente y 96 horas para el ayudante, lo que representa un ahorro total anual de 3.701.876 pesos. Considerando una tasa de descuento del 10%, se obtiene un Valor Actual Neto (VAN) de 7.189.934 pesos, justificando la viabilidad económica del proyecto.
+El desarrollo del proyecto del procesador M32 considera la contratación de un ingeniero desarrollador de hardware con una remuneración estimada de 1.000.000 de pesos mensuales durante sus primeros años de experiencia laboral. Se requiere una inversión de 4 meses de trabajo, lo que equivale a un costo total de 4.000.000 de pesos. Adicionalmente, se contempla un gasto mensual de 750.000 pesos para la corrección y mantenimiento del sistema. 
+En base a estas suposiciones económica, el flujo de caja se describe de esta forma:
 
-# 7. Modelo entidad relación
+- Durante el año 0, solo se gastan 4.000.000 de pesos, que vendría siendo la contratación del desarrollador de hardware
+- Durante el año 1 y 2, se reciben los primeros beneficios de 3.701.876 de pesos, junto a los 750.000 en mantención
+- Durante los próximos años, esta tendencia se mantiene, compensando la inversión inicial y generando befenicios
 
-En primer lugar, es importante señalar que este proyecto no contempla el uso de una base de datos relacional como sistema de persistencia principal, ya que el procesador M32 simulado en Logisim no almacena datos de usuarios en un sentido convencional.
-Sin embargo, el modelo entidad-relación se reutiliza aquí como una herramienta conceptual que nos permite representar y modelar las interacciones de los usuarios con el simulador, así como la forma en que estas interacciones pueden generar datos útiles para evaluar y mejorar el sistema.
-Dicho modelo considera elementos tales como los registros, el usuario, las microinstrucciones de la Control Unit, etcétera.
+Considerando una tasa de descuento del 10%, se obtiene un Valor Actual Neto (VAN) de 7.189.934 pesos, justificando la viabilidad económica del proyecto.
 
-# 8. Casos de uso del simulador del microprocesador M32
+## 7. Casos de uso del simulador del microprocesador M32
 
-## Casos de uso: Introducción a los actores
+### Casos de uso: Introducción a los actores
 
-Tal como se indicó en las presentaciones anteriores, se identificaron dos perfiles principales de usuarios: docentes (con experiencia enseñando en la asignatura) y estudiantes de la carrera de Ingeniería Civil en Informática (que están cursando, o ya cursaron, la asignatura de Arquitectura de Computadores):
+Tal como se indicó en las presentaciones anteriores, se identificaron dos perfiles principales de usuarios: docentes (con experiencia enseñando en la asignatura) y estudiantes de la carrera de Ingeniería Civil en Informática (que están cursando, o ya cursaron, la asignatura de Arquitectura de Computadores).
 
-## Casos de uso: definición
+En esta diapositiva se puede evidenciar el diagrama de casos de uso, el cual representa la relación de los actores con sus respectivos casos de uso.
+
+### Casos de uso: definición
 
 En base en los requerimientos funcionales del proyecto, los casos de uso principales fueron estructurados de la siguiente manera:
 
-### Primer caso de uso
+#### Primer caso de uso
 
 Es simular instrucciones M32.
 
-### Segundo caso de uso
+#### Segundo caso de uso
 
 Es visualizar el estado de registros y señales en tiempo real. Esta relacion se da ya que simular instrucciones implica visualizar el estado del sistema.
 
-### Tercer caso
+#### Tercer caso de uso
 
 Es consultar descripciones de módulos del procesador
 
-### Cuarto caso 
+#### Cuarto caso de uso
 
 - Cargar y ejecutar programas escritos en ensamblador M32. Este caso de uso incluye al caso 1 dado que al ejecutar un programa, internamente se simulan instrucciones.
 
 Se destaca adicionalmente que el primer caso de uso incluye al segundo caso de uso en su funcionamiento.
 
-## Casos de uso: participación de los actores
+### Casos de uso: participación de los actores
 
 Ambos actores pueden acceder a la mayoría de los casos de uso, con ligeras diferencias según su rol.
 
-## Mockups
+### Mockups
 
-En el mockup podemos ver una representación general del circuito en Logisim Evolution, junto a componentes que ayudan a seguir el flujo de señal.
-
-El mockup muestra cómo al abrir el circuito de un componente, aparece una etiqueta con información clara relacionada al AR.
+En el mockup podemos ver una representación general del circuito en Logisim Evolution, junto a componentes que ayudan a seguir el flujo de señal. Adicionalmente, este mockup representa un avance ya concreto en el desarrollo del M32.
 
 ## Conclusiones
 
 A modo de conclusión, se puede indicar que:
 
-- La implementación de este simulador busca mejorar la comprensión del procesador M32, proporcionando herramientas interactivas y depuración. A partir de las entrevistas con profesores y estudiantes, se han identificado una serie de requerimientos clave para diseñar una herramienta educativa efectiva.
-
-- El proyecto busca generar una herramienta didáctica concreta que permita mejorar el proceso de enseñanza-aprendizaje en la asignatura de Arquitectura de Computadores, a través de la implementación y documentación del procesador M32 en Logisim Evolution, que pretende facilitar la comprensión de conceptos clave como el flujo de datos, la ejecución de instrucciones, y el comportamiento de la unidad de control.
+- La implementación del simulador busca mejorar la comprensión del procesador M32 proporcionando herramientas interactivas y de depuración
+- A partir de las entrevistas se identificaron requerimientos clave para una herramienta educativa efectiva
+- El proyecto generará una herramienta didáctica concreta para mejorar el proceso de enseñanza-aprendizaje
+- Facilitará la comprensión de conceptos clave: flujo de datos, ejecución de instrucciones, comportamiento de la unidad de control
 
 ¡Muchas gracias por su atención!
