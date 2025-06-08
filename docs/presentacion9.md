@@ -13,7 +13,6 @@ El temario de la presentación será el siguiente:
 - Con ello, presentaré los requerimientos
 - Posteriormente, presentaré el ambiente de ingeniería de software
 - También, presentaré los estudios de factibilidad
-- Luego, presentaré el modelo entidad relación
 - Seguido de eso, presentaré los casos de uso del simulador del microprocesador M32
 - Finalmente, daremos a conocer las conclusiones
 
@@ -25,7 +24,7 @@ Los objetivos de esta presentación son:
 
 ## 1. Introducción a la problemática (Contexto)
 
-El estudio de arquitecturas de microprocesadores es un pilar fundamental en la formación de los estudiantes de la carrera de Ingeniería Civil en Informática en la Universidad del Bío-Bío. El M32 es una arquitectura de microprocesador docente que permite explorar conceptos como la organización de la CPU, la ejecución de instrucciones y la gestión del flujo de datos.
+El estudio de arquitecturas de microprocesadores es un pilar fundamental en la formación de los estudiantes de la carrera de Ingeniería Civil. El M32 es una arquitectura de microprocesador docente que permite explorar conceptos como la organización de la CPU, la ejecución de instrucciones y la gestión del flujo de datos.
 
 Para el desarrollo de este proyecto se utilizará (como ya se ha mencionado previamente) el procesador M32 del profesor Luis Mateu, académico de la Universidad de Chile.
 
@@ -72,7 +71,7 @@ Los objetivos específicos del proyecto son los siguientes:
 - Validar el diseño a través de pruebas de usabilidad con docentes o estudiantes de la asignatura.
 - Generar ejemplos de programas que puedan correr en la arquitectura M32, demostrando su funcionalidad educativa.
 
-### Requerimientos funcionales y no funcionales
+### Requerimientos funcionales
 Los requerimientos de este proyecto, al menos los que se preveen durante esta etapa son los siguientes. Primero, tenemos los requisitos funcionales:
 
 - El sistema debe permitir simular la ejecución de instrucciones en la arquitectura M32.
@@ -80,6 +79,8 @@ Los requerimientos de este proyecto, al menos los que se preveen durante esta et
 - Cada módulo del procesador debe tener una descripción accesible mediante etiquetas.
 - La herramienta debe permitir cargar y ejecutar programas simples escritos para M32.
 - Cada componente (Registros, ALU, ABI, etc) debe construirse con diseño modular
+
+### Requerimientos no-funcionales
 
 Adicionalmente, tenemos una serie de requisitos no funcionales:
 
@@ -129,14 +130,19 @@ El único requisito destacable es contar con acceso a una computadora con Logisi
 
 A continuación, se presentarán los cálculos del Valor Actual Neto.
 
-### Estudio económico: Valor Actual Neto
+### Estudio económico: Suposiciones iniciales
 
 El desarrollo del proyecto del procesador M32 considera la contratación de un ingeniero desarrollador de hardware con una remuneración estimada de 1.000.000 de pesos mensuales por 4 meses de trabajo, equivalente a 4.000.000 de pesos. Sumado también 750.000 pesos en matención del sistema.
+
+### Estudio económico: Flujo de caja
+
 En base a estas suposiciones económica, el flujo de caja se describe de esta forma:
 
 - Durante el año 0, solo se gastan 4.000.000 de pesos, que vendría siendo la contratación del desarrollador de hardware
 - Durante el año 1 y 2, se reciben los primeros beneficios de 3.701.876 de pesos, junto a los 750.000 en mantención
 - Durante los próximos años, esta tendencia se mantiene, compensando la inversión inicial y generando befenicios
+
+### Estudio económico: Valor Actual Neto
 
 Considerando una tasa de descuento del 10%, se obtiene un Valor Actual Neto (VAN) de 7.189.934 pesos, justificando la viabilidad económica del proyecto.
 
@@ -152,21 +158,10 @@ En esta diapositiva se puede evidenciar el diagrama de casos de uso, el cual rep
 
 En base en los requerimientos funcionales del proyecto, los casos de uso principales fueron estructurados de la siguiente manera:
 
-#### Primer caso de uso
-
-Es simular instrucciones M32.
-
-#### Segundo caso de uso
-
-Es visualizar el estado de registros y señales en tiempo real. Esta relacion se da ya que simular instrucciones implica visualizar el estado del sistema.
-
-#### Tercer caso de uso
-
-Es consultar descripciones de módulos del procesador
-
-#### Cuarto caso de uso
-
-- Cargar y ejecutar programas escritos en ensamblador M32. Este caso de uso incluye al caso 1 dado que al ejecutar un programa, internamente se simulan instrucciones.
+- Primer caso de uso es simular instrucciones M32.
+- Segundo caso de uso es visualizar el estado de registros y señales en tiempo real. Esta relacion se da ya que simular instrucciones implica visualizar el estado del sistema.
+- Tercer caso de uso es consultar descripciones de módulos del procesador
+- Cuarto caso de uso es cargar y ejecutar programas escritos en ensamblador M32. Este caso de uso incluye al caso 1 dado que al ejecutar un programa, internamente se simulan instrucciones.
 
 Se destaca adicionalmente que el primer caso de uso incluye al segundo caso de uso en su funcionamiento.
 
