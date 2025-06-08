@@ -33,7 +33,7 @@ Para el desarrollo de este proyecto se utilizará (como ya se ha mencionado prev
 
 El problema principal es la necesidad de una implementación mejorada del M32 que ofrezca una visualización clara del funcionamiento del procesador. Específicamente, se busca eliminar el problema de tener que trabajar a lápiz y papel a la hora de tener que resolver ejercicios de arquitecturas de procesadores, lo cual presenta una oportunidad de mejorar el rendimiento de los estudiantes de la asignatura de Arquitectura de computadores.
 
-De manera adicional, el contenido relacionado a algunos tópicos en Arquitectura de Computadores no se pueden estudiar con la profundidad que debería tener. Tópicos tales como la microprogramación, pipelining avanzado o incluso memorias caché, no alcanzan a ser repasados lo que deja a los estudiantes con un nivel de conocimiento incompleto respecto al tópico de Arquitectura de Computadores.
+Además, tópicos tales como la microprogramación, pipelining avanzado o incluso memorias caché, no alcanzan a ser repasados lo que deja a los estudiantes con un nivel de conocimiento incompleto respecto al tópico de Arquitectura de Computadores.
 
 ### Limitaciones actuales
 
@@ -41,7 +41,7 @@ Existe una implementación funcional de M32 en Hades realizada por estudiantes t
 
 ### Toma de requerimientos
 
-Se realizaron entrevistas con profesores y estudiantes de la carrera: tres docentes; Fernando Santolaya, Martita Muñoz y Juan Carlos Figueroa y a cinco estudiantes de manera presencial. Con esto en mente, se definieron dos perfiles clave de usuario: docentes y estudiantes de Arquitectura de Computadores. Ambos perfiles concuerdan en la necesidad de visualizar el estado de registros y flujo de datos del procesador. Y ambos perfiles sugieren el uso del simulador para ejercicios de implementación de instrucciones y mejoras a la arquitectura.
+Se realizaron entrevistas a tres docentes; Fernando Santolaya, Martita Muñoz y Juan Carlos Figueroa y a cinco estudiantes de manera presencial. Con ello, se definieron dos perfiles clave de usuario: docentes y estudiantes de Arquitectura de Computadores. Ambos perfiles concuerdan en la necesidad de visualizar el estado de registros y flujo de datos del procesador, y la necesidad de un simulador para ejercicios de implementación de instrucciones y mejoras a la arquitectura.
 
 ### Necesidades identificadas
 
@@ -55,11 +55,7 @@ Considerando entonces lo mencionado previamente, se determinaron las siguientes 
 
 ## 3. Proceso de Negocio de la Situación Actual
 
-Se suele seguir el siguiente flujo:
-
-Tenemos tres actores: el docente de las clases teóricas, el docente de las clases prácticas (o laboratorios), y el estudiante de la asignatura.
-El docente de la asignatura, por un lado, empieza la unidad entregando material. Posterior a esto el docente hace entrega de ejercicios al estudiante para que este pueda aplicar la materia estudiada. El estudiante toma apuntes de la materia, y resuelve los ejercicios propuestos, aunque sin feedback alguno.
-Sumado a esto, el docente de laboratorios, al comenzar la unidad, entrega materia relacionada a la programación en ensamblador de la arquitectura 8086.
+El flujo de trabajo, representado a través de un BPMN, suele revelar, como se puede observar, la inconsistencia entre el profesor de la asignatura y de laboratorio, ya que en clases teóricas se estudia M32, y en clases prácticas se estudian la arquitectura 8086.
 
 ## 4. Requerimientos
 
@@ -77,9 +73,7 @@ Los objetivos específicos del proyecto son los siguientes:
 - Generar ejemplos de programas que puedan correr en la arquitectura M32, demostrando su funcionalidad educativa.
 
 ### Requerimientos funcionales y no funcionales
-Durante la etapa inicial, los requerimientos funcionales más críticos son la implementación de los componentes internos del procesador. Otros requerimientos, como la documentación embebida, se abordarán en etapas posteriores, una vez asegurada la funcionalidad básica.
-
-Para ahondar más en lo que se acaba de mencionar, los requerimientos de este proyecto, al menos los que se preveen durante esta etapa son los siguientes. Primero, tenemos los requisitos funcionales:
+Los requerimientos de este proyecto, al menos los que se preveen durante esta etapa son los siguientes. Primero, tenemos los requisitos funcionales:
 
 - El sistema debe permitir simular la ejecución de instrucciones en la arquitectura M32.
 - El usuario debe poder observar el estado de los registros y señales de control en tiempo real.
@@ -100,19 +94,18 @@ Adicionalmente, tenemos una serie de requisitos no funcionales:
 
 Para el desarrollo del proyecto se ha seleccionado la metodología XP (Extreme Programming), debido a su enfoque ágil, iterativo y flexible, ideal para adaptarse a los posibles cambios y mejoras que puedan surgir durante el diseño e implementación del microprocesador.
 
-Además, fomenta la integración continua de nuevas funcionalidades, la refactorización constante para mejorar el código, y el uso de metáforas que faciliten la comunicación técnica con el cliente. Todo esto bajo un ritmo de trabajo saludable, priorizando siempre la motivación del equipo. Gracias a estas prácticas, XP permite desarrollar proyectos más flexibles, colaborativos y enfocados en las necesidades reales del usuario.
+Además, fomenta la integración continua de nuevas funcionalidades, la refactorización constante, y el uso de metáforas que faciliten la comunicación técnica con el cliente. Todo esto bajo un ritmo de trabajo saludable, priorizando siempre la motivación personal.
 
 ### Aplicación de la metodología del proyecto
 La aplicación de la metodología del proyecto se basa en una metodología incremental, donde se prioriza primero una implementación funcional básica del procesador M32, para luego iterar en mejoras de usabilidad, documentación y validación por medio de pruebas. Esto permite ajustar el desarrollo en función del feedback recogido durante el proceso.
 
-Dentro de la planificación se destacan
+Dentro de la planificación se destacan:
+
 - Semana 1 a 4: Implementación de M32 en Logisim Evolution
 - Semana 5: Primeras pruebas de usabilidad
 - Semana 10: Documentación del automata de la unidad de control
 - Semana 13 a 16: Escritura de programas de ejemplo para M32
 - Semana 17 a 20: Documentación del proyecto (informe final)
-
-Se destaca que las pruebas de usabilidad consistirán en entregar la herramienta a estudiantes y docentes del semestre actual, observando su interacción con la interfaz, midiendo tiempos de comprensión, y recolectando feedback durante la actividad.
 
 ### Conjunto de tecnologías a utilizar
 
@@ -138,7 +131,7 @@ A continuación, se presentarán los cálculos del Valor Actual Neto.
 
 ### Estudio económico: Valor Actual Neto
 
-El desarrollo del proyecto del procesador M32 considera la contratación de un ingeniero desarrollador de hardware con una remuneración estimada de 1.000.000 de pesos mensuales durante sus primeros años de experiencia laboral. Se requiere una inversión de 4 meses de trabajo, lo que equivale a un costo total de 4.000.000 de pesos. Adicionalmente, se contempla un gasto mensual de 750.000 pesos para la corrección y mantenimiento del sistema. 
+El desarrollo del proyecto del procesador M32 considera la contratación de un ingeniero desarrollador de hardware con una remuneración estimada de 1.000.000 de pesos mensuales por 4 meses de trabajo, equivalente a 4.000.000 de pesos. Sumado también 750.000 pesos en matención del sistema.
 En base a estas suposiciones económica, el flujo de caja se describe de esta forma:
 
 - Durante el año 0, solo se gastan 4.000.000 de pesos, que vendría siendo la contratación del desarrollador de hardware
