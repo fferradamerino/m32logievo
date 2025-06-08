@@ -1,6 +1,6 @@
 # Guión de presentación frente a la comisión
 
-Buenas tardes estimados compañeros y profesores. Hoy presentaré los temas relacionados al tema de Diseño, Implementación y Simulación de la Arquitectura del Microprocesador M32 en Logisim Evolution
+Buenas tardes estimados compañeros y miembros de la comisión. Hoy presentaré los temas relacionados al tema de Diseño, Implementación y Simulación de la Arquitectura del Microprocesador M32 en Logisim Evolution
 
 ## Temario
 
