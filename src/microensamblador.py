@@ -141,6 +141,8 @@ def tokenizar_linea(linea):
 def label_addr(label, labels_encontrados):
 	for x in labels_encontrados:
 		if x[0] == label:
+			if label == "bcond":
+				print("Dirección BR:", x[1])
 			return struct.pack('!H', x[1])
 		
 	raise Exception("Label no encontrado: " + label)

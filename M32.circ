@@ -2536,7 +2536,11 @@
     <comp lib="4" loc="(590,60)" name="ROM">
       <a name="appearance" val="logisim_evolution"/>
       <a name="contents">addr/data: 8 64
-0
+4102280 8301008 c000021 800000 252 2d2 352 3d2
+452 4d2 9d2 952 852 8d2 3c000042 51
+44000061 21 4c000000 0 54000000 0 5c000000 0
+64102050 301002 6c106050 315002 7410a050 339002 7c106050 325002
+8410a050 349002
 </a>
       <a name="dataWidth" val="64"/>
       <a name="line" val="quad"/>
@@ -2825,7 +2829,7 @@
       <a name="incoming" val="8"/>
     </comp>
     <comp lib="0" loc="(330,250)" name="Constant">
-      <a name="value" val="0xff"/>
+      <a name="value" val="0x40"/>
       <a name="width" val="8"/>
     </comp>
     <comp lib="0" loc="(380,280)" name="Pin">
@@ -2833,7 +2837,11 @@
       <a name="facing" val="north"/>
       <a name="label" val="BR"/>
     </comp>
-    <comp lib="0" loc="(730,220)" name="Pin">
+    <comp lib="0" loc="(440,290)" name="Constant">
+      <a name="value" val="0x2"/>
+      <a name="width" val="8"/>
+    </comp>
+    <comp lib="0" loc="(810,220)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="NextOp_Addr"/>
@@ -2843,10 +2851,19 @@
     <comp lib="2" loc="(400,240)" name="Multiplexer">
       <a name="width" val="8"/>
     </comp>
-    <comp lib="4" loc="(470,160)" name="ROM">
+    <comp lib="3" loc="(500,170)" name="Multiplier"/>
+    <comp lib="4" loc="(560,160)" name="ROM">
       <a name="appearance" val="logisim_evolution"/>
+      <a name="contents">addr/data: 8 8
+0 60 0 68 0 70 0 78
+0 80 0 58 0 50 0 48
+0 30 0 34 0 2c 0 28
+0 10 0 14 0 18 0 1c
+0 20 0 24 0 40 0 38
+</a>
+      <a name="line" val="dual"/>
     </comp>
-    <comp lib="8" loc="(263,559)" name="Text">
+    <comp lib="8" loc="(260,555)" name="Text">
       <a name="text" val="Anadir direccion correspondiente a BR"/>
     </comp>
     <wire from="(180,420)" to="(210,420)"/>
@@ -2864,9 +2881,13 @@
     <wire from="(330,250)" to="(370,250)"/>
     <wire from="(380,260)" to="(380,280)"/>
     <wire from="(400,240)" to="(430,240)"/>
-    <wire from="(430,170)" to="(430,240)"/>
-    <wire from="(430,170)" to="(470,170)"/>
-    <wire from="(710,220)" to="(730,220)"/>
+    <wire from="(430,160)" to="(430,240)"/>
+    <wire from="(430,160)" to="(460,160)"/>
+    <wire from="(440,290)" to="(450,290)"/>
+    <wire from="(450,180)" to="(450,290)"/>
+    <wire from="(450,180)" to="(460,180)"/>
+    <wire from="(500,170)" to="(560,170)"/>
+    <wire from="(800,220)" to="(810,220)"/>
   </circuit>
   <circuit name="SELECSALTO">
     <a name="appearance" val="logisim_evolution"/>
