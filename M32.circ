@@ -2415,7 +2415,7 @@
       <circ-port dir="in" pin="1040,20" x="270" y="60"/>
       <circ-port dir="in" pin="130,80" x="270" y="70"/>
       <circ-port dir="in" pin="150,210" x="270" y="80"/>
-      <circ-port dir="in" pin="200,700" x="270" y="90"/>
+      <circ-port dir="in" pin="90,700" x="270" y="90"/>
       <circ-port dir="out" pin="2180,1050" x="50" y="170"/>
       <circ-port dir="out" pin="2180,1120" x="50" y="180"/>
       <circ-port dir="out" pin="2180,1200" x="50" y="190"/>
@@ -2463,10 +2463,6 @@
       <a name="facing" val="west"/>
       <a name="fanout" val="4"/>
       <a name="incoming" val="4"/>
-    </comp>
-    <comp lib="0" loc="(200,700)" name="Pin">
-      <a name="appearance" val="classic"/>
-      <a name="label" val="CLOCK"/>
     </comp>
     <comp lib="0" loc="(2000,1040)" name="Splitter">
       <a name="facing" val="west"/>
@@ -2602,6 +2598,11 @@
     <comp lib="0" loc="(380,930)" name="Constant">
       <a name="value" val="0x0"/>
     </comp>
+    <comp lib="0" loc="(90,700)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="CLOCK"/>
+    </comp>
+    <comp lib="1" loc="(210,700)" name="AND Gate"/>
     <comp lib="2" loc="(2100,70)" name="Multiplexer"/>
     <comp lib="2" loc="(2110,1050)" name="Multiplexer">
       <a name="width" val="3"/>
@@ -2650,6 +2651,10 @@
       <a name="facing" val="north"/>
     </comp>
     <comp loc="(390,60)" name="OpToAddr"/>
+    <wire from="(100,1170)" to="(250,1170)"/>
+    <wire from="(100,680)" to="(100,700)"/>
+    <wire from="(100,680)" to="(160,680)"/>
+    <wire from="(100,700)" to="(100,1170)"/>
     <wire from="(1040,20)" to="(2020,20)"/>
     <wire from="(130,80)" to="(170,80)"/>
     <wire from="(1450,120)" to="(1450,740)"/>
@@ -2688,6 +2693,9 @@
     <wire from="(1480,410)" to="(1590,410)"/>
     <wire from="(150,60)" to="(150,210)"/>
     <wire from="(150,60)" to="(170,60)"/>
+    <wire from="(150,720)" to="(150,920)"/>
+    <wire from="(150,720)" to="(160,720)"/>
+    <wire from="(150,920)" to="(250,920)"/>
     <wire from="(1590,410)" to="(1590,420)"/>
     <wire from="(1590,420)" to="(1660,420)"/>
     <wire from="(1600,400)" to="(1600,410)"/>
@@ -2757,7 +2765,6 @@
     <wire from="(1950,60)" to="(2070,60)"/>
     <wire from="(1990,480)" to="(2080,480)"/>
     <wire from="(1990,590)" to="(2080,590)"/>
-    <wire from="(200,700)" to="(210,700)"/>
     <wire from="(2000,1040)" to="(2080,1040)"/>
     <wire from="(2000,960)" to="(2080,960)"/>
     <wire from="(2020,1010)" to="(2020,1080)"/>
@@ -2832,8 +2839,6 @@
     <wire from="(2090,810)" to="(2090,830)"/>
     <wire from="(2090,900)" to="(2090,920)"/>
     <wire from="(2090,990)" to="(2090,1010)"/>
-    <wire from="(210,1170)" to="(250,1170)"/>
-    <wire from="(210,700)" to="(210,1170)"/>
     <wire from="(210,700)" to="(310,700)"/>
     <wire from="(2100,1140)" to="(2100,1160)"/>
     <wire from="(2100,1220)" to="(2100,1240)"/>
@@ -2857,8 +2862,9 @@
     <wire from="(2120,1350)" to="(2180,1350)"/>
     <wire from="(240,560)" to="(240,680)"/>
     <wire from="(240,680)" to="(310,680)"/>
-    <wire from="(250,880)" to="(250,950)"/>
+    <wire from="(250,880)" to="(250,920)"/>
     <wire from="(250,880)" to="(430,880)"/>
+    <wire from="(250,920)" to="(250,950)"/>
     <wire from="(280,660)" to="(280,770)"/>
     <wire from="(280,660)" to="(310,660)"/>
     <wire from="(370,660)" to="(400,660)"/>
@@ -2873,6 +2879,7 @@
     <wire from="(460,890)" to="(460,1440)"/>
     <wire from="(470,70)" to="(590,70)"/>
     <wire from="(830,120)" to="(1450,120)"/>
+    <wire from="(90,700)" to="(100,700)"/>
   </circuit>
   <circuit name="OpToAddr">
     <a name="appearance" val="logisim_evolution"/>
