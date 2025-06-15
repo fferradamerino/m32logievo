@@ -101,8 +101,8 @@ class Microinstruccion:
 		codificacion |= (1 << 22) if self.wr else 0
 		codificacion |= (1 << 23) if self.fetch else 0
 		codificacion |= self.next_addr << 24
-		
-		return struct.pack('!H', codificacion)
+
+		return struct.pack('!Q', codificacion)
 
 def tokenizar_archivo(archivo):
 	lineas = []
@@ -138,10 +138,36 @@ def tokenizar_linea(linea):
 		
 	return tokens
 
+def label_addr(label, labels_encontrados):
+	for x in labels_encontrados:
+		if x[0] == label:
+			return struct.pack('!H', x[1])
+		
+	raise Exception("Label no encontrado: " + label)
+
 def codificar_direcciones(labels_encontrados):
 	direcciones = b''
 	
-	# TODO
+	direcciones += label_addr("ldw", labels_encontrados)
+	direcciones += label_addr("lduh", labels_encontrados)
+	direcciones += label_addr("ldub", labels_encontrados)
+	direcciones += label_addr("ldsh", labels_encontrados)
+	direcciones += label_addr("ldsb", labels_encontrados)
+	direcciones += label_addr("stw", labels_encontrados)
+	direcciones += label_addr("sth", labels_encontrados)
+	direcciones += label_addr("stb", labels_encontrados)
+	direcciones += label_addr("add", labels_encontrados)
+	direcciones += label_addr("addx", labels_encontrados)
+	direcciones += label_addr("sub", labels_encontrados)
+	direcciones += label_addr("subx", labels_encontrados)
+	direcciones += label_addr("and", labels_encontrados)
+	direcciones += label_addr("or", labels_encontrados)
+	direcciones += label_addr("xor", labels_encontrados)
+	direcciones += label_addr("sll", labels_encontrados)
+	direcciones += label_addr("srl", labels_encontrados)
+	direcciones += label_addr("sra", labels_encontrados)
+	direcciones += label_addr("bcond", labels_encontrados)
+	direcciones += label_addr("jmpl", labels_encontrados)
 	
 	return direcciones
 
@@ -165,7 +191,7 @@ def parsear_archivo(tokens):
 		microinstruccion.dbg_print()
 		instrucciones += microinstruccion.codificar()
 		
-	direcciones = codificar_direcciones()
+	direcciones = codificar_direcciones(labels_encontrados)
 
 	return instrucciones, direcciones
 	
