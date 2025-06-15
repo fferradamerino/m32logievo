@@ -65,7 +65,7 @@ class Microinstruccion:
 	# Si es un label, entonces se salta hacia dicho label
 	def label_addr(self, label, labels_encontrados, pos_en_memoria):
 		if label == ".":
-			return pos_en_memoria + 4
+			return pos_en_memoria + 1
 		
 		for x in labels_encontrados:
 			if x[0] == label:
@@ -186,7 +186,7 @@ def parsear_archivo(tokens):
 			labels_encontrados.append((linea[:len(token) - 1][0][:-1], pos_en_memoria))
 		else:
 			microinstrucciones.append(Microinstruccion(linea, labels_encontrados, pos_en_memoria))
-			pos_en_memoria += 4
+			pos_en_memoria += 1
 	
 	instrucciones = b''	
 	for microinstruccion in microinstrucciones:
