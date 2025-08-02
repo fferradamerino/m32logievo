@@ -2592,12 +2592,7 @@
       <a name="output" val="true"/>
       <a name="width" val="2"/>
     </comp>
-    <comp lib="0" loc="(240,560)" name="Constant">
-      <a name="facing" val="south"/>
-    </comp>
-    <comp lib="0" loc="(380,930)" name="Constant">
-      <a name="value" val="0x0"/>
-    </comp>
+    <comp lib="0" loc="(500,90)" name="Constant"/>
     <comp lib="0" loc="(90,700)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="label" val="CLOCK"/>
@@ -2627,13 +2622,10 @@
     <comp lib="2" loc="(2120,1200)" name="Multiplexer"/>
     <comp lib="2" loc="(2120,1280)" name="Multiplexer"/>
     <comp lib="2" loc="(2120,1350)" name="Multiplexer"/>
-    <comp lib="2" loc="(450,860)" name="Multiplexer">
-      <a name="facing" val="north"/>
-    </comp>
     <comp lib="2" loc="(470,70)" name="Multiplexer">
       <a name="width" val="8"/>
     </comp>
-    <comp lib="4" loc="(310,630)" name="Register">
+    <comp lib="4" loc="(500,40)" name="Register">
       <a name="appearance" val="logisim_evolution"/>
     </comp>
     <comp lib="4" loc="(590,60)" name="ROM">
@@ -2752,9 +2744,6 @@
     <wire from="(1880,490)" to="(1970,490)"/>
     <wire from="(1890,140)" to="(1890,400)"/>
     <wire from="(1890,400)" to="(2080,400)"/>
-    <wire from="(190,1430)" to="(1690,1430)"/>
-    <wire from="(190,770)" to="(190,1430)"/>
-    <wire from="(190,770)" to="(280,770)"/>
     <wire from="(1900,130)" to="(1900,320)"/>
     <wire from="(1900,320)" to="(2080,320)"/>
     <wire from="(1910,120)" to="(1910,240)"/>
@@ -2839,7 +2828,7 @@
     <wire from="(2090,810)" to="(2090,830)"/>
     <wire from="(2090,900)" to="(2090,920)"/>
     <wire from="(2090,990)" to="(2090,1010)"/>
-    <wire from="(210,700)" to="(310,700)"/>
+    <wire from="(210,700)" to="(490,700)"/>
     <wire from="(2100,1140)" to="(2100,1160)"/>
     <wire from="(2100,1220)" to="(2100,1240)"/>
     <wire from="(2100,1300)" to="(2100,1320)"/>
@@ -2860,24 +2849,18 @@
     <wire from="(2120,1200)" to="(2180,1200)"/>
     <wire from="(2120,1280)" to="(2180,1280)"/>
     <wire from="(2120,1350)" to="(2180,1350)"/>
-    <wire from="(240,560)" to="(240,680)"/>
-    <wire from="(240,680)" to="(310,680)"/>
-    <wire from="(250,880)" to="(250,920)"/>
-    <wire from="(250,880)" to="(430,880)"/>
     <wire from="(250,920)" to="(250,950)"/>
-    <wire from="(280,660)" to="(280,770)"/>
-    <wire from="(280,660)" to="(310,660)"/>
-    <wire from="(370,660)" to="(400,660)"/>
-    <wire from="(380,930)" to="(440,930)"/>
     <wire from="(390,60)" to="(390,80)"/>
     <wire from="(390,80)" to="(440,80)"/>
-    <wire from="(400,60)" to="(400,660)"/>
+    <wire from="(400,1430)" to="(1690,1430)"/>
+    <wire from="(400,60)" to="(400,1430)"/>
     <wire from="(400,60)" to="(440,60)"/>
-    <wire from="(440,890)" to="(440,930)"/>
-    <wire from="(450,90)" to="(450,860)"/>
-    <wire from="(460,1440)" to="(1700,1440)"/>
-    <wire from="(460,890)" to="(460,1440)"/>
-    <wire from="(470,70)" to="(590,70)"/>
+    <wire from="(450,1440)" to="(1700,1440)"/>
+    <wire from="(450,90)" to="(450,1440)"/>
+    <wire from="(470,70)" to="(500,70)"/>
+    <wire from="(490,110)" to="(490,700)"/>
+    <wire from="(490,110)" to="(500,110)"/>
+    <wire from="(560,70)" to="(590,70)"/>
     <wire from="(830,120)" to="(1450,120)"/>
     <wire from="(90,700)" to="(100,700)"/>
   </circuit>
@@ -2909,10 +2892,6 @@
       <a name="facing" val="north"/>
       <a name="label" val="BR"/>
     </comp>
-    <comp lib="0" loc="(440,290)" name="Constant">
-      <a name="value" val="0x2"/>
-      <a name="width" val="8"/>
-    </comp>
     <comp lib="0" loc="(810,220)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
@@ -2923,7 +2902,6 @@
     <comp lib="2" loc="(400,240)" name="Multiplexer">
       <a name="width" val="8"/>
     </comp>
-    <comp lib="3" loc="(500,170)" name="Multiplier"/>
     <comp lib="4" loc="(560,160)" name="ROM">
       <a name="appearance" val="logisim_evolution"/>
       <a name="contents">addr/data: 8 8
@@ -2933,7 +2911,6 @@
 0 10 0 14 0 18 0 1c
 0 20 0 24 0 40 0 38
 </a>
-      <a name="line" val="dual"/>
     </comp>
     <comp lib="8" loc="(260,555)" name="Text">
       <a name="text" val="Anadir direccion correspondiente a BR"/>
@@ -2953,12 +2930,8 @@
     <wire from="(330,250)" to="(370,250)"/>
     <wire from="(380,260)" to="(380,280)"/>
     <wire from="(400,240)" to="(430,240)"/>
-    <wire from="(430,160)" to="(430,240)"/>
-    <wire from="(430,160)" to="(460,160)"/>
-    <wire from="(440,290)" to="(450,290)"/>
-    <wire from="(450,180)" to="(450,290)"/>
-    <wire from="(450,180)" to="(460,180)"/>
-    <wire from="(500,170)" to="(560,170)"/>
+    <wire from="(430,170)" to="(430,240)"/>
+    <wire from="(430,170)" to="(560,170)"/>
     <wire from="(800,220)" to="(810,220)"/>
   </circuit>
   <circuit name="SELECSALTO">
