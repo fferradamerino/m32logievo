@@ -2,95 +2,50 @@ import struct
 import os.path
 import sys
 
+def codificar_tipo_a(nombre, opcode, addr, reg):
+    instruccion = 0
+    instruccion += opcode
+
+    if addr > 0x2000:
+        print(nombre + ": la dirección", addr, "está fuera de rango")
+        return 0
+    elif reg > 32:
+        print(nombre + ": el registro", reg, "está fuera de rango")
+        return 0
+
+    instruccion += addr
+    instruccion += (reg << 19)
+    instruccion += (1 << 13)
+
+    return instruccion
+
+def make_addr_reg(addr_token, reg_token):
+    addr = int(addr_token.replace(",", ""), 16)
+    reg = int(reg_token.replace(",", ""))
+    return addr, reg
+
 def codificar(input):
     tokens = input.split(' ')
-
-    instruccion = 0
 
     if len(tokens) < 1:
         raise Exception("Instrucción inválida")
     
     match(tokens[0]):
         case "ldw": # ldw addr, reg
-            instruccion += (1 << 24)
-
-            addr = int(tokens[1].replace(",", ""), 16)
-            reg = int(tokens[2].replace(",", ""))
-
-            if addr > 0x2000:
-                print("LDW: la dirección", addr, "está fuera de rango")
-                return 0
-            elif reg > 32:
-                print("LDW: el registro", reg, "está fuera de rango")
-                return 0
-
-            instruccion += addr
-            instruccion += (reg << 19)
-            instruccion += (1 << 13)
+            addr, reg = make_addr_reg(tokens[1], tokens[2])
+            instruccion = codificar_tipo_a("LDW", 1 << 24, addr, reg)
         case "lduh": # lduh addr, reg
-            instruccion += (2 << 24)
-
-            addr = int(tokens[1].replace(",", ""), 16)
-            reg = int(tokens[2].replace(",", ""))
-
-            if addr > 0x2000:
-                print("LDUH: la dirección", addr, "está fuera de rango")
-                return 0
-            elif reg > 32:
-                print("LDUH: el registro", reg, "está fuera de rango")
-                return 0
-
-            instruccion += addr
-            instruccion += (reg << 19)
-            instruccion += (1 << 13)
+            addr, reg = make_addr_reg(tokens[1], tokens[2])
+            instruccion = codificar_tipo_a("LDUH", 2 << 24, addr, reg)
         case "ldub": # ldub addr, reg
-            instruccion += (3 << 24)
-
-            addr = int(tokens[1].replace(",", ""), 16)
-            reg = int(tokens[2].replace(",", ""))
-
-            if addr > 0x2000:
-                print("LDUB: la dirección", addr, "está fuera de rango")
-                return 0
-            elif reg > 32:
-                print("LDUB: el registro", reg, "está fuera de rango")
-                return 0
-
-            instruccion += addr
-            instruccion += (reg << 19)
-            instruccion += (1 << 13)
+            addr, reg = make_addr_reg(tokens[1], tokens[2])
+            instruccion = codificar_tipo_a("LDUB", 3 << 24, addr, reg)
         case "ldsh": # ldsh addr, reg
-            instruccion += (4 << 24)
-
-            addr = int(tokens[1].replace(",", ""), 16)
-            reg = int(tokens[2].replace(",", ""))
-
-            if addr > 0x2000:
-                print("LDSH: la dirección", addr, "está fuera de rango")
-                return 0
-            elif reg > 32:
-                print("LDSH: el registro", reg, "está fuera de rango")
-                return 0
-
-            instruccion += addr
-            instruccion += (reg << 19)
-            instruccion += (1 << 13)
+            addr, reg = make_addr_reg(tokens[1], tokens[2])
+            instruccion = codificar_tipo_a("LDSH", 4 << 24, addr, reg)
         case "ldsb": # ldsb addr, reg
-            instruccion += (5 << 24)
-
-            addr = int(tokens[1].replace(",", ""), 16)
-            reg = int(tokens[2].replace(",", ""))
-
-            if addr > 0x2000:
-                print("LDSB: la dirección", addr, "está fuera de rango")
-                return 0
-            elif reg > 32:
-                print("LDSB: el registro", reg, "está fuera de rango")
-                return 0
-
-            instruccion += addr
-            instruccion += (reg << 19)
-            instruccion += (1 << 13)            
+            addr, reg = make_addr_reg(tokens[1], tokens[2])
+            instruccion = codificar_tipo_a("LDSB", 5 << 24, addr, reg)
 
     return struct.pack('!I', instruccion)
 
