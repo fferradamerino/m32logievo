@@ -21,9 +21,20 @@ def codificar_tipo_a(nombre, opcode, addr, regdest, regsrc = 0):
     return instruccion
 
 def make_val_reg_reg(val_token, reg1_token, reg2_token = ""):
-    val = int(val_token.replace(",", ""), 16)
+    if val_token[:2] == "0x":
+        val = int(val_token.replace(",", ""), 16)
+    else:
+        val = int(val_token.replace(",", ""))
+
+    reg1_token = reg1_token.replace("r", "")
     reg1 = int(reg1_token.replace(",", ""))
-    reg2 = int(reg2_token.replace(",", ""))
+    
+    if reg2_token != "":
+        reg2_token = reg2_token.replace("r", "")
+        reg2 = int(reg2_token.replace(",", ""))
+    else:
+        reg2 = 0
+
     return val, reg1, reg2
 
 def codificar(linea):
@@ -91,29 +102,33 @@ def codificar(linea):
     return struct.pack('!I', instruccion)
 
 def tokenizar_archivo(archivo):
-	lineas = []
-	linea = ""
+    lineas = []
+    linea = ""
 	
-	for caracter in archivo:
-		match caracter:
-			case '\n':
-				lineas.append(linea)
-				linea = ""
-			case _:
-				linea = linea + caracter
-
-	if linea != "":
-		lineas.append(linea)
+    for caracter in archivo:
+        match caracter:
+            case '\n':
+                if len(linea) > 0:
+                    lineas.append(linea)
+                linea = ""
+            case _:
+                linea = linea + caracter
+    
+    if len(linea) > 0:
+        lineas.append(linea)
 		
-	return lineas
+    return lineas
 
 def generar_programa(tokens):
-	programa = b''
+    programa = b''
 
-	for token in tokens:
-		programa += codificar(token)
+    for token in tokens:
+        print(token)
+        if token[0] == ';':
+            continue
+        programa += codificar(token)
             
-	return programa
+    return programa
 
 def main():
 	if len(sys.argv) != 3:
