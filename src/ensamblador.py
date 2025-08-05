@@ -26,8 +26,8 @@ def make_val_reg_reg(val_token, reg1_token, reg2_token = ""):
     reg2 = int(reg2_token.replace(",", ""))
     return val, reg1, reg2
 
-def codificar(input):
-    tokens = input.split(' ')
+def codificar(linea):
+    tokens = linea.split(' ')
 
     if len(tokens) < 1:
         raise Exception("Instrucción inválida")
