@@ -2638,7 +2638,12 @@
       <a name="appearance" val="classic"/>
       <a name="label" val="CLOCK"/>
     </comp>
-    <comp lib="1" loc="(210,700)" name="AND Gate"/>
+    <comp lib="1" loc="(1080,70)" name="NOT Gate">
+      <a name="facing" val="south"/>
+    </comp>
+    <comp lib="1" loc="(210,700)" name="AND Gate">
+      <a name="inputs" val="3"/>
+    </comp>
     <comp lib="2" loc="(2100,70)" name="Multiplexer"/>
     <comp lib="2" loc="(2110,1050)" name="Multiplexer">
       <a name="width" val="3"/>
@@ -2684,12 +2689,20 @@
       <a name="facing" val="north"/>
     </comp>
     <comp loc="(390,60)" name="OpToAddr"/>
+    <wire from="(10,10)" to="(10,270)"/>
+    <wire from="(10,10)" to="(890,10)"/>
+    <wire from="(10,270)" to="(140,270)"/>
     <wire from="(100,1170)" to="(250,1170)"/>
     <wire from="(100,680)" to="(100,700)"/>
     <wire from="(100,680)" to="(160,680)"/>
     <wire from="(100,700)" to="(100,1170)"/>
-    <wire from="(1040,20)" to="(2020,20)"/>
+    <wire from="(1040,20)" to="(1080,20)"/>
+    <wire from="(1080,20)" to="(1080,40)"/>
+    <wire from="(1080,20)" to="(2020,20)"/>
+    <wire from="(1080,70)" to="(1080,80)"/>
     <wire from="(130,80)" to="(170,80)"/>
+    <wire from="(140,270)" to="(140,700)"/>
+    <wire from="(140,700)" to="(160,700)"/>
     <wire from="(1450,120)" to="(1450,740)"/>
     <wire from="(1450,740)" to="(1460,740)"/>
     <wire from="(1480,100)" to="(1950,100)"/>
@@ -2903,6 +2916,8 @@
     <wire from="(490,110)" to="(500,110)"/>
     <wire from="(560,70)" to="(590,70)"/>
     <wire from="(830,120)" to="(1450,120)"/>
+    <wire from="(890,10)" to="(890,80)"/>
+    <wire from="(890,80)" to="(1080,80)"/>
     <wire from="(90,700)" to="(100,700)"/>
   </circuit>
   <circuit name="OpToAddr">
