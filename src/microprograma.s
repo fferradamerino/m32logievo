@@ -3,6 +3,7 @@ fetch1:
 
 fetch2:
 	rd en_a wr_ir sel_d .
+	.
 	
 decod:
 	wr_pc op_y_sel_1 .
