@@ -61,20 +61,30 @@ stw:
 
 ldw:
 	sel_reg op_y_sel_2 wr_ar en_a .
-	wr_rd sel_d en_a rd fetch1
+	wr_rd sel_d en_a rd .
+	.
+	fetch1
 
 lduh:
 	sel_reg op_y_sel_2 wr_ar op_abi_1 en_a .
-	wr_rd op_dbi_1 sel_d en_a rd op_abi_1 fetch1
+	wr_rd op_dbi_1 sel_d en_a rd op_abi_1 .
+	.
+	fetch1
 
 ldub:
 	sel_reg op_y_sel_2 wr_ar op_abi_2 en_a .
-	wr_rd op_dbi_2 op_dbi_1 sel_d en_a rd op_abi_2 fetch1
+	wr_rd op_dbi_2 op_dbi_1 sel_d en_a rd op_abi_2 .
+	.
+	fetch1
 	
 ldsh:
 	sel_reg op_y_sel_2 wr_ar op_abi_1 en_a .
-	wr_rd sel_d op_dbi_2 op_abi_1 en_a rd fetch1
+	wr_rd sel_d op_dbi_2 op_abi_1 en_a rd .
+	.
+	fetch1
 	
 ldsb:
 	sel_reg op_y_sel_2 wr_ar op_abi_2 en_a .
-	wr_rd sel_d op_dbi_3 op_abi_2 en_a rd fetch1
+	wr_rd sel_d op_dbi_3 op_abi_2 en_a rd .
+	.
+	fetch1
