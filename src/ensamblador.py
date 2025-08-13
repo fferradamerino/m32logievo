@@ -2,9 +2,9 @@ import struct
 import os.path
 import sys
 
-def codificar_tipo_a(nombre, opcode, addr, regdest, regsrc = 0):
+def codificar_tipo_a(nombre, opcode, addr, regdest, regsrc):
     instruccion = 0
-    instruccion += opcode
+    instruccion += opcode << 24
 
     if addr > 0x2000:
         print(nombre + ": la dirección", addr, "está fuera de rango")
@@ -19,6 +19,23 @@ def codificar_tipo_a(nombre, opcode, addr, regdest, regsrc = 0):
     instruccion += (1 << 13)
 
     return instruccion
+
+def codificar_tipo_b(nombre, opcode, regdest, regsrc1, regsrc2):
+    instruccion = 0
+    instruccion += opcode << 24
+
+    if regdest > 32 or regsrc1 > 32 or regsrc2 > 32:
+        print(nombre + ": uno de los registros está fuera de rango")
+
+    instruccion += (regsrc2 << 8)
+    instruccion += (regsrc1 << 14)
+    instruccion += (regdest << 19)
+
+    return instruccion
+
+# Formato utilizado por las instrucciones de saltos condicionales.
+
+def codificar_tipo_c(): pass
 
 def make_val_reg_reg(val_token, reg1_token, reg2_token = ""):
     if val_token[:2] == "0x":
@@ -37,6 +54,18 @@ def make_val_reg_reg(val_token, reg1_token, reg2_token = ""):
 
     return val, reg1, reg2
 
+def make_reg_reg_reg(reg1_token, reg2_token, reg3_token):
+    reg1_token = reg1_token.replace("r", "")
+    reg1 = int(reg1_token.replace(",", ""))
+
+    reg2_token = reg2_token.replace("r", "")
+    reg2 = int(reg2_token.replace(",", ""))
+
+    reg3_token = reg3_token.replace("r", "")
+    reg3 = int(reg3_token.replace(",", ""))
+
+    return reg1, reg2, reg3
+
 def codificar(linea):
     tokens = linea.split(' ')
 
@@ -44,60 +73,102 @@ def codificar(linea):
         raise Exception("Instrucción inválida")
     
     match(tokens[0]):
-        case "ldw": # ldw addr, reg
-            addr, reg, _ = make_val_reg_reg(tokens[1], tokens[2])
-            instruccion = codificar_tipo_a("LDW", 1 << 24, addr, reg)
-        case "lduh": # lduh addr, reg
-            addr, reg, _ = make_val_reg_reg(tokens[1], tokens[2])
-            instruccion = codificar_tipo_a("LDUH", 2 << 24, addr, reg)
-        case "ldub": # ldub addr, reg
-            addr, reg, _ = make_val_reg_reg(tokens[1], tokens[2])
-            instruccion = codificar_tipo_a("LDUB", 3 << 24, addr, reg)
-        case "ldsh": # ldsh addr, reg
-            addr, reg, _ = make_val_reg_reg(tokens[1], tokens[2])
-            instruccion = codificar_tipo_a("LDSH", 4 << 24, addr, reg)
-        case "ldsb": # ldsb addr, reg
-            addr, reg, _ = make_val_reg_reg(tokens[1], tokens[2])
-            instruccion = codificar_tipo_a("LDSB", 5 << 24, addr, reg)
-        case "stw": # stw reg, addr
-            addr, reg, _ = make_val_reg_reg(tokens[2], tokens[1])
-            instruccion = codificar_tipo_a("STW", 6 << 24, addr, 0, reg)
-        case "sth": # sth reg, addr
-            addr, reg, _ = make_val_reg_reg(tokens[2], tokens[1])
-            instruccion = codificar_tipo_a("STH", 7 << 24, addr, 0, reg)
-        case "stb": # stb reg, addr
-            addr, reg, _ = make_val_reg_reg(tokens[2], tokens[1])
-            instruccion = codificar_tipo_a("STB", 8 << 24, addr, 0, reg)
+        # Tipo A: Usada por instrucciones aritméticas, de lectura y escritura en memoria
+        case "ldw": # ldw [regs + imm], regd -> (ldw regs, imm, regd)
+            imm, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
+            instruccion = codificar_tipo_a("LDW", 1, imm, regd, regs)
+        case "lduh": # lduh [regs + imm], regd
+            imm, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
+            instruccion = codificar_tipo_a("LDUH", 2, imm, regd, regs)
+        case "ldub": # ldub [regs + imm], regd
+            imm, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
+            instruccion = codificar_tipo_a("LDUB", 3, imm, regd, regs)
+        case "ldsh": # ldsh [regs + imm], regd
+            imm, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
+            instruccion = codificar_tipo_a("LDSH", 4, imm, regd, regs)
+        case "ldsb": # ldsb [regs + imm], regd
+            imm, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
+            instruccion = codificar_tipo_a("LDSB", 5, imm, regd, regs)
+        case "stw": # stw regs, [regd + imm] -> (stw regs, regd, imm)
+            imm, regs, regd = make_val_reg_reg(tokens[3], tokens[1], tokens[2])
+            instruccion = codificar_tipo_a("STW", 6, imm, regd, regs)
+        case "sth": # sth regs, [regd + imm]
+            imm, regs, regd = make_val_reg_reg(tokens[3], tokens[1], tokens[2])
+            instruccion = codificar_tipo_a("STH", 7, imm, regd, regs)
+        case "stb": # stb regs, [regd + imm]
+            imm, regs, regd = make_val_reg_reg(tokens[3], tokens[1], tokens[2])
+            instruccion = codificar_tipo_a("STB", 8, imm, regd, regs)
         case "add": # add regs, val, regd
             val, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
-            instruccion = codificar_tipo_a("ADD", 9 << 24, val, regd, regs)
+            instruccion = codificar_tipo_a("ADD", 9, val, regd, regs)
         case "addx": # addx regs, val, regd
             val, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
-            instruccion = codificar_tipo_a("ADDX", 10 << 24, val, regd, regs)
+            instruccion = codificar_tipo_a("ADDX", 10, val, regd, regs)
         case "sub": # sub regs, val, regd
             val, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
-            instruccion = codificar_tipo_a("SUB", 11 << 24, val, regd, regs)
+            instruccion = codificar_tipo_a("SUB", 11, val, regd, regs)
         case "subx": # subx regs, val, regd
             val, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
-            instruccion = codificar_tipo_a("SUBX", 12 << 24, val, regd, regs)
+            instruccion = codificar_tipo_a("SUBX", 12, val, regd, regs)
         case "and": # and regs, val, regd
             val, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
-            instruccion = codificar_tipo_a("AND", 13 << 24, val, regd, regs)
+            instruccion = codificar_tipo_a("AND", 13, val, regd, regs)
         case "or": # or regs, val, regd
             val, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
-            instruccion = codificar_tipo_a("OR", 14 << 24, val, regd, regs)
+            instruccion = codificar_tipo_a("OR", 14, val, regd, regs)
         case "xor": # xor regs, val, regd
             val, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
-            instruccion = codificar_tipo_a("XOR", 15 << 24, val, regd, regs)
+            instruccion = codificar_tipo_a("XOR", 15, val, regd, regs)
         case "sll": # sll regs, val, regd
             val, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
-            instruccion = codificar_tipo_a("SLL", 16 << 24, val, regd, regs)
+            instruccion = codificar_tipo_a("SLL", 16, val, regd, regs)
         case "srl": # srl regs, val, regd
             val, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
-            instruccion = codificar_tipo_a("SRL", 17 << 24, val, regd, regs)
+            instruccion = codificar_tipo_a("SRL", 17, val, regd, regs)
         case "sra": # sra regs, val, regd
             val, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
-            instruccion = codificar_tipo_a("SRA", 18 << 24, val, regd, regs)
+            instruccion = codificar_tipo_a("SRA", 18, val, regd, regs)
+
+        # Tipo B: Instrucciones aritméticas, jmpl (saltos) e instrucciones de lectura y escritura en memoria
+        case "$add": # $add regs1, regs2, regd
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$ADD", 9, regd, regs1, regs2)
+        case "$addx": # $addx regs1, regs2, regd
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$ADDX", 10, regd, regs1, regs2)
+        case "$sub": # $sub regs1, regs2, regd
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$SUB", 11, regd, regs1, regs2)
+        case "$subx": # $subx regs1, regs2, regd
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$SUBX", 12, regd, regs1, regs2)
+        case "jmpl": # jmpl reg_addr, reg_pc
+            reg_addr, reg_pc, _ = make_reg_reg_reg(tokens[1], tokens[2], 0)
+            instruccion = codificar_tipo_b("JMPL", 19, 0, reg_addr, reg_pc)
+        case "$ldw": # $ldw [regs1 + regs2], regd -> $ldw regs1, regs2, regd 
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$LDW", 1, regs1, regs2, regd)
+        case "$lduh": # $lduh [regs1 + regs2], regd -> $lduh regs1, regs2, regd 
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$LDUH", 2, regs1, regs2, regd)
+        case "$ldub": # $ldub [regs1 + regs2], regd -> $ldub regs1, regs2, regd 
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$LDUB", 3, regs1, regs2, regd)
+        case "$ldsh": # $ldsh [regs1 + regs2], regd -> $ldsh regs1, regs2, regd 
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$LDSH", 4, regs1, regs2, regd)
+        case "$ldsb": # $ldsb [regs1 + regs2], regd -> $ldsb regs1, regs2, regd 
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$LDSB", 5, regs1, regs2, regd)
+        case "$stw": # $stw regd, [regs1 + regs2] -> $stw regd, regs1, regs2
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$STW", 6, regs1, regs2, regd)
+        case "$sth": # $sth regd, [regs1 + regs2] -> $sth regd, regs1, regs2
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$STH", 7, regs1, regs2, regd)
+        case "$stb": # $stb regd, [regs1 + regs2] -> $stb regd, regs1, regs2
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$STB", 8, regs1, regs2, regd)
 
     return struct.pack('!I', instruccion)
 
