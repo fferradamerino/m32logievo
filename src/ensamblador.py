@@ -4,7 +4,7 @@ import sys
 
 def codificar_tipo_a(nombre, opcode, addr, regdest, regsrc):
     instruccion = 0
-    instruccion += opcode << 24
+    instruccion += (opcode << 24)
 
     if addr > 0x2000:
         print(nombre + ": la dirección", addr, "está fuera de rango")
@@ -22,10 +22,11 @@ def codificar_tipo_a(nombre, opcode, addr, regdest, regsrc):
 
 def codificar_tipo_b(nombre, opcode, regdest, regsrc1, regsrc2):
     instruccion = 0
-    instruccion += opcode << 24
+    instruccion += (opcode << 24)
 
     if regdest > 32 or regsrc1 > 32 or regsrc2 > 32:
         print(nombre + ": uno de los registros está fuera de rango")
+        return 0
 
     instruccion += (regsrc2 << 8)
     instruccion += (regsrc1 << 14)
@@ -33,9 +34,17 @@ def codificar_tipo_b(nombre, opcode, regdest, regsrc1, regsrc2):
 
     return instruccion
 
-# Formato utilizado por las instrucciones de saltos condicionales.
+def codificar_tipo_c(nombre, opcode, disp):
+    instruccion = 0
+    instruccion = (opcode << 24)
 
-def codificar_tipo_c(): pass
+    if disp > 2**23:
+        print(nombre + ": el desplazamiento está fuera de rango")
+        return 0
+    
+    instruccion += disp
+
+    return instruccion
 
 def make_val_reg_reg(val_token, reg1_token, reg2_token = ""):
     if val_token[:2] == "0x":
@@ -65,6 +74,14 @@ def make_reg_reg_reg(reg1_token, reg2_token, reg3_token):
     reg3 = int(reg3_token.replace(",", ""))
 
     return reg1, reg2, reg3
+
+def make_disp(disp_token):
+    if disp_token[:2] == "0x":
+        val = int(disp_token.replace(",", ""), 16)
+    else:
+        val = int(disp_token.replace(",", ""))
+
+    return val
 
 def codificar(linea):
     tokens = linea.split(' ')
@@ -169,6 +186,41 @@ def codificar(linea):
         case "$stb": # $stb regd, [regs1 + regs2] -> $stb regd, regs1, regs2
             regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
             instruccion = codificar_tipo_b("$STB", 8, regs1, regs2, regd)
+
+        # Tipo C: Formato utilizado por las instrucciones de saltos condicionales.
+        case "ba": # ba disp
+            disp = make_disp(tokens[1])
+            instruccion = codificar_tipo_c("BA", 20, disp)
+        case "be": # be disp
+            disp = make_disp(tokens[1])
+            instruccion = codificar_tipo_c("BE", 21, disp)
+        case "bne": # bne disp
+            disp = make_disp(tokens[1])
+            instruccion = codificar_tipo_c("BNE", 22, disp)
+        case "bg": # bg disp
+            disp = make_disp(tokens[1])
+            instruccion = codificar_tipo_c("BG", 23, disp)
+        case "bge": # bge disp
+            disp = make_disp(tokens[1])
+            instruccion = codificar_tipo_c("BGE", 24, disp)
+        case "bl": # bl disp
+            disp = make_disp(tokens[1])
+            instruccion = codificar_tipo_c("BL", 25, disp)
+        case "ble": # ble disp
+            disp = make_disp(tokens[1])
+            instruccion = codificar_tipo_c("BLE", 26, disp)
+        case "bgu": # bgu disp
+            disp = make_disp(tokens[1])
+            instruccion = codificar_tipo_c("BGU", 27, disp)
+        case "bgeu": # bgeu disp
+            disp = make_disp(tokens[1])
+            instruccion = codificar_tipo_c("BGEU", 28, disp)
+        case "blu": # blu disp
+            disp = make_disp(tokens[1])
+            instruccion = codificar_tipo_c("BLU", 29, disp)
+        case "bleu": # bleu disp
+            disp = make_disp(tokens[1])
+            instruccion = codificar_tipo_c("BLEU", 30, disp)
 
     return struct.pack('!I', instruccion)
 
