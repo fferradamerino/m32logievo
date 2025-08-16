@@ -7107,22 +7107,26 @@
       <a name="value" val="0x0"/>
       <a name="width" val="5"/>
     </comp>
+    <comp lib="0" loc="(160,140)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="Ain"/>
+      <a name="width" val="32"/>
+    </comp>
     <comp lib="0" loc="(1810,150)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="WT"/>
       <a name="output" val="true"/>
     </comp>
+    <comp lib="0" loc="(190,160)" name="Constant">
+      <a name="value" val="0x2"/>
+      <a name="width" val="5"/>
+    </comp>
     <comp lib="0" loc="(1900,470)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="Dout"/>
       <a name="output" val="true"/>
-      <a name="width" val="32"/>
-    </comp>
-    <comp lib="0" loc="(250,130)" name="Pin">
-      <a name="appearance" val="classic"/>
-      <a name="label" val="Ain"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(270,350)" name="Splitter">
@@ -7202,6 +7206,10 @@
       <a name="width" val="32"/>
     </comp>
     <comp lib="3" loc="(1620,960)" name="Shifter">
+      <a name="width" val="32"/>
+    </comp>
+    <comp lib="3" loc="(240,150)" name="Shifter">
+      <a name="shift" val="lr"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="4" loc="(1450,250)" name="Register">
@@ -7317,6 +7325,7 @@
     <wire from="(1540,320)" to="(1540,380)"/>
     <wire from="(1540,320)" to="(1560,320)"/>
     <wire from="(1540,970)" to="(1580,970)"/>
+    <wire from="(160,140)" to="(200,140)"/>
     <wire from="(1600,310)" to="(1610,310)"/>
     <wire from="(1600,320)" to="(1610,320)"/>
     <wire from="(1610,300)" to="(1610,310)"/>
@@ -7347,8 +7356,9 @@
     <wire from="(1780,290)" to="(1780,420)"/>
     <wire from="(1800,470)" to="(1800,1030)"/>
     <wire from="(1800,470)" to="(1900,470)"/>
-    <wire from="(250,130)" to="(260,130)"/>
-    <wire from="(260,130)" to="(260,350)"/>
+    <wire from="(190,160)" to="(200,160)"/>
+    <wire from="(240,150)" to="(260,150)"/>
+    <wire from="(260,150)" to="(260,350)"/>
     <wire from="(260,350)" to="(270,350)"/>
     <wire from="(290,100)" to="(380,100)"/>
     <wire from="(290,110)" to="(380,110)"/>
