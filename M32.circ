@@ -1413,7 +1413,7 @@
       <circ-port dir="in" pin="200,190" x="50" y="70"/>
       <circ-port dir="in" pin="200,300" x="70" y="50"/>
       <circ-port dir="out" pin="930,780" x="120" y="80"/>
-      <circ-port dir="out" pin="960,300" x="120" y="60"/>
+      <circ-port dir="out" pin="980,300" x="120" y="60"/>
     </appear>
     <comp lib="0" loc="(200,190)" name="Pin">
       <a name="appearance" val="classic"/>
@@ -1438,15 +1438,13 @@
       <a name="fanout" val="32"/>
       <a name="incoming" val="32"/>
     </comp>
+    <comp lib="0" loc="(620,250)" name="Constant">
+      <a name="value" val="0x0"/>
+    </comp>
     <comp lib="0" loc="(850,780)" name="Splitter">
       <a name="facing" val="west"/>
       <a name="fanout" val="4"/>
       <a name="incoming" val="4"/>
-    </comp>
-    <comp lib="0" loc="(930,300)" name="Splitter">
-      <a name="facing" val="north"/>
-      <a name="fanout" val="30"/>
-      <a name="incoming" val="30"/>
     </comp>
     <comp lib="0" loc="(930,780)" name="Pin">
       <a name="appearance" val="classic"/>
@@ -1455,7 +1453,12 @@
       <a name="output" val="true"/>
       <a name="width" val="4"/>
     </comp>
-    <comp lib="0" loc="(960,300)" name="Pin">
+    <comp lib="0" loc="(950,300)" name="Splitter">
+      <a name="facing" val="north"/>
+      <a name="fanout" val="30"/>
+      <a name="incoming" val="30"/>
+    </comp>
+    <comp lib="0" loc="(980,300)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="AOUT"/>
@@ -1624,8 +1627,10 @@
     <wire from="(610,940)" to="(610,960)"/>
     <wire from="(610,940)" to="(680,940)"/>
     <wire from="(620,170)" to="(620,190)"/>
-    <wire from="(630,210)" to="(630,280)"/>
-    <wire from="(640,210)" to="(640,280)"/>
+    <wire from="(620,250)" to="(630,250)"/>
+    <wire from="(630,210)" to="(630,250)"/>
+    <wire from="(630,250)" to="(640,250)"/>
+    <wire from="(640,210)" to="(640,250)"/>
     <wire from="(640,420)" to="(640,460)"/>
     <wire from="(640,460)" to="(680,460)"/>
     <wire from="(640,500)" to="(640,540)"/>
@@ -1673,7 +1678,9 @@
     <wire from="(900,210)" to="(900,280)"/>
     <wire from="(910,210)" to="(910,280)"/>
     <wire from="(920,210)" to="(920,280)"/>
-    <wire from="(930,300)" to="(960,300)"/>
+    <wire from="(930,210)" to="(930,280)"/>
+    <wire from="(940,210)" to="(940,280)"/>
+    <wire from="(950,300)" to="(980,300)"/>
   </circuit>
   <circuit name="ALU">
     <a name="appearance" val="custom"/>
