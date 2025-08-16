@@ -149,6 +149,7 @@ def label_addr(label, labels_encontrados):
 def codificar_direcciones(labels_encontrados):
 	direcciones = b''
 	
+	direcciones += struct.pack('!B', 0)
 	direcciones += label_addr("ldw", labels_encontrados)
 	direcciones += label_addr("lduh", labels_encontrados)
 	direcciones += label_addr("ldub", labels_encontrados)
