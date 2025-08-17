@@ -54,12 +54,9 @@ def make_val_reg_reg(val_token, reg1_token, reg2_token = ""):
 
     reg1_token = reg1_token.replace("r", "")
     reg1 = int(reg1_token.replace(",", ""))
-    
-    if reg2_token != "":
-        reg2_token = reg2_token.replace("r", "")
-        reg2 = int(reg2_token.replace(",", ""))
-    else:
-        reg2 = 0
+
+    reg2_token = reg2_token.replace("r", "")
+    reg2 = int(reg2_token.replace(",", ""))
 
     return val, reg1, reg2
 
