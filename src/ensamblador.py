@@ -161,19 +161,19 @@ def codificar(linea):
             instruccion = codificar_tipo_b("JMPL", 19, 0, reg_addr, reg_pc)
         case "$ldw": # $ldw [regs1 + regs2], regd -> $ldw regs1, regs2, regd 
             regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
-            instruccion = codificar_tipo_b("$LDW", 1, regs1, regs2, regd)
+            instruccion = codificar_tipo_b("$LDW", 1, regd, regs2, regs1)
         case "$lduh": # $lduh [regs1 + regs2], regd -> $lduh regs1, regs2, regd 
             regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
-            instruccion = codificar_tipo_b("$LDUH", 2, regs1, regs2, regd)
+            instruccion = codificar_tipo_b("$LDUH", 2, regd, regs2, regs1)
         case "$ldub": # $ldub [regs1 + regs2], regd -> $ldub regs1, regs2, regd 
             regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
-            instruccion = codificar_tipo_b("$LDUB", 3, regs1, regs2, regd)
+            instruccion = codificar_tipo_b("$LDUB", 3, regd, regs2, regs1)
         case "$ldsh": # $ldsh [regs1 + regs2], regd -> $ldsh regs1, regs2, regd 
             regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
-            instruccion = codificar_tipo_b("$LDSH", 4, regs1, regs2, regd)
+            instruccion = codificar_tipo_b("$LDSH", 4, regd, regs2, regs1)
         case "$ldsb": # $ldsb [regs1 + regs2], regd -> $ldsb regs1, regs2, regd 
             regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
-            instruccion = codificar_tipo_b("$LDSB", 5, regs1, regs2, regd)
+            instruccion = codificar_tipo_b("$LDSB", 5, regd, regs2, regs1)
         case "$stw": # $stw regd, [regs1 + regs2] -> $stw regd, regs1, regs2
             regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
             instruccion = codificar_tipo_b("$STW", 6, regs1, regs2, regd)
