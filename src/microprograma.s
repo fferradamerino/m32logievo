@@ -44,7 +44,7 @@ jmpl:
 	wr_pc sel_reg op_y_sel_2 fetch1
 	
 bcond:
-	wr_pc op_y_sel_2 op_y_sel_1 .
+	wr_pc op_y_sel_2 op_y_sel_1 fetch1
 	wr_pc op_y_sel_1 fetch1
 	
 stb:
