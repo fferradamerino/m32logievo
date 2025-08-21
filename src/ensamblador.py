@@ -72,7 +72,13 @@ def make_reg_reg_reg(reg1_token, reg2_token, reg3_token):
 
     return reg1, reg2, reg3
 
-def make_disp(disp_token):
+def make_disp(disp_token, labels):
+    if not disp_token.isnumeric():
+        for label in labels:
+            if label[0] == disp_token:
+                return label[1]
+        raise Exception("Label no encontrado")
+
     if disp_token[:2] == "0x":
         val = int(disp_token.replace(",", ""), 16)
     else:
@@ -80,8 +86,8 @@ def make_disp(disp_token):
 
     return val
 
-def codificar(linea):
-    tokens = linea.split(' ')
+def codificar(linea, labels):
+    tokens = linea.split(' ') # Mejorar para incluir espacios y tabs al principio de línea
 
     if len(tokens) < 1:
         raise Exception("Instrucción inválida")
@@ -186,37 +192,37 @@ def codificar(linea):
 
         # Tipo C: Formato utilizado por las instrucciones de saltos condicionales.
         case "ba": # ba disp
-            disp = make_disp(tokens[1])
+            disp = make_disp(tokens[1], labels)
             instruccion = codificar_tipo_c("BA", 20, disp)
         case "be": # be disp
-            disp = make_disp(tokens[1])
+            disp = make_disp(tokens[1], labels)
             instruccion = codificar_tipo_c("BE", 21, disp)
         case "bne": # bne disp
-            disp = make_disp(tokens[1])
+            disp = make_disp(tokens[1], labels)
             instruccion = codificar_tipo_c("BNE", 22, disp)
         case "bg": # bg disp
-            disp = make_disp(tokens[1])
+            disp = make_disp(tokens[1], labels)
             instruccion = codificar_tipo_c("BG", 23, disp)
         case "bge": # bge disp
-            disp = make_disp(tokens[1])
+            disp = make_disp(tokens[1], labels)
             instruccion = codificar_tipo_c("BGE", 24, disp)
         case "bl": # bl disp
-            disp = make_disp(tokens[1])
+            disp = make_disp(tokens[1], labels)
             instruccion = codificar_tipo_c("BL", 25, disp)
         case "ble": # ble disp
-            disp = make_disp(tokens[1])
+            disp = make_disp(tokens[1], labels)
             instruccion = codificar_tipo_c("BLE", 26, disp)
         case "bgu": # bgu disp
-            disp = make_disp(tokens[1])
+            disp = make_disp(tokens[1], labels)
             instruccion = codificar_tipo_c("BGU", 27, disp)
         case "bgeu": # bgeu disp
-            disp = make_disp(tokens[1])
+            disp = make_disp(tokens[1], labels)
             instruccion = codificar_tipo_c("BGEU", 28, disp)
         case "blu": # blu disp
-            disp = make_disp(tokens[1])
+            disp = make_disp(tokens[1], labels)
             instruccion = codificar_tipo_c("BLU", 29, disp)
         case "bleu": # bleu disp
-            disp = make_disp(tokens[1])
+            disp = make_disp(tokens[1], labels)
             instruccion = codificar_tipo_c("BLEU", 30, disp)
 
     return struct.pack('!I', instruccion)
@@ -241,12 +247,18 @@ def tokenizar_archivo(archivo):
 
 def generar_programa(tokens):
     programa = b''
+    direccion_actual = 0
+    labels = []
 
     for token in tokens:
         print(token)
         if token[0] == ';':
             continue
-        programa += codificar(token)
+        elif token[0][-1] == ':':
+            labels.append((token[0][0:-1], direccion_actual))
+        else:
+            programa += codificar(token, labels)
+            direccion_actual += 4
             
     return programa
 
