@@ -75,6 +75,7 @@ def make_reg_reg_reg(reg1_token, reg2_token, reg3_token):
 def make_disp(disp_token, labels):
     if not disp_token.isnumeric():
         for label in labels:
+            print(label)
             if label[0] == disp_token:
                 return label[1]
         raise Exception("Label no encontrado")
@@ -251,11 +252,11 @@ def generar_programa(tokens):
     labels = []
 
     for token in tokens:
-        print(token)
+        print(token) # DBG
         if token[0] == ';':
             continue
-        elif token[0][-1] == ':':
-            labels.append((token[0][0:-1], direccion_actual))
+        elif token[-1] == ':':
+            labels.append((token[0:-1], direccion_actual))
         else:
             programa += codificar(token, labels)
             direccion_actual += 4
