@@ -4,7 +4,7 @@ import sys
 
 def codificar_tipo_a(nombre, opcode, addr, regdest, regsrc):
     instruccion = 0
-    instruccion += (opcode << 24)
+    instruccion |= (opcode << 24)
 
     if addr > 0x2000:
         print(nombre + ": la dirección", addr, "está fuera de rango")
@@ -13,24 +13,24 @@ def codificar_tipo_a(nombre, opcode, addr, regdest, regsrc):
         print(nombre + ": el registro", regdest, "está fuera de rango")
         return 0
 
-    instruccion += addr
-    instruccion += (regdest << 19)
-    instruccion += (regsrc << 14)
-    instruccion += (1 << 13)
+    instruccion |= addr
+    instruccion |= (regdest << 19)
+    instruccion |= (regsrc << 14)
+    instruccion |= (1 << 13)
 
     return instruccion
 
 def codificar_tipo_b(nombre, opcode, regdest, regsrc1, regsrc2):
     instruccion = 0
-    instruccion += (opcode << 24)
+    instruccion |= (opcode << 24)
 
     if regdest > 32 or regsrc1 > 32 or regsrc2 > 32:
         print(nombre + ": uno de los registros está fuera de rango")
         return 0
 
-    instruccion += (regsrc2 << 8)
-    instruccion += (regsrc1 << 14)
-    instruccion += (regdest << 19)
+    instruccion |= (regsrc2 << 8)
+    instruccion |= (regsrc1 << 14)
+    instruccion |= (regdest << 19)
 
     return instruccion
 
@@ -38,11 +38,15 @@ def codificar_tipo_c(nombre, opcode, disp):
     instruccion = 0
     instruccion = (opcode << 24)
 
-    if disp > 2**23:
+    if disp >= 2**24 or disp <= -(2**24):
         print(nombre + ": el desplazamiento está fuera de rango")
         return 0
+
+    if disp < 0:
+        disp *= -1
+        disp |= 0b100000000000000000000000
     
-    instruccion += disp
+    instruccion |= disp
 
     return instruccion
 
@@ -87,7 +91,7 @@ def make_disp(disp_token, labels):
 
     return val
 
-def codificar(linea, labels):
+def codificar(linea, labels, direccion_actual):
     tokens = linea.split(' ') # Mejorar para incluir espacios y tabs al principio de línea
 
     if len(tokens) < 1:
@@ -193,37 +197,37 @@ def codificar(linea, labels):
 
         # Tipo C: Formato utilizado por las instrucciones de saltos condicionales.
         case "ba": # ba disp
-            disp = make_disp(tokens[1], labels)
+            disp = make_disp(tokens[1], labels) - direccion_actual
             instruccion = codificar_tipo_c("BA", 20, disp)
         case "be": # be disp
-            disp = make_disp(tokens[1], labels)
+            disp = make_disp(tokens[1], labels) - direccion_actual
             instruccion = codificar_tipo_c("BE", 21, disp)
         case "bne": # bne disp
-            disp = make_disp(tokens[1], labels)
+            disp = make_disp(tokens[1], labels) - direccion_actual
             instruccion = codificar_tipo_c("BNE", 22, disp)
         case "bg": # bg disp
-            disp = make_disp(tokens[1], labels)
+            disp = make_disp(tokens[1], labels) - direccion_actual
             instruccion = codificar_tipo_c("BG", 23, disp)
         case "bge": # bge disp
-            disp = make_disp(tokens[1], labels)
+            disp = make_disp(tokens[1], labels) - direccion_actual
             instruccion = codificar_tipo_c("BGE", 24, disp)
         case "bl": # bl disp
-            disp = make_disp(tokens[1], labels)
+            disp = make_disp(tokens[1], labels) - direccion_actual
             instruccion = codificar_tipo_c("BL", 25, disp)
         case "ble": # ble disp
-            disp = make_disp(tokens[1], labels)
+            disp = make_disp(tokens[1], labels) - direccion_actual
             instruccion = codificar_tipo_c("BLE", 26, disp)
         case "bgu": # bgu disp
-            disp = make_disp(tokens[1], labels)
+            disp = make_disp(tokens[1], labels) - direccion_actual
             instruccion = codificar_tipo_c("BGU", 27, disp)
         case "bgeu": # bgeu disp
-            disp = make_disp(tokens[1], labels)
+            disp = make_disp(tokens[1], labels) - direccion_actual
             instruccion = codificar_tipo_c("BGEU", 28, disp)
         case "blu": # blu disp
-            disp = make_disp(tokens[1], labels)
+            disp = make_disp(tokens[1], labels) - direccion_actual
             instruccion = codificar_tipo_c("BLU", 29, disp)
         case "bleu": # bleu disp
-            disp = make_disp(tokens[1], labels)
+            disp = make_disp(tokens[1], labels) - direccion_actual
             instruccion = codificar_tipo_c("BLEU", 30, disp)
 
     return struct.pack('!I', instruccion)
@@ -258,7 +262,7 @@ def generar_programa(tokens):
         elif token[-1] == ':':
             labels.append((token[0:-1], direccion_actual))
         else:
-            programa += codificar(token, labels)
+            programa += codificar(token, labels, direccion_actual)
             direccion_actual += 4
             
     return programa
