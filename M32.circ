@@ -2805,7 +2805,7 @@
       <a name="incoming" val="8"/>
     </comp>
     <comp lib="0" loc="(630,440)" name="Constant">
-      <a name="value" val="0x14"/>
+      <a name="value" val="0x15"/>
       <a name="width" val="8"/>
     </comp>
     <comp lib="0" loc="(630,490)" name="Constant">
