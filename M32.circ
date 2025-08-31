@@ -4433,6 +4433,7 @@
     <comp lib="0" loc="(800,230)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
+      <a name="label" val="WT"/>
       <a name="output" val="true"/>
     </comp>
     <comp lib="1" loc="(730,230)" name="OR Gate"/>

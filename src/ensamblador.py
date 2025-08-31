@@ -42,9 +42,7 @@ def codificar_tipo_c(nombre, opcode, disp):
         print(nombre + ": el desplazamiento está fuera de rango")
         return 0
 
-    if disp < 0:
-        disp *= -1
-        disp |= 0b100000000000000000000000
+    disp &= (1 << 24) - 1
     
     instruccion |= disp
 
