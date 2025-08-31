@@ -168,8 +168,8 @@ def codificar_direcciones(labels_encontrados):
 	direcciones += label_addr("sll", labels_encontrados)
 	direcciones += label_addr("srl", labels_encontrados)
 	direcciones += label_addr("sra", labels_encontrados)
-	direcciones += label_addr("bcond", labels_encontrados)
 	direcciones += label_addr("jmpl", labels_encontrados)
+	direcciones += label_addr("bcond", labels_encontrados)
 	
 	return direcciones
 

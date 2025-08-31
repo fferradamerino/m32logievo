@@ -2851,7 +2851,7 @@
       <a name="contents">addr/data: 8 8
 0 19 1d 21 25 29 17 15
 13 d e c b 5 6 7
-8 9 a 11 f
+8 9 a f 11
 </a>
     </comp>
     <wire from="(180,420)" to="(210,420)"/>
