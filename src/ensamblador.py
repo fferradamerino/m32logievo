@@ -165,6 +165,24 @@ def codificar(linea, labels, direccion_actual):
         case "$subx": # $subx regs1, regs2, regd
             regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
             instruccion = codificar_tipo_b("$SUBX", 12, regd, regs1, regs2)
+        case "$and": # $and regs1, regs2, regd
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$AND", 13, regd, regs1, regs2)
+        case "$or": # $or regs1, regs2, regd
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$OR", 14, regd, regs1, regs2)
+        case "$xor": # $xor regs1, regs2, regd
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$XOR", 15, regd, regs1, regs2)
+        case "$sll": # $sll regs1, regs2, regd
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$SLL", 16, regd, regs1, regs2)
+        case "$srl": # $srl regs1, regs2, regd
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$SRL", 17, regd, regs1, regs2)
+        case "$sra": # $sra regs1, regs2, regd
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$SRA", 18, regd, regs1, regs2)
         case "jmpl": # jmpl reg_addr, reg_pc
             reg_addr, reg_pc, _ = make_reg_reg_reg(tokens[1], tokens[2], 0)
             instruccion = codificar_tipo_b("JMPL", 19, 0, reg_addr, reg_pc)
