@@ -1691,11 +1691,11 @@
       <rect fill="none" height="51" stroke="#000000" width="78" x="121" y="50"/>
       <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="162" y="75">ALU</text>
       <circ-anchor facing="south" x="160" y="100"/>
-      <circ-port dir="in" pin="1200,430" x="200" y="80"/>
       <circ-port dir="in" pin="180,400" x="200" y="70"/>
       <circ-port dir="in" pin="180,450" x="120" y="70"/>
       <circ-port dir="in" pin="210,110" x="180" y="50"/>
       <circ-port dir="in" pin="90,110" x="140" y="50"/>
+      <circ-port dir="out" pin="1200,430" x="200" y="80"/>
       <circ-port dir="out" pin="1290,200" x="160" y="100"/>
     </appear>
     <comp lib="0" loc="(1020,430)" name="Splitter">
@@ -1707,6 +1707,7 @@
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="ZVSC"/>
+      <a name="output" val="true"/>
       <a name="width" val="4"/>
     </comp>
     <comp lib="0" loc="(1290,200)" name="Pin">
