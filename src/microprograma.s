@@ -56,6 +56,8 @@ sth:
 	fetch1
 	
 stw:
+	sel_reg op_y_sel_1 wr_ar en_a .
+	wr rd_dest sel_reg op_alu_2 op_alu_1 op_dbi_3 op_dbi_1 en_a .
 	.
 	fetch1
 

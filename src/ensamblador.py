@@ -114,13 +114,13 @@ def codificar(linea, labels, direccion_actual):
             instruccion = codificar_tipo_a("LDSB", 5, imm, regd, regs)
         case "stw": # stw regs, [regd + imm] -> (stw regs, regd, imm)
             imm, regs, regd = make_val_reg_reg(tokens[3], tokens[1], tokens[2])
-            instruccion = codificar_tipo_a("STW", 6, imm, regd, regs)
+            instruccion = codificar_tipo_a("STW", 6, imm, regs, regd)
         case "sth": # sth regs, [regd + imm]
             imm, regs, regd = make_val_reg_reg(tokens[3], tokens[1], tokens[2])
-            instruccion = codificar_tipo_a("STH", 7, imm, regd, regs)
+            instruccion = codificar_tipo_a("STH", 7, imm, regs, regd)
         case "stb": # stb regs, [regd + imm]
             imm, regs, regd = make_val_reg_reg(tokens[3], tokens[1], tokens[2])
-            instruccion = codificar_tipo_a("STB", 8, imm, regd, regs)
+            instruccion = codificar_tipo_a("STB", 8, imm, regs, regd)
         case "add": # add regs, val, regd
             val, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
             instruccion = codificar_tipo_a("ADD", 9, val, regd, regs)
