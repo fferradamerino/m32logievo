@@ -270,15 +270,15 @@
       <a name="facing" val="north"/>
       <a name="label" val="WR_SR"/>
     </comp>
-    <comp lib="0" loc="(680,860)" name="Tunnel">
+    <comp lib="0" loc="(690,860)" name="Tunnel">
       <a name="facing" val="south"/>
       <a name="label" val="WR_AR"/>
     </comp>
-    <comp lib="0" loc="(680,960)" name="Tunnel">
+    <comp lib="0" loc="(690,990)" name="Tunnel">
       <a name="facing" val="north"/>
       <a name="label" val="CLK"/>
     </comp>
-    <comp lib="0" loc="(750,940)" name="Probe">
+    <comp lib="0" loc="(750,960)" name="Probe">
       <a name="appearance" val="NewPins"/>
       <a name="facing" val="north"/>
       <a name="radix" val="16"/>
@@ -351,10 +351,10 @@
       <a name="facing" val="west"/>
     </comp>
     <comp loc="(680,560)" name="SR"/>
-    <comp loc="(710,910)" name="AR"/>
     <comp loc="(730,220)" name="RSEL">
       <a name="facing" val="south"/>
     </comp>
+    <comp loc="(730,910)" name="AR"/>
     <comp loc="(750,830)" name="GetA1A0">
       <a name="facing" val="south"/>
     </comp>
@@ -483,13 +483,13 @@
     <wire from="(650,630)" to="(650,650)"/>
     <wire from="(660,580)" to="(660,690)"/>
     <wire from="(680,560)" to="(690,560)"/>
-    <wire from="(680,860)" to="(680,890)"/>
-    <wire from="(680,930)" to="(680,960)"/>
     <wire from="(690,520)" to="(690,560)"/>
     <wire from="(690,560)" to="(800,560)"/>
-    <wire from="(710,910)" to="(750,910)"/>
+    <wire from="(690,860)" to="(690,880)"/>
+    <wire from="(690,950)" to="(690,990)"/>
     <wire from="(730,220)" to="(730,300)"/>
     <wire from="(730,300)" to="(740,300)"/>
+    <wire from="(730,910)" to="(750,910)"/>
     <wire from="(740,300)" to="(740,500)"/>
     <wire from="(740,300)" to="(950,300)"/>
     <wire from="(740,500)" to="(880,500)"/>
@@ -497,7 +497,7 @@
     <wire from="(750,780)" to="(750,830)"/>
     <wire from="(750,780)" to="(780,780)"/>
     <wire from="(750,870)" to="(750,910)"/>
-    <wire from="(750,910)" to="(750,940)"/>
+    <wire from="(750,910)" to="(750,960)"/>
     <wire from="(750,910)" to="(780,910)"/>
     <wire from="(760,50)" to="(760,140)"/>
     <wire from="(800,870)" to="(800,890)"/>
@@ -2824,13 +2824,14 @@
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
     <appear>
-      <rect fill="none" height="41" stroke="#000000" width="62" x="208" y="50"/>
-      <text dominant-baseline="central" font-family="SansSerif" font-size="12" text-anchor="middle" x="240" y="71">AR</text>
-      <circ-anchor facing="east" x="270" y="70"/>
-      <circ-port dir="in" pin="450,390" x="240" y="50"/>
-      <circ-port dir="in" pin="460,440" x="240" y="90"/>
-      <circ-port dir="in" pin="470,290" x="210" y="70"/>
-      <circ-port dir="out" pin="660,370" x="270" y="70"/>
+      <rect fill="#ffe500" height="68" stroke="#000000" width="78" x="210" y="50"/>
+      <text dominant-baseline="central" font-family="Times New Roman" font-size="32" font-weight="bold" text-anchor="middle" x="248" y="83">AR</text>
+      <text dominant-baseline="central" font-family="Times New Roman" font-size="12" text-anchor="middle" x="249" y="59">WR</text>
+      <circ-anchor facing="east" x="290" y="80"/>
+      <circ-port dir="in" pin="450,390" x="250" y="50"/>
+      <circ-port dir="in" pin="460,440" x="250" y="120"/>
+      <circ-port dir="in" pin="470,290" x="210" y="80"/>
+      <circ-port dir="out" pin="660,370" x="290" y="80"/>
     </appear>
     <comp lib="0" loc="(450,390)" name="Pin">
       <a name="appearance" val="classic"/>
