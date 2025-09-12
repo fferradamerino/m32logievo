@@ -19,7 +19,7 @@ public class DefinedOutputSplitter32 extends InstanceFactory {
     static ComponentName componentName = new ComponentName();
 
     public DefinedOutputSplitter32() {
-        super("DefinedOutputSplitter", componentName);
+        super("DefinedOutputSplitter32", componentName);
         
         setAttributes(new Attribute[] {
             StdAttr.WIDTH
