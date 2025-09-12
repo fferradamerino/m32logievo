@@ -1,5 +1,3 @@
-package m32plugin;
-
 import java.awt.Graphics;
 
 import com.cburch.logisim.data.Attribute;
