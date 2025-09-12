@@ -64,7 +64,7 @@
       <circ-port dir="in" pin="2160,160" x="50" y="70"/>
       <circ-port dir="out" pin="1170,890" x="50" y="80"/>
       <circ-port dir="out" pin="1170,970" x="50" y="90"/>
-      <circ-port dir="out" pin="1330,760" x="50" y="110"/>
+      <circ-port dir="out" pin="1330,730" x="50" y="110"/>
       <circ-port dir="out" pin="1610,510" x="50" y="120"/>
       <circ-port dir="out" pin="1610,550" x="50" y="130"/>
     </appear>
@@ -104,7 +104,7 @@
       <a name="output" val="true"/>
       <a name="width" val="4"/>
     </comp>
-    <comp lib="0" loc="(1330,760)" name="Pin">
+    <comp lib="0" loc="(1330,730)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="RAWOUT"/>
@@ -2882,7 +2882,7 @@
       <circ-port dir="in" pin="200,170" x="70" y="50"/>
       <circ-port dir="in" pin="200,270" x="260" y="50"/>
       <circ-port dir="in" pin="300,300" x="50" y="110"/>
-      <circ-port dir="in" pin="470,220" x="200" y="130"/>
+      <circ-port dir="out" pin="470,220" x="200" y="130"/>
     </appear>
     <comp lib="0" loc="(200,170)" name="Pin">
       <a name="appearance" val="classic"/>
@@ -2903,6 +2903,7 @@
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
       <a name="label" val="OUTPT"/>
+      <a name="output" val="true"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="2" loc="(320,220)" name="Multiplexer">
