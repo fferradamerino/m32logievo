@@ -9,7 +9,6 @@ import com.cburch.logisim.instance.InstanceFactory;
 import com.cburch.logisim.instance.InstancePainter;
 import com.cburch.logisim.instance.InstanceState;
 import com.cburch.logisim.instance.Port;
-import com.cburch.logisim.util.StringGetter;
 
 /*
     Este componente separa una entrada de 32 bits. A diferencia del componente
@@ -17,16 +16,6 @@ import com.cburch.logisim.util.StringGetter;
 */
 
 public class DefinedOutputSplitter32 extends InstanceFactory {
-    static class ComponentName implements StringGetter{
-        String name = "Defined Output Splitter";
-        
-        public ComponentName() {}
-
-        public String toString() {
-            return name;
-        }
-    }
-
     static ComponentName componentName = new ComponentName();
 
     public DefinedOutputSplitter32() {

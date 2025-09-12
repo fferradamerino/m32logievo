@@ -6,7 +6,7 @@ import java.util.List;
 public class M32Library extends Library {
     private List<Tool> tools = null;
 
-    public static final String _ID = "Soc";
+    public static final String _ID = "M32Library";
 
     private static final FactoryDescription[] DESCRIPTIONS = {
         new FactoryDescription(DefinedOutputSplitter32.class, DefinedOutputSplitter32.componentName)
