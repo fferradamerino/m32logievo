@@ -35,6 +35,7 @@ class ColoredWireName implements StringGetter{
 public class ColoredWireMonitor extends InstanceFactory {
     private InstanceState state;
     public static ColoredWireName componentName = new ColoredWireName();
+    public TunnelValueFetcher tunnelValueFetcher = new TunnelValueFetcher();
     
     // Add attributes for width and direction
     public static final Attribute<Integer> ATTR_WIDTH = 
@@ -98,7 +99,7 @@ public class ColoredWireMonitor extends InstanceFactory {
         state.setPort(1, input, 1);
         this.state = state; // To later paint the component
     }
-    
+
     @Override
     public void paintInstance(InstancePainter painter) {
         Graphics g = painter.getGraphics();
@@ -116,10 +117,15 @@ public class ColoredWireMonitor extends InstanceFactory {
         }
         
         // Determine color based on value
-        Color wireColor = getColorForValue(val);
+        Color wireColor = Color.BLACK;
 
-        // Draw colored line representing the wire
-        g.setColor(wireColor);
+        if (tunnelValueFetcher.getTunnelValue(
+            painter.getCircuitState(), "TESTTUNNEL")
+            != Value.UNKNOWN
+        ) {
+            wireColor = getColorForValue(val);
+            g.setColor(wireColor);
+        }
         
         int centerX = bds.getX() + bds.getWidth() / 2;
         int centerY = bds.getY() + bds.getHeight() / 2;
