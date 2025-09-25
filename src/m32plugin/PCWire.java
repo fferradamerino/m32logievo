@@ -250,15 +250,8 @@ public class PCWire extends InstanceFactory {
         if (!val.isFullyDefined()) {
             return Color.GRAY;
         }
-        
-        int intVal = Integer.parseInt(val.toDecimalString(false));
-        
-        // Extended color coding with more colors
-        if (intVal == 0) {
-            return Color.BLACK;
-        } else {
-            return Color.MAGENTA;
-        }
+
+        return Color.MAGENTA;
     }
     
     @Override

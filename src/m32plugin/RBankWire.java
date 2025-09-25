@@ -115,13 +115,14 @@ public class RBankWire extends InstanceFactory {
 
         Color wireColor = Color.BLACK;
 
-        if (tunnelValueFetcher.getTunnelValue(
-            painter.getCircuitState(), "WR_RD")
-            != Value.UNKNOWN
-        ) {
+        Value currentVal = tunnelValueFetcher.getTunnelValue(
+            painter.getCircuitState(), "WR_RD");
+
+        if (currentVal == Value.createKnown(1, 1)) {
             wireColor = getColorForValue(val);
-            g.setColor(wireColor);
         }
+
+        g.setColor(wireColor);
         
         int centerX = bds.getX() + bds.getWidth() / 2;
         int centerY = bds.getY() + bds.getHeight() / 2;
@@ -249,15 +250,8 @@ public class RBankWire extends InstanceFactory {
         if (!val.isFullyDefined()) {
             return Color.GRAY;
         }
-        
-        int intVal = Integer.parseInt(val.toDecimalString(false));
-        
-        // Extended color coding with more colors
-        if (intVal == 0) {
-            return Color.BLACK;
-        } else {
-            return Color.ORANGE;
-        }
+
+        return Color.MAGENTA;
     }
     
     @Override
