@@ -23,7 +23,7 @@ import java.awt.event.MouseEvent;
 import com.cburch.logisim.util.StringGetter;
 
 class RBankWireName implements StringGetter{
-	String name = "Program Counter Wire";
+	String name = "R-Bank Wire";
 	
 	public RBankWireName() {}
 
@@ -116,7 +116,7 @@ public class RBankWire extends InstanceFactory {
         Color wireColor = Color.BLACK;
 
         if (tunnelValueFetcher.getTunnelValue(
-            painter.getCircuitState(), "WR_PC")
+            painter.getCircuitState(), "WR_RD")
             != Value.UNKNOWN
         ) {
             wireColor = getColorForValue(val);
@@ -256,7 +256,7 @@ public class RBankWire extends InstanceFactory {
         if (intVal == 0) {
             return Color.BLACK;
         } else {
-            return Color.MAGENTA;
+            return Color.ORANGE;
         }
     }
     

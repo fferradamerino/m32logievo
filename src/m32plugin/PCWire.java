@@ -115,13 +115,14 @@ public class PCWire extends InstanceFactory {
 
         Color wireColor = Color.BLACK;
 
-        if (tunnelValueFetcher.getTunnelValue(
-            painter.getCircuitState(), "WR_PC")
-            != Value.UNKNOWN
-        ) {
+        Value currentVal = tunnelValueFetcher.getTunnelValue(
+            painter.getCircuitState(), "WR_PC");
+
+        if (currentVal == Value.createKnown(1, 1)) {
             wireColor = getColorForValue(val);
-            g.setColor(wireColor);
         }
+
+        g.setColor(wireColor);
         
         int centerX = bds.getX() + bds.getWidth() / 2;
         int centerY = bds.getY() + bds.getHeight() / 2;
