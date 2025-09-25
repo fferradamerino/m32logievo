@@ -9,7 +9,8 @@ public class M32Library extends Library {
     public static final String _ID = "M32Library";
 
     private static final FactoryDescription[] DESCRIPTIONS = {
-        new FactoryDescription(DefinedOutputSplitter32.class, DefinedOutputSplitter32.componentName)
+        new FactoryDescription(DefinedOutputSplitter32.class, DefinedOutputSplitter32.componentName),
+        new FactoryDescription(ColoredWireMonitor.class, ColoredWireMonitor.componentName)
     };
 
     public M32Library() {}

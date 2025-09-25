@@ -55,6 +55,8 @@ public class DefinedOutputSplitter32 extends InstanceFactory {
             int yPos = bds.getY() + 160 - 150 + (i * 10);
             g.drawString(String.valueOf(i), bds.getX() + bds.getWidth() - 15, yPos + 3);
         }
+
+        painter.drawPorts();
     }
     
     private Value getVal(Value input, int n) {
