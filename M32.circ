@@ -211,11 +211,6 @@
     <comp lib="0" loc="(1630,600)" name="Tunnel">
       <a name="label" val="CLK"/>
     </comp>
-    <comp lib="0" loc="(180,280)" name="Probe">
-      <a name="appearance" val="NewPins"/>
-      <a name="facing" val="west"/>
-      <a name="radix" val="16"/>
-    </comp>
     <comp lib="0" loc="(2160,160)" name="Pin">
       <a name="appearance" val="classic"/>
       <a name="facing" val="west"/>
@@ -333,6 +328,10 @@
     <comp lib="1" loc="(1100,970)" name="Controlled Buffer">
       <a name="width" val="4"/>
     </comp>
+    <comp lib="12" loc="(180,180)" name="PCWire">
+      <a name="facing" val="south"/>
+      <a name="width" val="150"/>
+    </comp>
     <comp loc="(180,180)" name="PC">
       <a name="facing" val="south"/>
     </comp>
@@ -433,8 +432,6 @@
     <wire from="(1750,50)" to="(1750,170)"/>
     <wire from="(1760,160)" to="(1850,160)"/>
     <wire from="(1760,20)" to="(1760,160)"/>
-    <wire from="(180,180)" to="(180,280)"/>
-    <wire from="(180,280)" to="(180,330)"/>
     <wire from="(180,70)" to="(180,110)"/>
     <wire from="(180,70)" to="(420,70)"/>
     <wire from="(20,70)" to="(180,70)"/>
