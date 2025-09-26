@@ -332,6 +332,10 @@
       <a name="facing" val="south"/>
       <a name="width" val="120"/>
     </comp>
+    <comp lib="12" loc="(390,540)" name="ALUWire">
+      <a name="facing" val="south"/>
+      <a name="width" val="250"/>
+    </comp>
     <comp loc="(180,180)" name="PC">
       <a name="facing" val="south"/>
     </comp>
@@ -452,7 +456,6 @@
     <wire from="(310,410)" to="(310,460)"/>
     <wire from="(360,40)" to="(360,110)"/>
     <wire from="(360,850)" to="(370,850)"/>
-    <wire from="(390,540)" to="(390,790)"/>
     <wire from="(420,70)" to="(420,110)"/>
     <wire from="(420,70)" to="(940,70)"/>
     <wire from="(460,210)" to="(460,250)"/>
