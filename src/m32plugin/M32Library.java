@@ -12,7 +12,8 @@ public class M32Library extends Library {
         new FactoryDescription(DefinedOutputSplitter32.class, DefinedOutputSplitter32.componentName),
         new FactoryDescription(PCWire.class, PCWire.componentName),
         new FactoryDescription(RBankWire.class, RBankWire.componentName),
-        new FactoryDescription(ALUWire.class, ALUWire.componentName)
+        new FactoryDescription(ALUWire.class, ALUWire.componentName),
+        new FactoryDescription(QuadByteRam.class, QuadByteRam.componentName)
     };
 
     public M32Library() {}
