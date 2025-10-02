@@ -37,7 +37,7 @@ public class ArrowWire extends InstanceFactory {
     
     // Add attributes for width and direction
     public static final Attribute<Integer> ATTR_WIDTH = 
-        Attributes.forIntegerRange("width", 20, 200);
+        Attributes.forIntegerRange("width", 10, 200);
     public static final Attribute<Direction> ATTR_FACING = 
         Attributes.forDirection("facing", S.getter("stdFacingAttr"));
     public static final Attribute<BitWidth> ATTR_BITWIDTH =
