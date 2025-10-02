@@ -13,7 +13,9 @@ public class M32Library extends Library {
         new FactoryDescription(PCWire.class, PCWire.componentName),
         new FactoryDescription(RBankWire.class, RBankWire.componentName),
         new FactoryDescription(ALUWire.class, ALUWire.componentName),
-        new FactoryDescription(QuadByteRam.class, QuadByteRam.componentName)
+        new FactoryDescription(QuadByteRam.class, QuadByteRam.componentName),
+        new FactoryDescription(ArrowWire5bits.class, ArrowWire5bits.componentName),
+        new FactoryDescription(ArrowWire32bits.class, ArrowWire32bits.componentName)
     };
 
     public M32Library() {}
