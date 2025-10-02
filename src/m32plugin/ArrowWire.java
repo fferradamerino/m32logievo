@@ -82,8 +82,8 @@ public class ArrowWire extends InstanceFactory {
         Port[] ports = new Port[2];
         
         if (facing == Direction.WEST) {
-            ports[0] = new Port(0, 0, Port.INPUT, BitWidth.create(bitWidth.getWidth()));
-            ports[1] = new Port(width, 0, Port.OUTPUT, BitWidth.create(bitWidth.getWidth()));
+            ports[0] = new Port(width, 0, Port.INPUT, BitWidth.create(bitWidth.getWidth()));
+            ports[1] = new Port(0, 0, Port.OUTPUT, BitWidth.create(bitWidth.getWidth()));
         } else if (facing == Direction.EAST) {
             ports[0] = new Port(0, 0, Port.INPUT, BitWidth.create(bitWidth.getWidth()));
             ports[1] = new Port(width, 0, Port.OUTPUT, BitWidth.create(bitWidth.getWidth()));
@@ -150,8 +150,8 @@ public class ArrowWire extends InstanceFactory {
         int wireStartY, wireEndY, arrowY;
         
         if (upToDown) {
-            wireStartY = bds.getY();
-            wireEndY = bds.getY() + bds.getHeight() - 5;
+            wireStartY = bds.getY() + 5;
+            wireEndY = bds.getY() + bds.getHeight();
             arrowY = bds.getY();
         } else {
             wireStartY = bds.getY();
@@ -228,7 +228,7 @@ public class ArrowWire extends InstanceFactory {
         } else if (facing == Direction.WEST) {
             return Bounds.create(0, -10, width, 20);
         } else if (facing == Direction.NORTH) {
-            return Bounds.create(0, -10, width, 20);
+            return Bounds.create(-10, 0, 20, width);
         } else if (facing == Direction.SOUTH) {
             return Bounds.create(-10, 0, 20, width);
         } else {

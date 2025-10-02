@@ -360,15 +360,18 @@
       <a name="facing" val="south"/>
       <a name="width" val="50"/>
     </comp>
-    <comp lib="12" loc="(510,130)" name="ArrowWire5bits">
+    <comp lib="12" loc="(510,130)" name="ArrowWire">
+      <a name="bitwidth" val="5"/>
       <a name="facing" val="west"/>
       <a name="width" val="60"/>
     </comp>
-    <comp lib="12" loc="(510,160)" name="ArrowWire5bits">
+    <comp lib="12" loc="(510,160)" name="ArrowWire">
+      <a name="bitwidth" val="5"/>
       <a name="facing" val="west"/>
       <a name="width" val="60"/>
     </comp>
-    <comp lib="12" loc="(510,190)" name="ArrowWire5bits">
+    <comp lib="12" loc="(510,190)" name="ArrowWire">
+      <a name="bitwidth" val="5"/>
       <a name="facing" val="west"/>
       <a name="width" val="60"/>
     </comp>
@@ -612,9 +615,9 @@
     <wire from="(290,250)" to="(290,420)"/>
     <wire from="(290,420)" to="(470,420)"/>
     <wire from="(330,250)" to="(330,390)"/>
-    <wire from="(330,390)" to="(700,390)"/>
+    <wire from="(330,390)" to="(620,390)"/>
     <wire from="(340,250)" to="(340,360)"/>
-    <wire from="(340,360)" to="(620,360)"/>
+    <wire from="(340,360)" to="(700,360)"/>
     <wire from="(350,250)" to="(350,260)"/>
     <wire from="(350,300)" to="(350,330)"/>
     <wire from="(350,330)" to="(790,330)"/>
@@ -640,10 +643,10 @@
     <wire from="(540,220)" to="(540,480)"/>
     <wire from="(540,220)" to="(550,220)"/>
     <wire from="(540,480)" to="(910,480)"/>
-    <wire from="(620,240)" to="(620,360)"/>
-    <wire from="(620,360)" to="(910,360)"/>
-    <wire from="(700,240)" to="(700,390)"/>
-    <wire from="(700,390)" to="(910,390)"/>
+    <wire from="(620,240)" to="(620,390)"/>
+    <wire from="(620,390)" to="(910,390)"/>
+    <wire from="(700,240)" to="(700,360)"/>
+    <wire from="(700,360)" to="(910,360)"/>
     <wire from="(770,160)" to="(820,160)"/>
     <wire from="(770,220)" to="(790,220)"/>
     <wire from="(790,220)" to="(790,330)"/>
