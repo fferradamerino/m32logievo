@@ -41,9 +41,7 @@ public class ArrowWire extends InstanceFactory {
     public static final Attribute<Direction> ATTR_FACING = 
         Attributes.forDirection("facing", S.getter("stdFacingAttr"));
     public static final Attribute<BitWidth> ATTR_BITWIDTH =
-        Attributes.forBitWidth("bitwidth", S.getter("plaBitWidthIn"));
-
-    private BitWidth bitWidth = BitWidth.create(32);
+        Attributes.forBitWidth("bitwidth", S.getter("stdBitWidthIn"));
 
     public ArrowWire() {
         super("ArrowWire", new ArrowWireName());
@@ -51,7 +49,7 @@ public class ArrowWire extends InstanceFactory {
         setInstanceLogger(ArrowWireLogger.class);
         setAttributes(
             new Attribute[] { ATTR_WIDTH, ATTR_FACING, ATTR_BITWIDTH },
-            new Object[] { 80, Direction.EAST, bitWidth }
+            new Object[] { 80, Direction.EAST, BitWidth.create(32) }
         );
     }
     
@@ -63,36 +61,32 @@ public class ArrowWire extends InstanceFactory {
     
     @Override
     protected void instanceAttributeChanged(Instance instance, Attribute<?> attr) {
-        if (attr == ATTR_WIDTH || attr == ATTR_FACING) {
+        if (attr == ATTR_WIDTH || attr == ATTR_FACING || attr == ATTR_BITWIDTH) {
             instance.recomputeBounds();
-        } else if (attr == ATTR_BITWIDTH) {
-            int value = instance.getAttributeSet()
-                                   .getValue(ATTR_BITWIDTH)
-                                   .getWidth();
-            this.bitWidth = BitWidth.create(value);
+            updatePorts(instance);
         }
-        updatePorts(instance);
     }
     
     private void updatePorts(Instance instance) {
         AttributeSet attrs = instance.getAttributeSet();
         Direction facing = attrs.getValue(ATTR_FACING);
         int width = attrs.getValue(ATTR_WIDTH);
+        BitWidth bitWidth = attrs.getValue(ATTR_BITWIDTH);
         
         Port[] ports = new Port[2];
         
         if (facing == Direction.WEST) {
-            ports[0] = new Port(width, 0, Port.INPUT, BitWidth.create(bitWidth.getWidth()));
-            ports[1] = new Port(0, 0, Port.OUTPUT, BitWidth.create(bitWidth.getWidth()));
+            ports[0] = new Port(width, 0, Port.INPUT, bitWidth);
+            ports[1] = new Port(0, 0, Port.OUTPUT, bitWidth);
         } else if (facing == Direction.EAST) {
-            ports[0] = new Port(0, 0, Port.INPUT, BitWidth.create(bitWidth.getWidth()));
-            ports[1] = new Port(width, 0, Port.OUTPUT, BitWidth.create(bitWidth.getWidth()));
+            ports[0] = new Port(0, 0, Port.INPUT, bitWidth);
+            ports[1] = new Port(width, 0, Port.OUTPUT, bitWidth);
         } else if (facing == Direction.NORTH) {
-            ports[0] = new Port(0, width, Port.INPUT, BitWidth.create(bitWidth.getWidth()));
-            ports[1] = new Port(0, 0, Port.OUTPUT, BitWidth.create(bitWidth.getWidth()));
+            ports[0] = new Port(0, width, Port.INPUT, bitWidth);
+            ports[1] = new Port(0, 0, Port.OUTPUT, bitWidth);
         } else if (facing == Direction.SOUTH) {
-            ports[0] = new Port(0, 0, Port.INPUT, BitWidth.create(bitWidth.getWidth()));
-            ports[1] = new Port(0, width, Port.OUTPUT, BitWidth.create(bitWidth.getWidth()));
+            ports[0] = new Port(0, 0, Port.INPUT, bitWidth);
+            ports[1] = new Port(0, width, Port.OUTPUT, bitWidth);
         }
         
         instance.setPorts(ports);
