@@ -170,6 +170,11 @@ def codificar_direcciones(labels_encontrados):
 	direcciones += label_addr("sra", labels_encontrados)
 	direcciones += label_addr("jmpl", labels_encontrados)
 	direcciones += label_addr("bcond", labels_encontrados)
+
+	for _ in range(21, 31):
+		direcciones += struct.pack('!B', 0)
+
+	direcciones += label_addr("mul", labels_encontrados)
 	
 	return direcciones
 

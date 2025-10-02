@@ -151,6 +151,9 @@ def codificar(linea, labels, direccion_actual):
         case "sra": # sra regs, val, regd
             val, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
             instruccion = codificar_tipo_a("SRA", 18, val, regd, regs)
+        case "mul": # mul regs, val, regd
+            val, regs, regd = make_val_reg_reg(tokens[2], tokens[1], tokens[3])
+            instruccion = codificar_tipo_a("MUL", 31, val, regd, regs)
 
         # Tipo B: Instrucciones aritméticas, jmpl (saltos) e instrucciones de lectura y escritura en memoria
         case "$add": # $add regs1, regs2, regd
@@ -210,6 +213,9 @@ def codificar(linea, labels, direccion_actual):
         case "$stb": # $stb regd, [regs1 + regs2] -> $stb regd, regs1, regs2
             regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
             instruccion = codificar_tipo_b("$STB", 8, regs1, regs2, regd)
+        case "$mul": # $mul regs1, regs2, regd
+            regs1, regs2, regd = make_reg_reg_reg(tokens[1], tokens[2], tokens[3])
+            instruccion = codificar_tipo_b("$MUL", 31, regd, regs1, regs2)
 
         # Tipo C: Formato utilizado por las instrucciones de saltos condicionales.
         case "ba": # ba disp

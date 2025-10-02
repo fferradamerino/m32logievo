@@ -90,3 +90,6 @@ ldsb:
 	wr_rd sel_d op_dbi_3 op_abi_2 en_a rd .
 	.
 	fetch1
+
+mul:
+	wr_rd sel_reg op_y_sel_2 op_alu_4 op_alu_2 wr_sr fetch1

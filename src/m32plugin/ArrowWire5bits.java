@@ -33,7 +33,6 @@ class ArrowWire5bitsName implements StringGetter{
 
 public class ArrowWire5bits extends InstanceFactory {
     public static ArrowWire5bitsName componentName = new ArrowWire5bitsName();
-    public TunnelValueFetcher tunnelValueFetcher = new TunnelValueFetcher();
     
     // Add attributes for width and direction
     public static final Attribute<Integer> ATTR_WIDTH = 
@@ -49,6 +48,13 @@ public class ArrowWire5bits extends InstanceFactory {
             new Attribute[] { ATTR_WIDTH, ATTR_FACING },
             new Object[] { 80, Direction.EAST }
         );
+
+        Port[] ports = new Port[2];
+        
+        ports[0] = new Port(0, 0, Port.INPUT, BitWidth.create(5));
+        ports[1] = new Port(80, 0, Port.OUTPUT, BitWidth.create(5));
+        
+        setPorts(ports);
     }
     
     @Override
@@ -73,8 +79,8 @@ public class ArrowWire5bits extends InstanceFactory {
         Port[] ports = new Port[2];
         
         if (facing == Direction.WEST) {
-            ports[0] = new Port(0, 0, Port.INPUT, BitWidth.create(5));
-            ports[1] = new Port(width, 0, Port.OUTPUT, BitWidth.create(5));
+            ports[0] = new Port(width, 0, Port.INPUT, BitWidth.create(5));
+            ports[1] = new Port(0, 0, Port.OUTPUT, BitWidth.create(5));
         } else if (facing == Direction.EAST) {
             ports[0] = new Port(0, 0, Port.INPUT, BitWidth.create(5));
             ports[1] = new Port(width, 0, Port.OUTPUT, BitWidth.create(5));
