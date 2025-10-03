@@ -8,3 +8,5 @@ test.s
 plugins/build
 plugins/lib
 plugins/dist
+M32 Release.circ
+*.log
