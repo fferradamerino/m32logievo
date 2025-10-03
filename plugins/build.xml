@@ -1,0 +1,19 @@
+<project name="M32Library" default="jar" basedir=".">
+    <property name="build.dir" value="build" />
+    <property name="src.dir" value="src" />
+    <property name="dist.dir" value="dist" />
+    <property name="lib.dir" value="lib" />
+
+    <target name="compile">
+        <mkdir dir="${build.dir}" />
+        <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
+            <classpath>
+                <pathelement location="${lib.dir}/logisim-evolution.jar" />
+            </classpath>
+        </javac>
+    </target>
+    <target name="jar" depends="compile">
+        <mkdir dir="${dist.dir}" />
+        <jar destfile="${dist.dir}/M32Library.jar" basedir="${build.dir}" />
+    </target>
+</project>

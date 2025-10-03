@@ -5,3 +5,6 @@ programa.bin
 test.s
 *.jar
 *.class
+plugins/build
+plugins/lib
+plugins/dist
