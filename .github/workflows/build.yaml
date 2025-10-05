@@ -41,13 +41,11 @@ jobs:
           mkdir lib
           cp plugins/dist/M32Library.jar lib/M32Library.jar
           cp plugins/lib/logisim-evolution-3.9.0-all.jar logisim-evolution.jar
+      
+      - name: Compresión de archivos
+        run: zip release.zip lib/M32Library.jar logisim-evolution.jar M32 Release.circ run.bat run.sh
 
       - name: Crear release
         uses: softprops/action-gh-release@v1
         with:
-          files: |
-            lib/M32Library.jar
-            logisim-evolution.jar
-            M32 Release.circ
-            run.bat
-            run.sh
+          files: release.zip
