@@ -24,6 +24,7 @@ jobs:
         run: |
           mkdir plugins/lib && cd plugins/lib
           wget "https://github.com/logisim-evolution/logisim-evolution/releases/download/v3.9.0/logisim-evolution-3.9.0-all.jar"
+          cd ../..
 
       - name: Ejecutar ANT
         run: cd plugins && ant jar
@@ -34,7 +35,7 @@ jobs:
       - name: Configurar directorios
         run: |
           cp plugins/dist/M32Library.jar lib/M32Library.jar
-          cp plugins/lib/logisim-evolution-3.9.0-all.jar logisim-evolution.jar
+          cp plugins/lib/logisim-evolution-3.9.0-all.jar logisim-evolution.
 
       - name: Crear release
         uses: softprops/action-gh-release@v1
