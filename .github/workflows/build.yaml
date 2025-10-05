@@ -3,6 +3,8 @@ name: Distribuir proyecto
 on:
   push:
     branches: [ master ]
+    tags:
+      - 'debug*'
 
 jobs:
   build:
