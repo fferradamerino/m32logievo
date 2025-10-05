@@ -37,7 +37,7 @@ jobs:
         run: |
           mkdir lib
           cp plugins/dist/M32Library.jar lib/M32Library.jar
-          cp plugins/lib/logisim-evolution-3.9.0-all.jar logisim-evolution.
+          cp plugins/lib/logisim-evolution-3.9.0-all.jar logisim-evolution.jar
 
       - name: Crear release
         uses: softprops/action-gh-release@v1
