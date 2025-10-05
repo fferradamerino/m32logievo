@@ -1,0 +1,1 @@
+java -jar logisim-evolution.jar M32.circ
