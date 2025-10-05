@@ -11,9 +11,6 @@ jobs:
     steps:
       - uses: actions/checkout@v4
 
-      - name: Configuración de entorno
-        run: apt update && apt install unzip -y
-
       - name: Instalar ANT
         uses: cedx/setup-ant@v4
 
