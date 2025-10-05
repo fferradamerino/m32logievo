@@ -1,0 +1,42 @@
+name: Distribuir proyecto
+
+on:
+  push:
+    branches: [ master ]
+
+jobs:
+  build:
+    runs-on: ubuntu-latest
+
+    steps:
+      - uses: actions/checkout@v4
+
+      - name: Configuración de entorno
+        run: apt update && apt install unzip -y
+
+      - name: Instalar ANT
+        uses: cedx/setup-ant@v4
+
+      - name: Configurar JDK 21
+        uses: actions/setup-java@v4
+        with:
+          java-version: 21
+          distribution: 'temurin'
+
+      - name: Ejecutar ANT
+        run: cd plugins && ant jar
+
+      - name: Configurar M32 en perfil "Release"
+        run: python release.py
+
+      - name: Configurar directorios
+        run: cp plugins/dist/M32Library.jar lib/M32Library.jar
+
+      - name: Crear release
+        uses: softprops/action-gh-release@v1
+        with:
+          files: |
+            lib/M32Library.jar
+            M32 Release.circ
+            run.bat
+            run.sh
