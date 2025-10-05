@@ -8,7 +8,7 @@
         <mkdir dir="${build.dir}" />
         <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
             <classpath>
-                <pathelement location="${lib.dir}/logisim-evolution.jar" />
+                <pathelement location="${lib.dir}/logisim-evolution-3.9.0-all.jar" />
             </classpath>
         </javac>
     </target>

@@ -20,6 +20,11 @@ jobs:
           java-version: 21
           distribution: 'temurin'
 
+      - name: Añadir Logisim-Evolution como librería
+        run: |
+          mkdir plugins/lib && cd plugins/lib
+          wget "https://github.com/logisim-evolution/logisim-evolution/releases/download/v3.9.0/logisim-evolution-3.9.0-all.jar"
+
       - name: Ejecutar ANT
         run: cd plugins && ant jar
 
@@ -27,13 +32,16 @@ jobs:
         run: python release.py
 
       - name: Configurar directorios
-        run: cp plugins/dist/M32Library.jar lib/M32Library.jar
+        run: |
+          cp plugins/dist/M32Library.jar lib/M32Library.jar
+          cp plugins/lib/logisim-evolution-3.9.0-all.jar logisim-evolution.jar
 
       - name: Crear release
         uses: softprops/action-gh-release@v1
         with:
           files: |
             lib/M32Library.jar
+            logisim-evolution.jar
             M32 Release.circ
             run.bat
             run.sh
