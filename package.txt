@@ -1,0 +1,6 @@
+lib/M32Library.jar
+logisim-evolution.jar
+M32 Release.circ
+run.bat
+run.sh
+examples/M32 LDWx2.circ
