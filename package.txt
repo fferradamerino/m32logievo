@@ -3,4 +3,7 @@ logisim-evolution.jar
 M32 Release.circ
 run.bat
 run.sh
-examples/M32 LDWx2.circ
+examples/LDWx2/M32 LDWx2.circ
+examples/LDWx2/ensamblador.py
+examples/LDWx2/microensamblador.py
+examples/LDWx2/microprograma.s
