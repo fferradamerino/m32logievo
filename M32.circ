@@ -3154,6 +3154,8 @@
     <wire from="(210,230)" to="(330,230)"/>
     <wire from="(210,90)" to="(210,230)"/>
     <wire from="(210,90)" to="(220,90)"/>
+    <wire from="(220,170)" to="(220,260)"/>
+    <wire from="(220,260)" to="(570,260)"/>
     <wire from="(320,1430)" to="(1690,1430)"/>
     <wire from="(320,250)" to="(320,1430)"/>
     <wire from="(330,1440)" to="(1700,1440)"/>
@@ -3161,7 +3163,9 @@
     <wire from="(440,70)" to="(500,70)"/>
     <wire from="(490,110)" to="(490,700)"/>
     <wire from="(490,110)" to="(500,110)"/>
-    <wire from="(560,70)" to="(590,70)"/>
+    <wire from="(560,70)" to="(570,70)"/>
+    <wire from="(570,70)" to="(570,260)"/>
+    <wire from="(570,70)" to="(590,70)"/>
     <wire from="(830,120)" to="(1450,120)"/>
     <wire from="(90,130)" to="(220,130)"/>
     <wire from="(90,700)" to="(490,700)"/>
@@ -3196,6 +3200,11 @@
       <a name="label" val="NEXT_ADDR"/>
       <a name="width" val="8"/>
     </comp>
+    <comp lib="0" loc="(180,760)" name="Pin">
+      <a name="appearance" val="classic"/>
+      <a name="label" val="PrevAddr"/>
+      <a name="width" val="8"/>
+    </comp>
     <comp lib="0" loc="(210,420)" name="Splitter">
       <a name="fanout" val="32"/>
       <a name="incoming" val="32"/>
@@ -3220,9 +3229,6 @@
       <a name="appearance" val="classic"/>
       <a name="facing" val="north"/>
       <a name="label" val="BR"/>
-    </comp>
-    <comp lib="0" loc="(980,260)" name="Constant">
-      <a name="width" val="8"/>
     </comp>
     <comp lib="1" loc="(690,560)" name="NOT Gate">
       <a name="facing" val="north"/>
@@ -3263,6 +3269,7 @@
     <wire from="(180,420)" to="(210,420)"/>
     <wire from="(180,510)" to="(310,510)"/>
     <wire from="(180,560)" to="(230,560)"/>
+    <wire from="(180,760)" to="(980,760)"/>
     <wire from="(230,340)" to="(260,340)"/>
     <wire from="(230,350)" to="(260,350)"/>
     <wire from="(230,360)" to="(260,360)"/>
@@ -3320,6 +3327,7 @@
     <wire from="(930,260)" to="(930,670)"/>
     <wire from="(950,240)" to="(1020,240)"/>
     <wire from="(980,260)" to="(1020,260)"/>
+    <wire from="(980,260)" to="(980,760)"/>
   </circuit>
   <circuit name="SELECSALTO">
     <a name="appearance" val="logisim_evolution"/>
