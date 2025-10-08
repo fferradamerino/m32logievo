@@ -3,6 +3,7 @@ import com.cburch.logisim.data.Attributes;
 import com.cburch.logisim.data.BitWidth;
 import com.cburch.logisim.data.Bounds;
 import com.cburch.logisim.data.Value;
+import com.cburch.logisim.instance.Instance;
 import com.cburch.logisim.instance.InstanceData;
 import com.cburch.logisim.instance.InstanceFactory;
 import com.cburch.logisim.instance.InstancePainter;
@@ -129,6 +130,20 @@ public class QuadByteRam extends InstanceFactory {
     }
 
     @Override
+    protected void configureNewInstance(Instance instance) {
+        instance.addAttributeListener();
+    }
+
+    @Override
+    protected void instanceAttributeChanged(Instance instance, Attribute<?> attr) {
+        if (attr == ATTR_BITWIDHT) {
+            updatePorts(instance);
+            // Forzar la reinicialización de los datos de RAM con el nuevo tamaño
+            instance.fireInvalidated();
+        }
+    }
+
+    @Override
     public void propagate(InstanceState state) {
         // Obtener o crear datos de la RAM
         RamData ramData = (RamData) state.getData();
@@ -200,6 +215,29 @@ public class QuadByteRam extends InstanceFactory {
         
         // WAIT siempre en FALSE (sin estado de espera)
         state.setPort(WAIT, Value.FALSE, 1);
+    }
+
+    void updatePorts(Instance instance) {
+        BitWidth bitWidth = instance.getAttributeValue(ATTR_BITWIDHT);
+        
+        Port[] ports = new Port[11];
+
+        ports[IN_0] = new Port(0, 10, Port.INPUT, 8); // Input0
+        ports[IN_1] = new Port(0, 20, Port.INPUT, 8); // Input1
+        ports[IN_2] = new Port(0, 30, Port.INPUT, 8); // Input2
+        ports[IN_3] = new Port(0, 40, Port.INPUT, 8); // Input3
+
+        // Actualizar el ancho del puerto ADDR según el atributo
+        ports[ADDR] = new Port(0, 80, Port.INPUT, bitWidth.getWidth()); // ADDR con ancho variable
+        ports[CLK] = new Port(0, 90, Port.INPUT, 1); // CLK
+        ports[WAIT] = new Port(100, 90, Port.OUTPUT, 1); // WAIT
+
+        ports[OUT_0] = new Port(100, 10, Port.OUTPUT, 8); // Output0
+        ports[OUT_1] = new Port(100, 20, Port.OUTPUT, 8); // Output1
+        ports[OUT_2] = new Port(100, 30, Port.OUTPUT, 8); // Output2
+        ports[OUT_3] = new Port(100, 40, Port.OUTPUT, 8); // Output3
+
+        instance.setPorts(ports);
     }
 
     @Override
