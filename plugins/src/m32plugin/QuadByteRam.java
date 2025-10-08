@@ -11,10 +11,15 @@ import com.cburch.logisim.instance.InstanceState;
 import com.cburch.logisim.instance.Port;
 import com.cburch.logisim.util.StringGetter;
 
+import java.io.File;
+import java.io.FileInputStream;
+import java.io.IOException;
+
 class RamData implements InstanceData, Cloneable {
     private Byte data[];
     private String filename;
     private Value lastClk;
+    private boolean fileLoaded;
 
     public RamData(int bits) {
         data = new Byte[(2 << (bits - 1)) * 4];
@@ -23,6 +28,7 @@ class RamData implements InstanceData, Cloneable {
             data[i] = 0;
         }
         lastClk = Value.FALSE;
+        fileLoaded = false;
     }
 
     public Byte getData(int addr) {
@@ -52,6 +58,44 @@ class RamData implements InstanceData, Cloneable {
 
     public void setLastClk(Value clk) {
         this.lastClk = clk;
+    }
+
+    public boolean isFileLoaded() {
+        return this.fileLoaded;
+    }
+
+    public void setFileLoaded(boolean loaded) {
+        this.fileLoaded = loaded;
+    }
+
+    public boolean loadFromFile(String filepath) {
+        if (filepath == null || filepath.trim().isEmpty()) {
+            return false;
+        }
+
+        File file = new File(filepath);
+        if (!file.exists() || !file.canRead()) {
+            System.err.println("Error: No se puede leer el archivo: " + filepath);
+            return false;
+        }
+
+        try (FileInputStream fis = new FileInputStream(file)) {
+            int bytesRead = 0;
+            int value;
+            
+            while ((value = fis.read()) != -1 && bytesRead < data.length) {
+                data[bytesRead] = (byte) value;
+                bytesRead++;
+            }
+            
+            System.out.println("RAM: Cargados " + bytesRead + " bytes desde " + filepath);
+            this.fileLoaded = true;
+            return true;
+            
+        } catch (IOException e) {
+            System.err.println("Error al cargar archivo: " + e.getMessage());
+            return false;
+        }
     }
 
     @Override
@@ -140,6 +184,9 @@ public class QuadByteRam extends InstanceFactory {
             updatePorts(instance);
             // Forzar la reinicialización de los datos de RAM con el nuevo tamaño
             instance.fireInvalidated();
+        } else if (attr == ATTR_FILENAME) {
+            // Cuando cambia el nombre del archivo, forzar recarga
+            instance.fireInvalidated();
         }
     }
 
@@ -151,6 +198,15 @@ public class QuadByteRam extends InstanceFactory {
             BitWidth bitWidth = state.getAttributeValue(ATTR_BITWIDHT);
             ramData = new RamData(bitWidth.getWidth());
             state.setData(ramData);
+        }
+
+        // Cargar archivo si aún no se ha cargado y hay un nombre de archivo
+        String currentFilename = state.getAttributeValue(ATTR_FILENAME);
+        if (!ramData.isFileLoaded() && currentFilename != null && !currentFilename.trim().isEmpty()) {
+            if (!currentFilename.equals(ramData.getFilename())) {
+                ramData.setFilename(currentFilename);
+                ramData.loadFromFile(currentFilename);
+            }
         }
 
         // Leer valores de entrada
