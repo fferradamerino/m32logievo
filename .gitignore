@@ -1,7 +1,5 @@
-mc.bin
-d.bin
+*.bin
 .M32.circ.autosave
-programa.bin
 test.s
 *.jar
 *.class
