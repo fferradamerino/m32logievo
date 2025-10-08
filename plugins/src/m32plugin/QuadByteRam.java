@@ -111,7 +111,7 @@ class RamData implements InstanceData, Cloneable {
 }
 
 class QuadByteRamName implements StringGetter {
-    public String name = "QuadByteRam";
+    public String name = "Quad-Byte Ram";
 
     public QuadByteRamName() {}
 
