@@ -100,7 +100,7 @@ class Microinstruccion:
 		codificacion |= (1 << 20) if self.en_a else 0
 		codificacion |= (1 << 21) if self.rd else 0
 		codificacion |= (1 << 22) if self.wr else 0
-		codificacion |= (1 << 31) if self.ldwx2_dest else 0
+		codificacion |= (1 << 32) if self.ldwx2_dest else 0
 		codificacion |= (1 << 23) if self.fetch else 0
 		codificacion |= self.next_addr << 24
 
