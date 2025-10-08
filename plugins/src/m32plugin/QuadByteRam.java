@@ -1,17 +1,8 @@
-import java.io.File;
-import java.io.IOException;
-import java.nio.file.Files;
-import javax.swing.JFileChooser;
-import javax.swing.JOptionPane;
-import javax.swing.filechooser.FileNameExtensionFilter;
-
 import com.cburch.logisim.data.Attribute;
 import com.cburch.logisim.data.Attributes;
 import com.cburch.logisim.data.BitWidth;
 import com.cburch.logisim.data.Bounds;
 import com.cburch.logisim.data.Value;
-import com.cburch.logisim.data.Direction;
-import com.cburch.logisim.instance.Instance;
 import com.cburch.logisim.instance.InstanceData;
 import com.cburch.logisim.instance.InstanceFactory;
 import com.cburch.logisim.instance.InstancePainter;
@@ -19,263 +10,201 @@ import com.cburch.logisim.instance.InstanceState;
 import com.cburch.logisim.instance.Port;
 import com.cburch.logisim.util.StringGetter;
 
-import static com.cburch.logisim.std.Strings.S;
+class RamData implements InstanceData, Cloneable {
+    private Byte data[];
+    private String filename;
+    private Value lastClk;
+
+    public RamData(int bits) {
+        data = new Byte[(2 << (bits - 1)) * 4];
+        // Inicializar con ceros
+        for (int i = 0; i < data.length; i++) {
+            data[i] = 0;
+        }
+        lastClk = Value.FALSE;
+    }
+
+    public Byte getData(int addr) {
+        if (addr >= 0 && addr < data.length) {
+            return this.data[addr];
+        }
+        return 0;
+    }
+
+    public void setData(int addr, byte val) {
+        if (addr >= 0 && addr < data.length) {
+            this.data[addr] = val;
+        }
+    }
+
+    public String getFilename() {
+        return this.filename;
+    }
+
+    public void setFilename(String filename) {
+        this.filename = filename;
+    }
+
+    public Value getLastClk() {
+        return this.lastClk;
+    }
+
+    public void setLastClk(Value clk) {
+        this.lastClk = clk;
+    }
+
+    @Override
+    public RamData clone() {
+        try {
+            RamData cloned = (RamData) super.clone();
+            cloned.data = this.data.clone();
+            return cloned;
+        } catch (CloneNotSupportedException e) {
+            return null;
+        }
+    }
+}
 
 class QuadByteRamName implements StringGetter {
-    String name = "Quad Byte RAM";
-    
+    public String name = "QuadByteRam";
+
     public QuadByteRamName() {}
 
     public String toString() {
-        return name;
+        return this.name;
     }
 }
 
 public class QuadByteRam extends InstanceFactory {
-    private static final int ADDR = 0;
-    private static final int DATA_IN = 1;
-    private static final int ENABLE = 2;
-    private static final int LOAD = 3;
-    private static final int CLK = 4;
-
-    private static final int OUT0 = 5;
-    private static final int OUT1 = 6;
-    private static final int OUT2 = 7;
-    private static final int OUT3 = 8;
-
-    public InstanceState instanceState;
-
-    // Custom attribute for file selection with GUI integration
-    private static final Attribute<String> FILE_ATTR = Attributes.forString("file", S.getter("Memory File"));
-
     public static QuadByteRamName componentName = new QuadByteRamName();
 
+    public static final Attribute<String> ATTR_FILENAME =
+        Attributes.forString("Nombre de archivo");
+    public static final Attribute<BitWidth> ATTR_BITWIDHT =
+        Attributes.forBitWidth("Ancho de bits", 1, 21);
+
+    private int IN_0 = 0;
+    private int IN_1 = 1;
+    private int IN_2 = 2;
+    private int IN_3 = 3;
+
+    private int ADDR = 4;
+    private int CLK = 5;
+    private int WAIT = 6;
+
+    private int OUT_0 = 7;
+    private int OUT_1 = 8;
+    private int OUT_2 = 9;
+    private int OUT_3 = 10;
+
     public QuadByteRam() {
-        super("QuadByte RAM", componentName);
-        setOffsetBounds(Bounds.create(0, 0, 120, 100));
+        super("QuadByteRam", new QuadByteRamName());
 
-        setPorts(new Port[] {
-            new Port(0, 10, Port.INPUT, BitWidth.create(8)),   // Address input
-            new Port(0, 30, Port.INPUT, BitWidth.create(8)),   // Data in
-            new Port(0, 50, Port.INPUT, 1),                    // Enable
-            new Port(0, 70, Port.INPUT, 1),                    // Load
-            new Port(0, 90, Port.INPUT, 1),                   // Clock
-            new Port(120, 20, Port.OUTPUT, BitWidth.create(8)),  // OUT0
-            new Port(120, 40, Port.OUTPUT, BitWidth.create(8)),  // OUT1
-            new Port(120, 60, Port.OUTPUT, BitWidth.create(8)),  // OUT2
-            new Port(120, 80, Port.OUTPUT, BitWidth.create(8)),  // OUT3
-        });
+        Port[] ports = new Port[11];
 
-        setAttributes(new Attribute[] { FILE_ATTR }, new Object[] { "" });
-    }
+        Bounds bounds = Bounds.create(0, 0, 100, 100);
 
-    @Override
-    protected void configureNewInstance(Instance instance) {
-        instance.addAttributeListener();
-    }
+        setOffsetBounds(bounds);
 
-    @Override
-    public void instanceAttributeChanged(Instance instance, Attribute<?> attr) {
-        if (attr == FILE_ATTR) {
-            String filename = instance.getAttributeValue(FILE_ATTR);
-            QuadByteRamData ramData = QuadByteRamData.get(this.instanceState);
-            
-            if (filename != null && !filename.isEmpty()) {
-                try {
-                    File f = new File(filename);
-                    if (f.exists() && f.isFile()) {
-                        byte[] data = Files.readAllBytes(f.toPath());
-                        int len = Math.min(data.length, ramData.memory.length);
-                        // Clear memory first
-                        java.util.Arrays.fill(ramData.memory, (byte)0);
-                        // Copy new data
-                        System.arraycopy(data, 0, ramData.memory, 0, len);
-                        
-                        // Notify user of successful load
-                        JOptionPane.showMessageDialog(null, 
-                            "Loaded " + len + " bytes from " + f.getName(),
-                            "Memory Loaded", 
-                            JOptionPane.INFORMATION_MESSAGE);
-                    } else {
-                        JOptionPane.showMessageDialog(null, 
-                            "File not found: " + filename,
-                            "Error", 
-                            JOptionPane.ERROR_MESSAGE);
-                    }
-                } catch (IOException e) {
-                    JOptionPane.showMessageDialog(null, 
-                        "Error reading file: " + e.getMessage(),
-                        "File Error", 
-                        JOptionPane.ERROR_MESSAGE);
-                    e.printStackTrace();
-                } catch (SecurityException e) {
-                    JOptionPane.showMessageDialog(null, 
-                        "Permission denied reading file: " + filename,
-                        "Security Error", 
-                        JOptionPane.ERROR_MESSAGE);
-                }
-            }
-        }
+        ports[IN_0] = new Port(0, 10, Port.INPUT, 8); // Input0
+        ports[IN_1] = new Port(0, 20, Port.INPUT, 8); // Input1
+        ports[IN_2] = new Port(0, 30, Port.INPUT, 8); // Input2
+        ports[IN_3] = new Port(0, 40, Port.INPUT, 8); // Input3
+
+        ports[ADDR] = new Port(0, 80, Port.INPUT, 21); // ADDR
+        ports[CLK] = new Port(0, 90, Port.INPUT, 1); // CLK
+        ports[WAIT] = new Port(100, 90, Port.OUTPUT, 1); // WAIT
+
+        ports[OUT_0] = new Port(100, 10, Port.OUTPUT, 8); // Output0
+        ports[OUT_1] = new Port(100, 20, Port.OUTPUT, 8); // Output1
+        ports[OUT_2] = new Port(100, 30, Port.OUTPUT, 8); // Output2
+        ports[OUT_3] = new Port(100, 40, Port.OUTPUT, 8); // Output3
+
+        setPorts(ports);
+
+        setAttributes(
+            new Attribute[] { ATTR_FILENAME, ATTR_BITWIDHT },
+            new Object[] { "", BitWidth.create(21) }
+        );
     }
 
     @Override
     public void propagate(InstanceState state) {
+        // Obtener o crear datos de la RAM
+        RamData ramData = (RamData) state.getData();
+        if (ramData == null) {
+            BitWidth bitWidth = state.getAttributeValue(ATTR_BITWIDHT);
+            ramData = new RamData(bitWidth.getWidth());
+            state.setData(ramData);
+        }
+
+        // Leer valores de entrada
+        Value clkVal = state.getPortValue(CLK);
         Value addrVal = state.getPortValue(ADDR);
-        Value dinVal  = state.getPortValue(DATA_IN);
-        Value enVal   = state.getPortValue(ENABLE);
-        Value loadVal = state.getPortValue(LOAD);
-        Value clkVal  = state.getPortValue(CLK);
-
-        this.instanceState = state;
-
-        QuadByteRamData data = QuadByteRamData.get(state);
         
+        // Detectar flanco de subida del reloj
+        boolean risingEdge = ramData.getLastClk() == Value.FALSE && clkVal == Value.TRUE;
+        ramData.setLastClk(clkVal);
+
+        // Validar dirección
         if (!addrVal.isFullyDefined()) {
-            // Set all outputs to unknown if address is not defined
-            state.setPort(OUT0, Value.createUnknown(BitWidth.create(8)), 0);
-            state.setPort(OUT1, Value.createUnknown(BitWidth.create(8)), 0);
-            state.setPort(OUT2, Value.createUnknown(BitWidth.create(8)), 0);
-            state.setPort(OUT3, Value.createUnknown(BitWidth.create(8)), 0);
+            // Si la dirección no está definida, salidas en estado desconocido
+            state.setPort(OUT_0, Value.createUnknown(BitWidth.create(8)), 1);
+            state.setPort(OUT_1, Value.createUnknown(BitWidth.create(8)), 1);
+            state.setPort(OUT_2, Value.createUnknown(BitWidth.create(8)), 1);
+            state.setPort(OUT_3, Value.createUnknown(BitWidth.create(8)), 1);
+            state.setPort(WAIT, Value.FALSE, 1);
             return;
         }
 
-        int addr = Integer.parseInt(addrVal.toDecimalString(false)) & 0xFF;
+        int addr = Integer.parseInt(addrVal.toDecimalString(false)) * 4; // Multiplicar por 4 porque cada dirección tiene 4 bytes
 
-        // Write on rising edge if LOAD = 1
-        if (data.lastClock == Value.FALSE && clkVal == Value.TRUE && loadVal == Value.TRUE) {
-            if (dinVal.isFullyDefined()) {
-                data.memory[addr] = (byte) Integer.parseInt(dinVal.toDecimalString(false));
+        // En flanco de subida, escribir datos
+        if (risingEdge) {
+            Value in0 = state.getPortValue(IN_0);
+            Value in1 = state.getPortValue(IN_1);
+            Value in2 = state.getPortValue(IN_2);
+            Value in3 = state.getPortValue(IN_3);
+
+            if (in0.isFullyDefined()) {
+                ramData.setData(addr, (byte) Integer.parseInt(in0.toDecimalString(false)));
+            }
+            if (in1.isFullyDefined()) {
+                ramData.setData(addr + 1, (byte) Integer.parseInt(in1.toDecimalString(false)));
+            }
+            if (in2.isFullyDefined()) {
+                ramData.setData(addr + 2, (byte) Integer.parseInt(in2.toDecimalString(false)));
+            }
+            if (in3.isFullyDefined()) {
+                ramData.setData(addr + 3, (byte) Integer.parseInt(in3.toDecimalString(false)));
             }
         }
-        data.lastClock = clkVal;
 
-        // Read if ENABLE = 1
-        if (enVal == Value.TRUE) {
-            state.setPort(OUT0, Value.createKnown(BitWidth.create(8), data.memory[addr & 0xFF] & 0xFF), 0);
-            state.setPort(OUT1, Value.createKnown(BitWidth.create(8), data.memory[(addr + 1) & 0xFF] & 0xFF), 0);
-            state.setPort(OUT2, Value.createKnown(BitWidth.create(8), data.memory[(addr + 2) & 0xFF] & 0xFF), 0);
-            state.setPort(OUT3, Value.createKnown(BitWidth.create(8), data.memory[(addr + 3) & 0xFF] & 0xFF), 0);
-        } else {
-            // High impedance if not enabled
-            state.setPort(OUT0, Value.createUnknown(BitWidth.create(8)), 0);
-            state.setPort(OUT1, Value.createUnknown(BitWidth.create(8)), 0);
-            state.setPort(OUT2, Value.createUnknown(BitWidth.create(8)), 0);
-            state.setPort(OUT3, Value.createUnknown(BitWidth.create(8)), 0);
-        }
+        // Leer datos (siempre, de forma asíncrona)
+        Byte byte0 = ramData.getData(addr);
+        Byte byte1 = ramData.getData(addr + 1);
+        Byte byte2 = ramData.getData(addr + 2);
+        Byte byte3 = ramData.getData(addr + 3);
+
+        // Convertir bytes a valores de Logisim (manejar valores sin signo)
+        Value out0 = Value.createKnown(BitWidth.create(8), byte0 & 0xFF);
+        Value out1 = Value.createKnown(BitWidth.create(8), byte1 & 0xFF);
+        Value out2 = Value.createKnown(BitWidth.create(8), byte2 & 0xFF);
+        Value out3 = Value.createKnown(BitWidth.create(8), byte3 & 0xFF);
+
+        // Establecer salidas
+        state.setPort(OUT_0, out0, 1);
+        state.setPort(OUT_1, out1, 1);
+        state.setPort(OUT_2, out2, 1);
+        state.setPort(OUT_3, out3, 1);
+        
+        // WAIT siempre en FALSE (sin estado de espera)
+        state.setPort(WAIT, Value.FALSE, 1);
     }
 
     @Override
-    public void paintInstance(InstancePainter painter) {
-        painter.drawBounds();
-        painter.drawLabel();
-        painter.drawPort(ADDR, "Addr", Direction.WEST);
-        painter.drawPort(DATA_IN, "Din", Direction.WEST);
-        painter.drawPort(ENABLE, "En", Direction.WEST);
-        painter.drawPort(LOAD, "Ld", Direction.WEST);
-        painter.drawPort(CLK, "Clk", Direction.WEST);
-
-        painter.drawPort(OUT0, "Q0", Direction.EAST);
-        painter.drawPort(OUT1, "Q1", Direction.EAST);
-        painter.drawPort(OUT2, "Q2", Direction.EAST);
-        painter.drawPort(OUT3, "Q3", Direction.EAST);
-    }
-}
-
-// Properly implement InstanceData for Logisim compatibility
-class QuadByteRamData implements InstanceData {
-    public byte[] memory;
-    public Value lastClock;
-    public boolean fileLoaded;
-    
-    public QuadByteRamData() {
-        memory = new byte[256];
-        lastClock = Value.FALSE;
-        fileLoaded = false;
-    }
-    
-    @Override
-    public Object clone() {
-        try {
-            QuadByteRamData copy = (QuadByteRamData) super.clone();
-            copy.memory = memory.clone();
-            copy.lastClock = lastClock;
-            copy.fileLoaded = fileLoaded;
-            return copy;
-        } catch (CloneNotSupportedException e) {
-            throw new AssertionError("Clone should be supported");
-        }
-    }
-    
-    public static QuadByteRamData get(InstanceState state) {
-        QuadByteRamData data = (QuadByteRamData) state.getData();
-        if (data == null) {
-            data = new QuadByteRamData();
-            state.setData(data);
-        }
-        return data;
-    }
-}
-
-// Custom file attribute editor with file picker dialog
-class FileAttributeEditor extends javax.swing.JPanel {
-    private javax.swing.JTextField textField;
-    private javax.swing.JButton browseButton;
-    private String currentValue;
-    
-    public FileAttributeEditor(String initialValue) {
-        this.currentValue = initialValue == null ? "" : initialValue;
-        initComponents();
-    }
-    
-    private void initComponents() {
-        setLayout(new java.awt.BorderLayout());
-        
-        textField = new javax.swing.JTextField(currentValue);
-        textField.setEditable(false);
-        textField.setPreferredSize(new java.awt.Dimension(200, 25));
-        
-        browseButton = new javax.swing.JButton("Browse...");
-        browseButton.setPreferredSize(new java.awt.Dimension(80, 25));
-        browseButton.addActionListener(e -> browseForFile());
-        
-        add(textField, java.awt.BorderLayout.CENTER);
-        add(browseButton, java.awt.BorderLayout.EAST);
-    }
-    
-    private void browseForFile() {
-        JFileChooser fileChooser = new JFileChooser();
-        fileChooser.setDialogTitle("Select Memory File");
-        
-        // Set file filters
-        FileNameExtensionFilter binFilter = new FileNameExtensionFilter("Binary Files (*.bin)", "bin");
-        FileNameExtensionFilter datFilter = new FileNameExtensionFilter("Data Files (*.dat)", "dat");
-        FileNameExtensionFilter allFilter = new FileNameExtensionFilter("All Files", "*");
-        
-        fileChooser.addChoosableFileFilter(binFilter);
-        fileChooser.addChoosableFileFilter(datFilter);
-        fileChooser.addChoosableFileFilter(allFilter);
-        fileChooser.setFileFilter(binFilter);
-        
-        // Set initial directory if we have a current file
-        if (!currentValue.isEmpty()) {
-            File currentFile = new File(currentValue);
-            if (currentFile.getParentFile() != null && currentFile.getParentFile().exists()) {
-                fileChooser.setCurrentDirectory(currentFile.getParentFile());
-            }
-        }
-        
-        int result = fileChooser.showOpenDialog(this);
-        if (result == JFileChooser.APPROVE_OPTION) {
-            File selectedFile = fileChooser.getSelectedFile();
-            currentValue = selectedFile.getAbsolutePath();
-            textField.setText(selectedFile.getName());
-            
-            // Fire property change to notify Logisim
-            firePropertyChange("value", null, currentValue);
-        }
-    }
-    
-    public String getValue() {
-        return currentValue;
+    public void paintInstance(InstancePainter instancePainter) {
+        instancePainter.drawBounds();
+        instancePainter.drawPorts();
     }
 }
