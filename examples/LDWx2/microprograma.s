@@ -94,6 +94,6 @@ ldsb:
 ldwx2:
 	sel_reg wr_ar en_a rd .
 	sel_d wr_rd en_a rd .
-	sel_reg op_y_sel_1 wr_ar op_abi en_a rd .
+	sel_reg op_y_sel_1 wr_ar en_a rd .
 	sel_d wr_rd en_a rd .
 	fetch1
