@@ -1,4 +1,5 @@
 import java.awt.Graphics;
+import java.awt.Color;
 
 import com.cburch.logisim.data.Attribute;
 import com.cburch.logisim.data.BitWidth;
@@ -45,17 +46,46 @@ public class DefinedOutputSplitter32 extends InstanceFactory {
     public void paintInstance(InstancePainter painter) {
         Graphics g = painter.getGraphics();
         Bounds bds = painter.getBounds();
+        
+        int x = bds.getX();
+        int y = bds.getY();
+        int width = bds.getWidth();
+        int height = bds.getHeight();
 
-        g.drawRect(bds.getX(), bds.getY(), bds.getWidth(), bds.getHeight());
-
-        g.drawString("D.O. Splitter", bds.getX() + 5, bds.getY() + 15);
-        g.drawString("32-bit", bds.getX() + 15, bds.getY() + 30);
-
+        // Draw a trapezoidal shape like the standard splitter
+        int[] xPoints = {x, x + 30, x + 30, x};
+        int[] yPoints = {y, y + 40, y + height - 40, y + height};
+        
+        // Fill background
+        Color oldColor = g.getColor();
+        g.setColor(Color.WHITE);
+        g.fillPolygon(xPoints, yPoints, 4);
+        
+        // Draw outline
+        g.setColor(Color.BLACK);
+        g.drawPolygon(xPoints, yPoints, 4);
+        
+        // Draw lines from the trapezoid to each output
         for (int i = 0; i < 32; i++) {
-            int yPos = bds.getY() + 160 - 150 + (i * 10);
-            g.drawString(String.valueOf(i), bds.getX() + bds.getWidth() - 15, yPos + 3);
+            int yPos = y + 10 + (i * 10);
+            g.drawLine(x + 30, yPos, x + width, yPos);
         }
-
+        
+        // Draw bit numbers on the right side
+        g.setColor(Color.BLUE);
+        for (int i = 0; i < 32; i++) {
+            int yPos = y + 10 + (i * 10);
+            String label = String.valueOf(31 - i); // MSB at top
+            // Position text slightly to the left of the right edge
+            int labelWidth = g.getFontMetrics().stringWidth(label);
+            g.drawString(label, x + width - labelWidth - 2, yPos + 4);
+        }
+        
+        // Draw "32" label on the input side
+        g.setColor(Color.BLUE);
+        g.drawString("32", x + 2, y + height / 2 + 4);
+        
+        g.setColor(oldColor);
         painter.drawPorts();
     }
     
