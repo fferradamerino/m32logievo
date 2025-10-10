@@ -25,10 +25,6 @@ El M32 es una arquitectura de procesador educativa de 32 bits diseñada original
    - **Linux/macOS**: `./run.sh`
    - **Windows**: `run.bat`
 
-## Autor
-
-Desarrollado como proyecto de tesis en la Universidad del Bio-Bio, 2025.
-
 ## Agradecimientos
 
 Se agradece especialmente al profesor Luis Mateu de la Universidad de Chile por el diseño original del M32.
