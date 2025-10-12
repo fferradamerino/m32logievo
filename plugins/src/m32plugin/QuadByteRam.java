@@ -113,7 +113,8 @@ class RamData32 implements InstanceData, Cloneable {
             int byteIndex = 0;
             
             while ((value = fis.read()) != -1 && location < data.length) {
-                currentValue |= (value & 0xFF) << (byteIndex * 8);
+                // Change this line to shift in reverse order
+                currentValue |= (value & 0xFF) << ((bytesPerLocation - 1 - byteIndex) * 8);
                 byteIndex++;
                 bytesRead++;
                 
