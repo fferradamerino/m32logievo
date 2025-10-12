@@ -192,21 +192,21 @@ public class QuadByteRam extends InstanceFactory {
             new Object[] { 1024, BitWidth.create(32) }
         );
 
-        setOffsetBounds(Bounds.create(0, 0, 120, 80));
+        setOffsetBounds(Bounds.create(0, 0, 220, 90));
         updatePorts();
     }
 
     private void updatePorts() {
         Port[] ports = new Port[8];
 
-        ports[DATA_IN] = new Port(0, 10, Port.INPUT, 32);     // Data Input
-        ports[DATA_OUT] = new Port(120, 10, Port.OUTPUT, 32); // Data Output
-        ports[BE] = new Port(0, 30, Port.INPUT, 4);           // Byte Enable
-        ports[CLK] = new Port(0, 50, Port.INPUT, 1);          // Clock
-        ports[WAIT] = new Port(120, 50, Port.OUTPUT, 1);      // Wait
-        ports[READ] = new Port(0, 70, Port.INPUT, 1);         // Read
-        ports[WRITE] = new Port(30, 70, Port.INPUT, 1);       // Write
-        ports[ADDR] = new Port(60, 70, Port.INPUT, 32);       // Address
+        ports[DATA_IN] = new Port(70, 90, Port.INPUT, 32);     // Data Input
+        ports[DATA_OUT] = new Port(150, 90, Port.OUTPUT, 32); // Data Output
+        ports[BE] = new Port(220, 10, Port.INPUT, 4);           // Byte Enable
+        ports[CLK] = new Port(0, 10, Port.INPUT, 1);          // Clock
+        ports[WAIT] = new Port(0, 20, Port.OUTPUT, 1);      // Wait
+        ports[READ] = new Port(0, 60, Port.INPUT, 1);         // Read
+        ports[WRITE] = new Port(0, 70, Port.INPUT, 1);       // Write
+        ports[ADDR] = new Port(220, 70, Port.INPUT, 32);       // Address
 
         setPorts(ports);
     }
@@ -327,8 +327,56 @@ public class QuadByteRam extends InstanceFactory {
 
         Bounds bds = painter.getBounds();
         painter.getGraphics().drawString(info, 
-            bds.getX() + bds.getWidth() / 2 - 20, 
+            bds.getX() + bds.getWidth() / 2 - 50, 
             bds.getY() + bds.getHeight() / 2);
+
+        painter.getGraphics().drawString(
+            "D. IN",
+            bds.getX() + 55,
+            bds.getY() + 85
+        );
+
+        painter.getGraphics().drawString(
+            "D. OUT",
+            bds.getX() + 134,
+            bds.getY() + 85
+        );
+
+        painter.getGraphics().drawString(
+            "BE",
+            bds.getX() + 180,
+            bds.getY() + 15
+        );
+
+        painter.getGraphics().drawString(
+            "CLK",
+            bds.getX() + 5,
+            bds.getY() + 15
+        );
+
+        painter.getGraphics().drawString(
+            "WAIT",
+            bds.getX() + 5,
+            bds.getY() + 26
+        );
+
+        painter.getGraphics().drawString(
+            "READ",
+            bds.getX() + 5,
+            bds.getY() + 65
+        );
+
+        painter.getGraphics().drawString(
+            "WRITE",
+            bds.getX() + 5,
+            bds.getY() + 76
+        );
+
+        painter.getGraphics().drawString(
+            "ADDR",
+            bds.getX() + 180,
+            bds.getY() + 75
+        );
     }
 
     @Override
