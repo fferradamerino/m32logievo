@@ -89,6 +89,10 @@ class RamData32 implements InstanceData, Cloneable {
         }
     }
 
+    public void incrementWaitCycle() {
+        this.waitCycleCount++;
+    }
+
     public boolean loadFromFile(String filepath) {
         if (filepath == null || filepath.trim().isEmpty()) {
             return false;
@@ -262,6 +266,7 @@ public class QuadByteRam extends InstanceFactory {
             }
         }
 
+        /*
         // Start WAIT signal on falling edge with valid address and (read or write active)
         if (fallingEdge && validAddress && 
             (readVal == Value.TRUE || writeVal == Value.TRUE)) {
@@ -276,6 +281,29 @@ public class QuadByteRam extends InstanceFactory {
         // Set WAIT signal based on cycle count
         boolean waitActive = ramData.getWaitCycleCount() > 0;
         state.setPort(WAIT, waitActive ? Value.TRUE : Value.FALSE, 1);
+        */
+
+        // Custom Logic
+        int MAX = 3;
+
+        boolean isSelect = fallingEdge && validAddress &&
+            (readVal == Value.TRUE || writeVal == Value.TRUE);
+
+        if (isSelect) {
+            ramData.incrementWaitCycle();
+        }
+
+        if (ramData.getWaitCycleCount() > MAX) {
+            ramData.setWaitCycleCount(0);
+        }
+
+        boolean shouldWait = ramData.getWaitCycleCount() <= MAX &&
+            !(ramData.getWaitCycleCount() == 0);
+        state.setPort(
+            WAIT,
+            shouldWait? Value.TRUE : Value.FALSE,
+            1
+        );
 
         // Handle read operation (asynchronous)
         if (readVal == Value.TRUE && validAddress) {
