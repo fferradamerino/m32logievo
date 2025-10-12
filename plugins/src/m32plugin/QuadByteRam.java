@@ -9,6 +9,7 @@ import com.cburch.logisim.instance.InstanceFactory;
 import com.cburch.logisim.instance.InstancePainter;
 import com.cburch.logisim.instance.InstanceState;
 import com.cburch.logisim.instance.Port;
+import com.cburch.logisim.tools.MenuExtender;
 import com.cburch.logisim.util.StringGetter;
 
 import java.io.File;
@@ -328,5 +329,12 @@ public class QuadByteRam extends InstanceFactory {
         painter.getGraphics().drawString(info, 
             bds.getX() + bds.getWidth() / 2 - 20, 
             bds.getY() + bds.getHeight() / 2);
+    }
+
+    @Override
+    protected Object getInstanceFeature(Instance instance, Object key) {
+        return (key == MenuExtender.class)
+            ? new QuadByteRamMenu(instance)
+            : super.getInstanceFeature(instance, key);
     }
 }
