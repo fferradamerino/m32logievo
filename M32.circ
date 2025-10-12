@@ -577,6 +577,16 @@
     <comp lib="0" loc="(290,250)" name="Clock">
       <a name="facing" val="south"/>
     </comp>
+    <comp lib="0" loc="(940,200)" name="Splitter">
+      <a name="facing" val="south"/>
+      <a name="fanout" val="7"/>
+      <a name="incoming" val="7"/>
+    </comp>
+    <comp lib="0" loc="(980,160)" name="Constant"/>
+    <comp lib="12" loc="(1100,260)" name="DefinedOutputSplitter32">
+      <a name="facing" val="north"/>
+    </comp>
+    <comp lib="5" loc="(990,130)" name="TTY"/>
     <comp lib="8" loc="(105,425)" name="Text">
       <a name="text" val="Control (CLK)"/>
     </comp>
@@ -608,6 +618,12 @@
       <a name="facing" val="south"/>
     </comp>
     <comp loc="(700,240)" name="RAM_M32"/>
+    <wire from="(1000,140)" to="(1000,160)"/>
+    <wire from="(1010,140)" to="(1010,190)"/>
+    <wire from="(1010,190)" to="(1020,190)"/>
+    <wire from="(1020,190)" to="(1020,220)"/>
+    <wire from="(1100,300)" to="(1100,390)"/>
+    <wire from="(1100,390)" to="(1270,390)"/>
     <wire from="(240,330)" to="(350,330)"/>
     <wire from="(240,360)" to="(340,360)"/>
     <wire from="(240,390)" to="(330,390)"/>
@@ -637,26 +653,32 @@
     <wire from="(470,420)" to="(510,420)"/>
     <wire from="(510,160)" to="(510,420)"/>
     <wire from="(510,160)" to="(550,160)"/>
-    <wire from="(510,420)" to="(910,420)"/>
+    <wire from="(510,420)" to="(900,420)"/>
     <wire from="(520,170)" to="(520,450)"/>
     <wire from="(520,170)" to="(550,170)"/>
-    <wire from="(520,450)" to="(910,450)"/>
+    <wire from="(520,450)" to="(1270,450)"/>
     <wire from="(530,210)" to="(530,510)"/>
     <wire from="(530,210)" to="(550,210)"/>
-    <wire from="(530,510)" to="(910,510)"/>
+    <wire from="(530,510)" to="(1270,510)"/>
     <wire from="(540,220)" to="(540,480)"/>
     <wire from="(540,220)" to="(550,220)"/>
-    <wire from="(540,480)" to="(910,480)"/>
+    <wire from="(540,480)" to="(1270,480)"/>
     <wire from="(620,240)" to="(620,390)"/>
-    <wire from="(620,390)" to="(910,390)"/>
+    <wire from="(620,390)" to="(1100,390)"/>
     <wire from="(700,240)" to="(700,360)"/>
-    <wire from="(700,360)" to="(910,360)"/>
+    <wire from="(700,360)" to="(1270,360)"/>
     <wire from="(770,160)" to="(820,160)"/>
     <wire from="(770,220)" to="(790,220)"/>
     <wire from="(790,220)" to="(790,330)"/>
-    <wire from="(790,330)" to="(910,330)"/>
+    <wire from="(790,330)" to="(1270,330)"/>
     <wire from="(820,160)" to="(820,540)"/>
-    <wire from="(820,540)" to="(910,540)"/>
+    <wire from="(820,540)" to="(1270,540)"/>
+    <wire from="(900,130)" to="(900,420)"/>
+    <wire from="(900,130)" to="(990,130)"/>
+    <wire from="(900,420)" to="(1270,420)"/>
+    <wire from="(940,120)" to="(940,200)"/>
+    <wire from="(940,120)" to="(990,120)"/>
+    <wire from="(980,160)" to="(1000,160)"/>
   </circuit>
   <circuit name="PC">
     <a name="appearance" val="custom"/>

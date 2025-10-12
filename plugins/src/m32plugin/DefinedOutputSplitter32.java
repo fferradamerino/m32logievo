@@ -73,7 +73,7 @@ public class DefinedOutputSplitter32 extends InstanceFactory {
             ports[0] = new Port(-40, 0, Port.INPUT, 32);
             for (int i = 0; i < 32; i++) {
                 int yPos = -150 + (i * 10);
-                ports[i + 1] = new Port(40, yPos, Port.OUTPUT, 1);
+                ports[31 - i + 1] = new Port(40, yPos, Port.OUTPUT, 1);
             }
         } else if (facing == Direction.WEST) {
             ports[0] = new Port(40, 0, Port.INPUT, 32);
@@ -85,7 +85,7 @@ public class DefinedOutputSplitter32 extends InstanceFactory {
             ports[0] = new Port(0, 40, Port.INPUT, 32);
             for (int i = 0; i < 32; i++) {
                 int xPos = -150 + (i * 10);
-                ports[i + 1] = new Port(xPos, -40, Port.OUTPUT, 1);
+                ports[31 - i + 1] = new Port(xPos, -40, Port.OUTPUT, 1);
             }
         } else { // SOUTH
             ports[0] = new Port(0, -40, Port.INPUT, 32);
