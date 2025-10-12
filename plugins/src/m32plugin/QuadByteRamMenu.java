@@ -1,12 +1,16 @@
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+import java.io.File;
 
+import javax.swing.JFileChooser;
 import javax.swing.JMenuItem;
+import javax.swing.JOptionPane;
 import javax.swing.JPopupMenu;
 
 import com.cburch.logisim.circuit.CircuitState;
 import com.cburch.logisim.instance.Instance;
+import com.cburch.logisim.instance.InstanceState;
 import com.cburch.logisim.proj.Project;
 import com.cburch.logisim.tools.MenuExtender;
 
@@ -44,7 +48,96 @@ public class QuadByteRamMenu implements ActionListener, MenuExtender {
     }
 
     private void doLoad() {
-        // Do the actual file load
+        if (circState == null) {
+            JOptionPane.showMessageDialog(frame,
+                "No circuit state available",
+                "Load Error",
+                JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Load Binary Image into RAM");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        
+        // Optional: Add file filter for binary files
+        // fileChooser.setFileFilter(new FileNameExtensionFilter("Binary files", "bin", "dat", "hex"));
+        
+        int returnValue = fileChooser.showOpenDialog(frame);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            if (selectedFile != null && selectedFile.exists()) {
+                loadFileIntoRam(selectedFile.getAbsolutePath());
+            } else {
+                JOptionPane.showMessageDialog(frame,
+                    "Selected file does not exist or cannot be accessed",
+                    "Load Error",
+                    JOptionPane.ERROR_MESSAGE);
+            }
+        }
+    }
+
+    private void loadFileIntoRam(String filepath) {
+        try {
+            // Get the instance state for this component
+            InstanceState instanceState = circState.getInstanceState(instance);
+            
+            // Get or create RAM data
+            Object data = instanceState.getData();
+            if (data instanceof RamData32) {
+                RamData32 ramData = (RamData32) data;
+                
+                // Load the file
+                boolean success = ramData.loadFromFile(filepath);
+                
+                if (success) {
+                    ramData.setFilename(filepath);
+                    ramData.setFileLoaded(true);
+                    
+                    // Force the component to repaint and propagate
+                    instanceState.fireInvalidated();
+                    
+                    JOptionPane.showMessageDialog(frame,
+                        "Successfully loaded binary image from:\n" + filepath,
+                        "Load Successful",
+                        JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame,
+                        "Failed to load binary image from:\n" + filepath,
+                        "Load Failed",
+                        JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                // Create new RAM data if it doesn't exist
+                int size = instance.getAttributeValue(QuadByteRam.ATTR_SIZE);
+                int dataBits = instance.getAttributeValue(QuadByteRam.ATTR_DATA_BITS).getWidth();
+                RamData32 ramData = new RamData32(size, dataBits);
+                
+                boolean success = ramData.loadFromFile(filepath);
+                if (success) {
+                    ramData.setFilename(filepath);
+                    ramData.setFileLoaded(true);
+                    instanceState.setData(ramData);
+                    instanceState.fireInvalidated();
+                    
+                    JOptionPane.showMessageDialog(frame,
+                        "Successfully loaded binary image from:\n" + filepath,
+                        "Load Successful",
+                        JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame,
+                        "Failed to load binary image from:\n" + filepath,
+                        "Load Failed",
+                        JOptionPane.ERROR_MESSAGE);
+                }
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(frame,
+                "Error loading file: " + e.getMessage(),
+                "Load Error",
+                JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
     }
 
     @Override
