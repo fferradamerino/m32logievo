@@ -15,30 +15,34 @@ import java.io.File;
 import java.io.FileInputStream;
 import java.io.IOException;
 
-class RamData implements InstanceData, Cloneable {
-    private Byte data[];
+class RamData32 implements InstanceData, Cloneable {
+    private int[] data;
     private String filename;
     private Value lastClk;
     private boolean fileLoaded;
+    private int size;
+    private int dataBits;
 
-    public RamData(int bits) {
-        data = new Byte[(2 << (bits - 1)) * 4];
-        // Inicializar con ceros
-        for (int i = 0; i < data.length; i++) {
+    public RamData32(int size, int dataBits) {
+        this.size = size;
+        this.dataBits = dataBits;
+        this.data = new int[size];
+        // Initialize with zeros
+        for (int i = 0; i < size; i++) {
             data[i] = 0;
         }
         lastClk = Value.FALSE;
         fileLoaded = false;
     }
 
-    public Byte getData(int addr) {
+    public int getData(int addr) {
         if (addr >= 0 && addr < data.length) {
             return this.data[addr];
         }
         return 0;
     }
 
-    public void setData(int addr, byte val) {
+    public void setData(int addr, int val) {
         if (addr >= 0 && addr < data.length) {
             this.data[addr] = val;
         }
@@ -75,43 +79,68 @@ class RamData implements InstanceData, Cloneable {
 
         File file = new File(filepath);
         if (!file.exists() || !file.canRead()) {
-            System.err.println("Error: No se puede leer el archivo: " + filepath);
+            System.err.println("Error: Cannot read file: " + filepath);
             return false;
         }
 
         try (FileInputStream fis = new FileInputStream(file)) {
+            int bytesPerLocation = (dataBits + 7) / 8;
             int bytesRead = 0;
             int value;
+            int location = 0;
+            int currentValue = 0;
+            int byteIndex = 0;
             
-            while ((value = fis.read()) != -1 && bytesRead < data.length) {
-                data[bytesRead] = (byte) value;
+            while ((value = fis.read()) != -1 && location < data.length) {
+                currentValue |= (value & 0xFF) << (byteIndex * 8);
+                byteIndex++;
                 bytesRead++;
+                
+                if (byteIndex >= bytesPerLocation) {
+                    data[location] = currentValue;
+                    location++;
+                    currentValue = 0;
+                    byteIndex = 0;
+                }
             }
             
-            System.out.println("RAM: Cargados " + bytesRead + " bytes desde " + filepath);
+            // Handle remaining bytes for last location
+            if (byteIndex > 0 && location < data.length) {
+                data[location] = currentValue;
+            }
+            
+            System.out.println("RAM32: Loaded " + bytesRead + " bytes from " + filepath);
             this.fileLoaded = true;
             return true;
             
         } catch (IOException e) {
-            System.err.println("Error al cargar archivo: " + e.getMessage());
+            System.err.println("Error loading file: " + e.getMessage());
             return false;
         }
     }
 
     @Override
-    public RamData clone() {
+    public RamData32 clone() {
         try {
-            RamData cloned = (RamData) super.clone();
+            RamData32 cloned = (RamData32) super.clone();
             cloned.data = this.data.clone();
             return cloned;
         } catch (CloneNotSupportedException e) {
             return null;
         }
     }
+
+    public int getSize() {
+        return this.size;
+    }
+
+    public int getDataBits() {
+        return this.dataBits;
+    }
 }
 
 class QuadByteRamName implements StringGetter {
-    public String name = "Quad-Byte Ram";
+    public String name = "32-bit RAM";
 
     public QuadByteRamName() {}
 
@@ -123,54 +152,46 @@ class QuadByteRamName implements StringGetter {
 public class QuadByteRam extends InstanceFactory {
     public static QuadByteRamName componentName = new QuadByteRamName();
 
-    public static final Attribute<String> ATTR_FILENAME =
-        Attributes.forString("Nombre de archivo");
-    public static final Attribute<BitWidth> ATTR_BITWIDHT =
-        Attributes.forBitWidth("Ancho de bits", 1, 21);
+    public static final Attribute<Integer> ATTR_SIZE =
+        Attributes.forInteger("Number of locations");
+    public static final Attribute<BitWidth> ATTR_DATA_BITS =
+        Attributes.forBitWidth("Bits per location", 1, 32);
 
-    private int IN_0 = 0;
-    private int IN_1 = 1;
-    private int IN_2 = 2;
-    private int IN_3 = 3;
-
-    private int ADDR = 4;
-    private int CLK = 5;
-    private int WAIT = 6;
-
-    private int OUT_0 = 7;
-    private int OUT_1 = 8;
-    private int OUT_2 = 9;
-    private int OUT_3 = 10;
+    // Port indices
+    private final int DATA_IN = 0;
+    private final int DATA_OUT = 1;
+    private final int BE = 2;
+    private final int CLK = 3;
+    private final int WAIT = 4;
+    private final int READ = 5;
+    private final int WRITE = 6;
+    private final int ADDR = 7;
 
     public QuadByteRam() {
         super("QuadByteRam", new QuadByteRamName());
 
-        Port[] ports = new Port[11];
+        setAttributes(
+            new Attribute[] { ATTR_SIZE, ATTR_DATA_BITS },
+            new Object[] { 1024, BitWidth.create(32) }
+        );
 
-        Bounds bounds = Bounds.create(0, 0, 100, 100);
+        setOffsetBounds(Bounds.create(0, 0, 120, 80));
+        updatePorts();
+    }
 
-        setOffsetBounds(bounds);
+    private void updatePorts() {
+        Port[] ports = new Port[8];
 
-        ports[IN_0] = new Port(0, 10, Port.INPUT, 8); // Input0
-        ports[IN_1] = new Port(0, 20, Port.INPUT, 8); // Input1
-        ports[IN_2] = new Port(0, 30, Port.INPUT, 8); // Input2
-        ports[IN_3] = new Port(0, 40, Port.INPUT, 8); // Input3
-
-        ports[ADDR] = new Port(0, 80, Port.INPUT, 21); // ADDR
-        ports[CLK] = new Port(0, 90, Port.INPUT, 1); // CLK
-        ports[WAIT] = new Port(100, 90, Port.OUTPUT, 1); // WAIT
-
-        ports[OUT_0] = new Port(100, 10, Port.OUTPUT, 8); // Output0
-        ports[OUT_1] = new Port(100, 20, Port.OUTPUT, 8); // Output1
-        ports[OUT_2] = new Port(100, 30, Port.OUTPUT, 8); // Output2
-        ports[OUT_3] = new Port(100, 40, Port.OUTPUT, 8); // Output3
+        ports[DATA_IN] = new Port(0, 10, Port.INPUT, 32);     // Data Input
+        ports[DATA_OUT] = new Port(120, 10, Port.OUTPUT, 32); // Data Output
+        ports[BE] = new Port(0, 30, Port.INPUT, 4);           // Byte Enable
+        ports[CLK] = new Port(0, 50, Port.INPUT, 1);          // Clock
+        ports[WAIT] = new Port(120, 50, Port.OUTPUT, 1);      // Wait
+        ports[READ] = new Port(0, 70, Port.INPUT, 1);         // Read
+        ports[WRITE] = new Port(30, 70, Port.INPUT, 1);       // Write
+        ports[ADDR] = new Port(60, 70, Port.INPUT, 32);       // Address
 
         setPorts(ports);
-
-        setAttributes(
-            new Attribute[] { ATTR_FILENAME, ATTR_BITWIDHT },
-            new Object[] { "", BitWidth.create(21) }
-        );
     }
 
     @Override
@@ -180,125 +201,109 @@ public class QuadByteRam extends InstanceFactory {
 
     @Override
     protected void instanceAttributeChanged(Instance instance, Attribute<?> attr) {
-        if (attr == ATTR_BITWIDHT) {
-            updatePorts(instance);
-            // Forzar la reinicialización de los datos de RAM con el nuevo tamaño
-            instance.fireInvalidated();
-        } else if (attr == ATTR_FILENAME) {
-            // Cuando cambia el nombre del archivo, forzar recarga
+        if (attr == ATTR_SIZE || attr == ATTR_DATA_BITS) {
             instance.fireInvalidated();
         }
     }
 
     @Override
     public void propagate(InstanceState state) {
-        // Obtener o crear datos de la RAM
-        RamData ramData = (RamData) state.getData();
-        if (ramData == null) {
-            BitWidth bitWidth = state.getAttributeValue(ATTR_BITWIDHT);
-            ramData = new RamData(bitWidth.getWidth());
+        // Get or create RAM data
+        int size = state.getAttributeValue(ATTR_SIZE);
+        int dataBits = state.getAttributeValue(ATTR_DATA_BITS).getWidth();
+        RamData32 ramData = (RamData32) state.getData();
+        if (ramData == null || ramData.getSize() != size || ramData.getDataBits() != dataBits) {
+            ramData = new RamData32(size, dataBits);
             state.setData(ramData);
         }
 
-        // Cargar archivo si aún no se ha cargado y hay un nombre de archivo
-        String currentFilename = state.getAttributeValue(ATTR_FILENAME);
-        if (!ramData.isFileLoaded() && currentFilename != null && !currentFilename.trim().isEmpty()) {
-            if (!currentFilename.equals(ramData.getFilename())) {
-                ramData.setFilename(currentFilename);
-                ramData.loadFromFile(currentFilename);
-            }
+        // Load file if not loaded yet and filename exists
+        if (!ramData.isFileLoaded()) {
+            // Check if we should load from a file (this would be triggered by menu action)
         }
 
-        // Leer valores de entrada
+        // Read input values
         Value clkVal = state.getPortValue(CLK);
         Value addrVal = state.getPortValue(ADDR);
+        Value readVal = state.getPortValue(READ);
+        Value writeVal = state.getPortValue(WRITE);
+        Value beVal = state.getPortValue(BE);
+        Value dataInVal = state.getPortValue(DATA_IN);
+
+        // Detect falling edge of clock for wait generation
+        boolean fallingEdge = clkVal == Value.FALSE;
+
+        // Check if address is valid
+        boolean validAddress = false;
+        int addr = 0;
+        if (addrVal.isFullyDefined()) {
+            addr = (int) addrVal.toLongValue();
+            if (addr >= 0 && addr < size) {
+                validAddress = true;
+            }
+        }
+
+        // Generate WAIT signal on falling edge with valid address and (read or write active)
+        boolean waitActive = false;
+        if (fallingEdge && validAddress && 
+            (readVal == Value.TRUE || writeVal == Value.TRUE)) {
+            waitActive = true;
+        }
         
-        // Detectar flanco de subida del reloj
-        boolean risingEdge = ramData.getLastClk() == Value.FALSE && clkVal == Value.TRUE;
+        state.setPort(WAIT, waitActive ? Value.TRUE : Value.FALSE, 1);
+
+        // Handle read operation (asynchronous)
+        if (readVal == Value.TRUE && validAddress) {
+            int memoryValue = ramData.getData(addr);
+            Value dataOut = Value.createKnown(BitWidth.create(32), memoryValue);
+            state.setPort(DATA_OUT, dataOut, 1);
+        } else {
+            state.setPort(DATA_OUT, Value.createUnknown(BitWidth.create(32)), 1);
+        }
+
+        // Handle write operation (synchronous on rising edge)
+        boolean risingEdge = clkVal == Value.TRUE;
+        if (risingEdge && writeVal == Value.TRUE && validAddress && dataInVal.isFullyDefined()) {
+            int newValue = ramData.getData(addr);
+            int inputValue = (int) dataInVal.toLongValue();
+            
+            // Apply byte enable mask
+            if (beVal.isFullyDefined()) {
+                int beMask = (int) beVal.toLongValue();
+                for (int i = 0; i < 4; i++) {
+                    if ((beMask & (1 << i)) != 0) {
+                        // Clear the corresponding byte
+                        newValue &= ~(0xFF << (i * 8));
+                        // Set the new byte value
+                        newValue |= (inputValue & (0xFF << (i * 8)));
+                    }
+                }
+            } else {
+                // If BE is not defined, write all bytes
+                newValue = inputValue;
+            }
+            
+            ramData.setData(addr, newValue);
+        }
+
         ramData.setLastClk(clkVal);
-
-        // Validar dirección
-        if (!addrVal.isFullyDefined()) {
-            // Si la dirección no está definida, salidas en estado desconocido
-            state.setPort(OUT_0, Value.createUnknown(BitWidth.create(8)), 1);
-            state.setPort(OUT_1, Value.createUnknown(BitWidth.create(8)), 1);
-            state.setPort(OUT_2, Value.createUnknown(BitWidth.create(8)), 1);
-            state.setPort(OUT_3, Value.createUnknown(BitWidth.create(8)), 1);
-            state.setPort(WAIT, Value.FALSE, 1);
-            return;
-        }
-
-        int addr = Integer.parseInt(addrVal.toDecimalString(false)) * 4; // Multiplicar por 4 porque cada dirección tiene 4 bytes
-
-        // En flanco de subida, escribir datos
-        if (risingEdge) {
-            Value in0 = state.getPortValue(IN_0);
-            Value in1 = state.getPortValue(IN_1);
-            Value in2 = state.getPortValue(IN_2);
-            Value in3 = state.getPortValue(IN_3);
-
-            if (in0.isFullyDefined()) {
-                ramData.setData(addr, (byte) Integer.parseInt(in0.toDecimalString(false)));
-            }
-            if (in1.isFullyDefined()) {
-                ramData.setData(addr + 1, (byte) Integer.parseInt(in1.toDecimalString(false)));
-            }
-            if (in2.isFullyDefined()) {
-                ramData.setData(addr + 2, (byte) Integer.parseInt(in2.toDecimalString(false)));
-            }
-            if (in3.isFullyDefined()) {
-                ramData.setData(addr + 3, (byte) Integer.parseInt(in3.toDecimalString(false)));
-            }
-        }
-
-        // Leer datos (siempre, de forma asíncrona)
-        Byte byte0 = ramData.getData(addr);
-        Byte byte1 = ramData.getData(addr + 1);
-        Byte byte2 = ramData.getData(addr + 2);
-        Byte byte3 = ramData.getData(addr + 3);
-
-        // Convertir bytes a valores de Logisim (manejar valores sin signo)
-        Value out0 = Value.createKnown(BitWidth.create(8), byte0 & 0xFF);
-        Value out1 = Value.createKnown(BitWidth.create(8), byte1 & 0xFF);
-        Value out2 = Value.createKnown(BitWidth.create(8), byte2 & 0xFF);
-        Value out3 = Value.createKnown(BitWidth.create(8), byte3 & 0xFF);
-
-        // Establecer salidas
-        state.setPort(OUT_0, out0, 1);
-        state.setPort(OUT_1, out1, 1);
-        state.setPort(OUT_2, out2, 1);
-        state.setPort(OUT_3, out3, 1);
-        
-        // WAIT siempre en FALSE (sin estado de espera)
-        state.setPort(WAIT, Value.FALSE, 1);
-    }
-
-    void updatePorts(Instance instance) {
-        BitWidth bitWidth = instance.getAttributeValue(ATTR_BITWIDHT);
-        
-        Port[] ports = new Port[11];
-
-        ports[IN_0] = new Port(0, 10, Port.INPUT, 8); // Input0
-        ports[IN_1] = new Port(0, 20, Port.INPUT, 8); // Input1
-        ports[IN_2] = new Port(0, 30, Port.INPUT, 8); // Input2
-        ports[IN_3] = new Port(0, 40, Port.INPUT, 8); // Input3
-
-        // Actualizar el ancho del puerto ADDR según el atributo
-        ports[ADDR] = new Port(0, 80, Port.INPUT, bitWidth.getWidth()); // ADDR con ancho variable
-        ports[CLK] = new Port(0, 90, Port.INPUT, 1); // CLK
-        ports[WAIT] = new Port(100, 90, Port.OUTPUT, 1); // WAIT
-
-        ports[OUT_0] = new Port(100, 10, Port.OUTPUT, 8); // Output0
-        ports[OUT_1] = new Port(100, 20, Port.OUTPUT, 8); // Output1
-        ports[OUT_2] = new Port(100, 30, Port.OUTPUT, 8); // Output2
-        ports[OUT_3] = new Port(100, 40, Port.OUTPUT, 8); // Output3
-
-        instance.setPorts(ports);
     }
 
     @Override
-    public void paintInstance(InstancePainter instancePainter) {
-        instancePainter.drawBounds();
-        instancePainter.drawPorts();
+    public void paintInstance(InstancePainter painter) {
+        painter.drawBounds();
+        painter.drawPorts();
+
+        Integer attrSize = painter.getAttributeValue(ATTR_SIZE);
+        Integer attrDataBits = painter.getAttributeValue(ATTR_DATA_BITS).getWidth();
+        String info = "RAM " +
+            attrSize.toString() +
+            "x" +
+            attrDataBits.toString();
+
+        Bounds bds = painter.getBounds();
+        painter.getGraphics().drawString(info, 
+            bds.getX() + bds.getWidth() / 2 - 20, 
+            bds.getY() + bds.getHeight() / 2);
     }
 }
