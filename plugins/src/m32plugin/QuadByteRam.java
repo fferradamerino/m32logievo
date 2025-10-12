@@ -22,6 +22,7 @@ class RamData32 implements InstanceData, Cloneable {
     private boolean fileLoaded;
     private int size;
     private int dataBits;
+    private int waitCycleCount;
 
     public RamData32(int size, int dataBits) {
         this.size = size;
@@ -33,6 +34,7 @@ class RamData32 implements InstanceData, Cloneable {
         }
         lastClk = Value.FALSE;
         fileLoaded = false;
+        waitCycleCount = 0;
     }
 
     public int getData(int addr) {
@@ -70,6 +72,20 @@ class RamData32 implements InstanceData, Cloneable {
 
     public void setFileLoaded(boolean loaded) {
         this.fileLoaded = loaded;
+    }
+
+    public int getWaitCycleCount() {
+        return this.waitCycleCount;
+    }
+
+    public void setWaitCycleCount(int count) {
+        this.waitCycleCount = count;
+    }
+
+    public void decrementWaitCycle() {
+        if (this.waitCycleCount > 0) {
+            this.waitCycleCount--;
+        }
     }
 
     public boolean loadFromFile(String filepath) {
@@ -230,8 +246,10 @@ public class QuadByteRam extends InstanceFactory {
         Value beVal = state.getPortValue(BE);
         Value dataInVal = state.getPortValue(DATA_IN);
 
-        // Detect falling edge of clock for wait generation
-        boolean fallingEdge = clkVal == Value.FALSE;
+        // Detect clock edges
+        Value lastClk = ramData.getLastClk();
+        boolean risingEdge = (lastClk == Value.FALSE && clkVal == Value.TRUE);
+        boolean fallingEdge = (lastClk == Value.TRUE && clkVal == Value.FALSE);
 
         // Check if address is valid
         boolean validAddress = false;
@@ -243,13 +261,19 @@ public class QuadByteRam extends InstanceFactory {
             }
         }
 
-        // Generate WAIT signal on falling edge with valid address and (read or write active)
-        boolean waitActive = false;
+        // Start WAIT signal on falling edge with valid address and (read or write active)
         if (fallingEdge && validAddress && 
             (readVal == Value.TRUE || writeVal == Value.TRUE)) {
-            waitActive = true;
+            ramData.setWaitCycleCount(2);
         }
-        
+
+        // Decrement wait cycle count on rising edge
+        if (risingEdge && ramData.getWaitCycleCount() > 0) {
+            ramData.decrementWaitCycle();
+        }
+
+        // Set WAIT signal based on cycle count
+        boolean waitActive = ramData.getWaitCycleCount() > 0;
         state.setPort(WAIT, waitActive ? Value.TRUE : Value.FALSE, 1);
 
         // Handle read operation (asynchronous)
@@ -262,7 +286,6 @@ public class QuadByteRam extends InstanceFactory {
         }
 
         // Handle write operation (synchronous on rising edge)
-        boolean risingEdge = clkVal == Value.TRUE;
         if (risingEdge && writeVal == Value.TRUE && validAddress && dataInVal.isFullyDefined()) {
             int newValue = ramData.getData(addr);
             int inputValue = (int) dataInVal.toLongValue();
