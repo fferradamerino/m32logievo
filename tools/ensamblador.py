@@ -27,6 +27,8 @@ def codificar_tipo_a(nombre, opcode, addr, regdest, regsrc, line_num):
     instruccion |= (regsrc << 14)
     instruccion |= (1 << 13)
 
+    print(f"{opcode} {regsrc} {addr} {regdest} = {instruccion}")
+
     return instruccion
 
 def codificar_tipo_b(nombre, opcode, regdest, regsrc1, regsrc2, line_num):

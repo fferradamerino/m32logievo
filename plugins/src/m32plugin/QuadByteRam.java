@@ -39,6 +39,7 @@ class RamData32 implements InstanceData, Cloneable {
     }
 
     public int getData(int addr) {
+        addr = addr / 4;
         if (addr >= 0 && addr < data.length) {
             return this.data[addr];
         }
@@ -46,6 +47,7 @@ class RamData32 implements InstanceData, Cloneable {
     }
 
     public void setData(int addr, int val) {
+        addr = addr / 4;
         if (addr >= 0 && addr < data.length) {
             this.data[addr] = val;
         }
