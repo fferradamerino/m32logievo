@@ -120,9 +120,12 @@ class Assembler:
         self.labels = {}
         self.instructions = []
         self.current_address = 0
+        self.data_section = b''
+        self.data_address = 0
+        self.in_data_section = False
         
     def first_pass(self, lines):
-        """Primera pasada: recolectar etiquetas"""
+        """Primera pasada: recolectar etiquetas y procesar directivas de datos"""
         address = 0
         
         for line_num, line in enumerate(lines, 1):
@@ -132,9 +135,21 @@ class Assembler:
             if not line:
                 continue
             
-            # Directivas
+            # Detectar secciones
+            if line.lower() == '.text':
+                self.in_data_section = False
+                address = 0
+                continue
+            elif line.lower() == '.data':
+                self.in_data_section = True
+                address = 0
+                continue
+            
+            # Procesar directivas de datos
             if line.startswith('.'):
-                continue  # Ignorar por ahora
+                if self.in_data_section:
+                    address += self._process_data_directive(line, line_num)
+                continue
             
             # Detectar etiquetas
             if ':' in line:
@@ -149,9 +164,95 @@ class Assembler:
                 remaining = parts[1].strip() if len(parts) > 1 else ""
                 if remaining:
                     address += 4
-            elif line:
+            elif line and not self.in_data_section:
                 # Es una instrucción
                 address += 4
+    
+    def _process_data_directive(self, directive, line_num):
+        """Procesa directivas de datos y retorna bytes agregados"""
+        tokens = directive.split()
+        if not tokens:
+            return 0
+        
+        directive_type = tokens[0].lower()
+        
+        if directive_type == '.word':
+            if len(tokens) < 2:
+                raise AssemblerError(line_num, ".word requiere al menos un valor")
+            
+            bytes_added = 0
+            for token in tokens[1:]:
+                value = parse_immediate(token.rstrip(','), line_num)
+                self.data_section += struct.pack('!I', value & 0xFFFFFFFF)
+                bytes_added += 4
+            return bytes_added
+        
+        elif directive_type == '.byte':
+            if len(tokens) < 2:
+                raise AssemblerError(line_num, ".byte requiere al menos un valor")
+            
+            bytes_added = 0
+            for token in tokens[1:]:
+                value = parse_immediate(token.rstrip(','), line_num)
+                self.data_section += struct.pack('!B', value & 0xFF)
+                bytes_added += 1
+            return bytes_added
+        
+        elif directive_type == '.short' or directive_type == '.half':
+            if len(tokens) < 2:
+                raise AssemblerError(line_num, f"{directive_type} requiere al menos un valor")
+            
+            bytes_added = 0
+            for token in tokens[1:]:
+                value = parse_immediate(token.rstrip(','), line_num)
+                self.data_section += struct.pack('!H', value & 0xFFFF)
+                bytes_added += 2
+            return bytes_added
+        
+        elif directive_type == '.ascii':
+            if len(tokens) < 2:
+                raise AssemblerError(line_num, ".ascii requiere una cadena")
+            
+            # Reunir todo después de .ascii y remover comillas
+            string_content = ' '.join(tokens[1:])
+            # Buscar entre comillas
+            match = re.search(r'"([^"]*)"', string_content)
+            if not match:
+                raise AssemblerError(line_num, ".ascii: cadena no entre comillas")
+            
+            string_value = match.group(1)
+            # Procesar escapes
+            string_value = string_value.replace('\\n', '\n').replace('\\t', '\t').replace('\\\\', '\\')
+            
+            self.data_section += string_value.encode('utf-8')
+            return len(string_value.encode('utf-8'))
+        
+        elif directive_type == '.asciiz':
+            if len(tokens) < 2:
+                raise AssemblerError(line_num, ".asciiz requiere una cadena")
+            
+            string_content = ' '.join(tokens[1:])
+            match = re.search(r'"([^"]*)"', string_content)
+            if not match:
+                raise AssemblerError(line_num, ".asciiz: cadena no entre comillas")
+            
+            string_value = match.group(1)
+            string_value = string_value.replace('\\n', '\n').replace('\\t', '\t').replace('\\\\', '\\')
+            
+            self.data_section += string_value.encode('utf-8') + b'\x00'
+            return len(string_value.encode('utf-8')) + 1
+        
+        elif directive_type == '.space':
+            if len(tokens) < 2:
+                raise AssemblerError(line_num, ".space requiere un tamaño")
+            
+            size = parse_immediate(tokens[1], line_num)
+            self.data_section += b'\x00' * size
+            return size
+        
+        else:
+            # Ignorar directivas desconocidas
+            return 0
     
     def resolve_label_or_immediate(self, token, line_num, pc):
         """Resuelve una etiqueta o valor inmediato"""
@@ -273,6 +374,7 @@ class Assembler:
         """Segunda pasada: ensamblar instrucciones"""
         program = b''
         address = 0
+        in_text_section = True
         
         for line_num, line in enumerate(lines, 1):
             # Remover comentarios
@@ -281,56 +383,70 @@ class Assembler:
             if not line:
                 continue
             
-            # Directivas
+            # Detectar secciones
+            if line.lower() == '.text':
+                in_text_section = True
+                address = 0
+                continue
+            elif line.lower() == '.data':
+                in_text_section = False
+                address = 0
+                continue
+            
+            # Ignorar directivas en segunda pasada (ya procesadas)
             if line.startswith('.'):
                 continue
             
-            # Procesar etiquetas
-            if ':' in line:
-                parts = line.split(':', 1)
-                line = parts[1].strip() if len(parts) > 1 else ""
-                
-                if not line:
-                    continue
-            
-            # Parsear instrucción
-            tokens = line.split()
-            if not tokens:
-                continue
-            
-            mnemonic = tokens[0]
-            operands = []
-            
-            # Recolectar operandos
-            if len(tokens) > 1:
-                # Unir todo después del mnemónico y dividir por comas
-                operand_str = ' '.join(tokens[1:])
-                # Dividir por comas, pero respetar corchetes
-                operands = []
-                current = ""
-                bracket_depth = 0
-                
-                for char in operand_str:
-                    if char == '[':
-                        bracket_depth += 1
-                    elif char == ']':
-                        bracket_depth -= 1
+            if in_text_section:
+                # Procesar etiquetas
+                if ':' in line:
+                    parts = line.split(':', 1)
+                    line = parts[1].strip() if len(parts) > 1 else ""
                     
-                    if char == ',' and bracket_depth == 0:
-                        operands.append(current.strip())
-                        current = ""
-                    else:
-                        current += char
+                    if not line:
+                        continue
                 
-                if current.strip():
-                    operands.append(current.strip())
-            
-            # Ensamblar
-            instruction = self.assemble_instruction(mnemonic, operands, line_num, address)
-            program += struct.pack('!I', instruction)
-            address += 4
+                # Parsear instrucción
+                tokens = line.split()
+                if not tokens:
+                    continue
+                
+                mnemonic = tokens[0]
+                operands = []
+                
+                # Recolectar operandos
+                if len(tokens) > 1:
+                    operand_str = ' '.join(tokens[1:])
+                    operands = []
+                    current = ""
+                    bracket_depth = 0
+                    
+                    for char in operand_str:
+                        if char == '[':
+                            bracket_depth += 1
+                        elif char == ']':
+                            bracket_depth -= 1
+                        
+                        if char == ',' and bracket_depth == 0:
+                            operands.append(current.strip())
+                            current = ""
+                        else:
+                            current += char
+                    
+                    if current.strip():
+                        operands.append(current.strip())
+                
+                # Ensamblar
+                instruction = self.assemble_instruction(mnemonic, operands, line_num, address)
+                program += struct.pack('!I', instruction)
+                address += 4
         
         return program
+    
+    def get_program(self, lines):
+        """Retorna el programa completo (sección de texto + datos)"""
+        text_program = self.second_pass(lines)
+        return text_program + self.data_section
 
 def main():
     if len(sys.argv) != 3:
@@ -347,18 +463,20 @@ def main():
         
         assembler = Assembler()
         
-        # Primera pasada: recolectar etiquetas
+        # Primera pasada: recolectar etiquetas y procesar datos
         assembler.first_pass(lines)
         
         # Segunda pasada: ensamblar
-        program = assembler.second_pass(lines)
+        program = assembler.get_program(lines)
         
         # Escribir archivo binario
         with open(sys.argv[2], 'wb') as output:
             output.write(program)
         
+        text_size = len(program) - len(assembler.data_section)
         print(f"✓ Ensamblado exitoso: {len(program)} bytes escritos en '{sys.argv[2]}'")
-        print(f"  {len(program) // 4} instrucciones")
+        print(f"  Sección .text: {text_size} bytes ({text_size // 4} instrucciones)")
+        print(f"  Sección .data: {len(assembler.data_section)} bytes")
         print(f"  {len(assembler.labels)} etiquetas definidas")
         
     except AssemblerError as e:
