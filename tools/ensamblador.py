@@ -10,59 +10,81 @@ class AssemblerError(Exception):
         self.message = message
         super().__init__(f"Línea {line_num}: {message}")
 
-def codificar_tipo_a(nombre, opcode, addr, regdest, regsrc, line_num):
-    """Codifica instrucciones de tipo A"""
+def codificar_tipo_a(nombre, opcode, regd, regs, val, line_num):
+    """
+    Codifica instrucciones de tipo A
+    Formato: Op || Regd || Regs || 1 || Val
+    Op: 8 bits, Regd: 5 bits, Regs: 5 bits, bit i: 1, Val: 13 bits
+    """
     instruccion = 0
-    instruccion |= (opcode << 24)
-
-    if addr > 0x1FFF or addr < 0:  # 13 bits sin signo
-        raise AssemblerError(line_num, f"{nombre}: dirección {addr} fuera de rango (0-0x1FFF)")
-    if regdest > 31:
-        raise AssemblerError(line_num, f"{nombre}: registro destino r{regdest} fuera de rango (r0-r31)")
-    if regsrc > 31:
-        raise AssemblerError(line_num, f"{nombre}: registro fuente r{regsrc} fuera de rango (r0-r31)")
-
-    instruccion |= addr
-    instruccion |= (regdest << 19)
-    instruccion |= (regsrc << 14)
-    instruccion |= (1 << 13)
-
-    print(f"{opcode} {regsrc} {addr} {regdest} = {instruccion}")
-
+    
+    # Validaciones para val (13 bits con signo: -4096 a 8191)
+    if val < -4096 or val > 8191:
+        raise AssemblerError(line_num, f"{nombre}: valor inmediato {val} fuera de rango (-4096 a 8191)")
+    
+    # Convertir a representación de 13 bits
+    if val < 0:
+        val = val & 0x1FFF
+    
+    if regd > 31 or regd < 0:
+        raise AssemblerError(line_num, f"{nombre}: registro destino r{regd} fuera de rango (r0-r31)")
+    if regs > 31 or regs < 0:
+        raise AssemblerError(line_num, f"{nombre}: registro fuente r{regs} fuera de rango (r0-r31)")
+    
+    # Construcción de la instrucción
+    instruccion |= (opcode & 0xFF) << 24      # Op: bits 31-24
+    instruccion |= (regd & 0x1F) << 19        # Regd: bits 23-19
+    instruccion |= (regs & 0x1F) << 14        # Regs: bits 18-14
+    instruccion |= (1 << 13)                  # Bit i: bit 13 (siempre 1 para tipo A)
+    instruccion |= (val & 0x1FFF)             # Val: bits 12-0
+    
     return instruccion
 
-def codificar_tipo_b(nombre, opcode, regdest, regsrc1, regsrc2, line_num):
-    """Codifica instrucciones de tipo B"""
+def codificar_tipo_b(nombre, opcode, regd, regs1, regs2, line_num):
+    """
+    Codifica instrucciones de tipo B
+    Formato: Op || Regd || Regs1 || 0 || Regs2 || <7 bits en 0>
+    Op: 8 bits, Regd: 5 bits, Regs1: 5 bits, bit i: 0, Regs2: 5 bits, padding: 7 bits
+    """
     instruccion = 0
-    instruccion |= (opcode << 24)
-
-    if regdest > 31:
-        raise AssemblerError(line_num, f"{nombre}: registro destino r{regdest} fuera de rango")
-    if regsrc1 > 31:
-        raise AssemblerError(line_num, f"{nombre}: registro fuente 1 r{regsrc1} fuera de rango")
-    if regsrc2 > 31:
-        raise AssemblerError(line_num, f"{nombre}: registro fuente 2 r{regsrc2} fuera de rango")
-
-    instruccion |= (regsrc2 << 8)
-    instruccion |= (regsrc1 << 14)
-    instruccion |= (regdest << 19)
-
+    
+    # Validaciones
+    if regd > 31 or regd < 0:
+        raise AssemblerError(line_num, f"{nombre}: registro destino r{regd} fuera de rango (r0-r31)")
+    if regs1 > 31 or regs1 < 0:
+        raise AssemblerError(line_num, f"{nombre}: registro fuente 1 r{regs1} fuera de rango (r0-r31)")
+    if regs2 > 31 or regs2 < 0:
+        raise AssemblerError(line_num, f"{nombre}: registro fuente 2 r{regs2} fuera de rango (r0-r31)")
+    
+    # Construcción de la instrucción
+    instruccion |= (opcode & 0xFF) << 24      # Op: bits 31-24
+    instruccion |= (regd & 0x1F) << 19        # Regd: bits 23-19
+    instruccion |= (regs1 & 0x1F) << 14       # Regs1: bits 18-14
+    instruccion |= (0 << 13)                  # Bit i: bit 13 (siempre 0 para tipo B)
+    instruccion |= (regs2 & 0x1F) << 7        # Regs2: bits 12-8
+    # Los 7 bits restantes (6-0) quedan en 0
+    
     return instruccion
 
 def codificar_tipo_c(nombre, opcode, disp, line_num):
-    """Codifica instrucciones de tipo C (saltos)"""
+    """
+    Codifica instrucciones de tipo C (saltos)
+    Formato: Op || Desplazamiento
+    Op: 8 bits, Desplazamiento: 24 bits con signo
+    """
     instruccion = 0
-    instruccion = (opcode << 24)
-
-    # 24 bits con signo
-    if disp >= 2**23 or disp < -(2**23):
-        raise AssemblerError(line_num, f"{nombre}: desplazamiento {disp} fuera de rango")
-
-    # Convertir a representación de 24 bits
-    disp &= (1 << 24) - 1
     
-    instruccion |= disp
-
+    # Validación: 24 bits con signo (-8388608 a 8388607)
+    if disp < -(2**23) or disp >= (2**23):
+        raise AssemblerError(line_num, f"{nombre}: desplazamiento {disp} fuera de rango (-8388608 a 8388607)")
+    
+    # Convertir a representación de 24 bits
+    if disp < 0:
+        disp = disp & 0xFFFFFF
+    
+    instruccion |= (opcode & 0xFF) << 24      # Op: bits 31-24
+    instruccion |= (disp & 0xFFFFFF)          # Desplazamiento: bits 23-0
+    
     return instruccion
 
 def parse_register(token, line_num):
@@ -85,6 +107,8 @@ def parse_immediate(token, line_num):
     try:
         if token.startswith('0x') or token.startswith('0X'):
             return int(token, 16)
+        elif token.startswith('-0x') or token.startswith('-0X'):
+            return -int(token[3:], 16)
         else:
             return int(token)
     except ValueError:
@@ -92,8 +116,8 @@ def parse_immediate(token, line_num):
 
 def parse_memory_operand(token, line_num):
     """
-    Parsea operando de memoria en formato [reg + offset] o [reg]
-    Retorna (registro, offset)
+    Parsea operando de memoria en formato [reg + offset] o [reg + reg] o [reg]
+    Retorna (registro1, valor/registro2, es_registro)
     """
     token = token.strip().rstrip(',')
     if not (token.startswith('[') and token.endswith(']')):
@@ -107,13 +131,22 @@ def parse_memory_operand(token, line_num):
         parts = inner.split('+')
         if len(parts) != 2:
             raise AssemblerError(line_num, f"Formato de memoria inválido: '{token}'")
-        reg = parse_register(parts[0].strip(), line_num)
-        offset = parse_immediate(parts[1].strip(), line_num)
-        return reg, offset
+        reg1 = parse_register(parts[0].strip(), line_num)
+        
+        # Verificar si el segundo operando es un registro o inmediato
+        second_op = parts[1].strip()
+        if second_op.startswith('r'):
+            # Es un registro - Formato B
+            reg2 = parse_register(second_op, line_num)
+            return reg1, reg2, True
+        else:
+            # Es un inmediato - Formato A
+            offset = parse_immediate(second_op, line_num)
+            return reg1, offset, False
     else:
-        # Solo registro, offset = 0
+        # Solo registro, offset = 0 (Formato A)
         reg = parse_register(inner, line_num)
-        return reg, 0
+        return reg, 0, False
 
 class Assembler:
     def __init__(self):
@@ -213,15 +246,12 @@ class Assembler:
             if len(tokens) < 2:
                 raise AssemblerError(line_num, ".ascii requiere una cadena")
             
-            # Reunir todo después de .ascii y remover comillas
             string_content = ' '.join(tokens[1:])
-            # Buscar entre comillas
             match = re.search(r'"([^"]*)"', string_content)
             if not match:
                 raise AssemblerError(line_num, ".ascii: cadena no entre comillas")
             
             string_value = match.group(1)
-            # Procesar escapes
             string_value = string_value.replace('\\n', '\n').replace('\\t', '\t').replace('\\\\', '\\')
             
             self.data_section += string_value.encode('utf-8')
@@ -251,7 +281,6 @@ class Assembler:
             return size
         
         else:
-            # Ignorar directivas desconocidas
             return 0
     
     def resolve_label_or_immediate(self, token, line_num, pc):
@@ -266,109 +295,105 @@ class Assembler:
         return parse_immediate(token, line_num)
     
     def assemble_instruction(self, mnemonic, operands, line_num, pc):
-        """Ensambla una instrucción individual"""
+        """Ensambla una instrucción individual según la nueva arquitectura"""
         mnemonic = mnemonic.lower()
         
-        # Instrucciones de carga (Tipo A)
+        # Mapeo de opcodes según nueva_arq.txt
+        opcodes = {
+            'ldw': 1, 'lduh': 2, 'ldub': 3, 'ldsh': 4, 'ldsb': 5,
+            'stw': 6, 'sth': 7, 'stb': 8,
+            'add': 9, 'addx': 10, 'sub': 11, 'subx': 12,
+            'and': 13, 'or': 14, 'xor': 15,
+            'sll': 16, 'srl': 17, 'sra': 18,
+            'jmpl': 19,
+            'ba': 20, 'be': 21, 'bne': 22, 'bg': 23, 'bge': 24,
+            'bl': 25, 'ble': 26, 'bgu': 27, 'bgeu': 28, 'blu': 29, 'bleu': 30
+        }
+        
+        if mnemonic == 'nop':
+            return 0
+        
+        if mnemonic not in opcodes:
+            raise AssemblerError(line_num, f"Instrucción desconocida: '{mnemonic}'")
+        
+        opcode = opcodes[mnemonic]
+        
+        # Instrucciones de carga: op regd, [regs + val/reg]
         if mnemonic in ['ldw', 'lduh', 'ldub', 'ldsh', 'ldsb']:
             if len(operands) != 2:
-                raise AssemblerError(line_num, f"{mnemonic}: se esperan 2 operandos")
-            
-            regs, offset = parse_memory_operand(operands[0], line_num)
-            regd = parse_register(operands[1], line_num)
-            
-            opcodes = {'ldw': 1, 'lduh': 2, 'ldub': 3, 'ldsh': 4, 'ldsb': 5}
-            return codificar_tipo_a(mnemonic.upper(), opcodes[mnemonic], offset, regd, regs, line_num)
-        
-        # Instrucciones de almacenamiento (Tipo A)
-        elif mnemonic in ['stw', 'sth', 'stb']:
-            if len(operands) != 2:
-                raise AssemblerError(line_num, f"{mnemonic}: se esperan 2 operandos")
-            
-            regs = parse_register(operands[0], line_num)
-            regd, offset = parse_memory_operand(operands[1], line_num)
-            
-            opcodes = {'stw': 6, 'sth': 7, 'stb': 8}
-            return codificar_tipo_a(mnemonic.upper(), opcodes[mnemonic], offset, regs, regd, line_num)
-        
-        # Instrucciones aritméticas con inmediato (Tipo A)
-        elif mnemonic in ['add', 'addx', 'sub', 'subx', 'and', 'or', 'xor', 'sll', 'srl', 'sra']:
-            if len(operands) != 3:
-                raise AssemblerError(line_num, f"{mnemonic}: se esperan 3 operandos")
-            
-            regs = parse_register(operands[0], line_num)
-            imm = parse_immediate(operands[1], line_num)
-            regd = parse_register(operands[2], line_num)
-            
-            opcodes = {'add': 9, 'addx': 10, 'sub': 11, 'subx': 12, 'and': 13, 
-                      'or': 14, 'xor': 15, 'sll': 16, 'srl': 17, 'sra': 18}
-            return codificar_tipo_a(mnemonic.upper(), opcodes[mnemonic], imm, regd, regs, line_num)
-        
-        # Instrucciones aritméticas con registro (Tipo B)
-        elif mnemonic in ['addr', 'addxr', 'subr', 'subxr', 'andr', 'orr', 'xorr', 'sllr', 'srlr', 'srar']:
-            if len(operands) != 3:
-                raise AssemblerError(line_num, f"{mnemonic}: se esperan 3 operandos")
-            
-            regs1 = parse_register(operands[0], line_num)
-            regs2 = parse_register(operands[1], line_num)
-            regd = parse_register(operands[2], line_num)
-            
-            base_mnemonics = {'addr': 'add', 'addxr': 'addx', 'subr': 'sub', 'subxr': 'subx',
-                             'andr': 'and', 'orr': 'or', 'xorr': 'xor', 'sllr': 'sll', 
-                             'srlr': 'srl', 'srar': 'sra'}
-            opcodes = {'add': 9, 'addx': 10, 'sub': 11, 'subx': 12, 'and': 13, 
-                      'or': 14, 'xor': 15, 'sll': 16, 'srl': 17, 'sra': 18}
-            
-            base = base_mnemonics[mnemonic]
-            return codificar_tipo_b(mnemonic.upper(), opcodes[base], regd, regs1, regs2, line_num)
-        
-        # Instrucciones de carga/almacenamiento con registro (Tipo B)
-        elif mnemonic in ['ldwr', 'lduhr', 'ldubr', 'ldshr', 'ldsbr']:
-            if len(operands) != 2:
-                raise AssemblerError(line_num, f"{mnemonic}: se esperan 2 operandos")
-            
-            regs1, regs2 = parse_memory_operand(operands[0], line_num)
-            if regs2 == 0:
-                raise AssemblerError(line_num, f"{mnemonic}: versión con registro requiere [reg + reg]")
-            regd = parse_register(operands[1], line_num)
-            
-            opcodes = {'ldwr': 1, 'lduhr': 2, 'ldubr': 3, 'ldshr': 4, 'ldsbr': 5}
-            base = mnemonic[:-1]  # Remover 'r'
-            return codificar_tipo_b(mnemonic.upper(), opcodes[mnemonic], regd, regs2, regs1, line_num)
-        
-        elif mnemonic in ['stwr', 'sthr', 'stbr']:
-            if len(operands) != 2:
-                raise AssemblerError(line_num, f"{mnemonic}: se esperan 2 operandos")
+                raise AssemblerError(line_num, f"{mnemonic}: se esperan 2 operandos (regd, [regs + val/reg])")
             
             regd = parse_register(operands[0], line_num)
-            regs1, regs2 = parse_memory_operand(operands[1], line_num)
+            regs, offset_or_reg, is_reg = parse_memory_operand(operands[1], line_num)
             
-            opcodes = {'stwr': 6, 'sthr': 7, 'stbr': 8}
-            return codificar_tipo_b(mnemonic.upper(), opcodes[mnemonic], regs1, regs2, regd, line_num)
+            if is_reg:
+                # Formato B: op regd, [regs1 + regs2]
+                return codificar_tipo_b(mnemonic.upper(), opcode, regd, regs, offset_or_reg, line_num)
+            else:
+                # Formato A: op regd, [regs + val]
+                return codificar_tipo_a(mnemonic.upper(), opcode, regd, regs, offset_or_reg, line_num)
         
-        # JMPL (Tipo B)
+        # Instrucciones de almacenamiento: op [regd + val/reg], regs
+        elif mnemonic in ['stw', 'sth', 'stb']:
+            if len(operands) != 2:
+                raise AssemblerError(line_num, f"{mnemonic}: se esperan 2 operandos ([regd + val/reg], regs)")
+            
+            regd, offset_or_reg, is_reg = parse_memory_operand(operands[0], line_num)
+            regs = parse_register(operands[1], line_num)
+            
+            if is_reg:
+                # Formato B: op [regd + regs1], regs2
+                # Según especificación: Op || Regd || Regs1 || 0 || Regs2
+                return codificar_tipo_b(mnemonic.upper(), opcode, regd, offset_or_reg, regs, line_num)
+            else:
+                # Formato A: op [regd + val], regs
+                return codificar_tipo_a(mnemonic.upper(), opcode, regs, regd, offset_or_reg, line_num)
+        
+        # Instrucciones aritméticas/lógicas: op regd, regs, val/reg
+        elif mnemonic in ['add', 'addx', 'sub', 'subx', 'and', 'or', 'xor', 'sll', 'srl', 'sra']:
+            if len(operands) != 3:
+                raise AssemblerError(line_num, f"{mnemonic}: se esperan 3 operandos (regd, regs, val/reg)")
+            
+            regd = parse_register(operands[0], line_num)
+            regs = parse_register(operands[1], line_num)
+            
+            # Verificar si el tercer operando es registro o inmediato
+            third_op = operands[2].strip().rstrip(',')
+            if third_op.startswith('r'):
+                # Formato B: op regd, regs1, regs2
+                regs2 = parse_register(third_op, line_num)
+                return codificar_tipo_b(mnemonic.upper(), opcode, regd, regs, regs2, line_num)
+            else:
+                # Formato A: op regd, regs, val
+                val = parse_immediate(third_op, line_num)
+                return codificar_tipo_a(mnemonic.upper(), opcode, regd, regs, val, line_num)
+        
+        # JMPL: Sintaxis de almacenamiento según la especificación
+        # Formato A: jmpl [regs + val], regd
+        # Formato B: jmpl [regd + regs1], regs2
         elif mnemonic == 'jmpl':
             if len(operands) != 2:
-                raise AssemblerError(line_num, f"{mnemonic}: se esperan 2 operandos")
+                raise AssemblerError(line_num, f"{mnemonic}: se esperan 2 operandos ([regs + val/reg], regd)")
             
-            reg_addr = parse_register(operands[0], line_num)
-            reg_pc = parse_register(operands[1], line_num)
+            regs, offset_or_reg, is_reg = parse_memory_operand(operands[0], line_num)
+            regd = parse_register(operands[1], line_num)
             
-            return codificar_tipo_b("JMPL", 19, 0, reg_addr, reg_pc, line_num)
+            if is_reg:
+                # Formato B: jmpl [regd + regs1], regs2
+                return codificar_tipo_b("JMPL", opcode, regs, offset_or_reg, regd, line_num)
+            else:
+                # Formato A: jmpl [regs + val], regd
+                return codificar_tipo_a("JMPL", opcode, regd, regs, offset_or_reg, line_num)
         
-        # Saltos condicionales (Tipo C)
+        # Saltos condicionales (Tipo C): op disp
         elif mnemonic in ['ba', 'be', 'bne', 'bg', 'bge', 'bl', 'ble', 'bgu', 'bgeu', 'blu', 'bleu']:
             if len(operands) != 1:
-                raise AssemblerError(line_num, f"{mnemonic}: se espera 1 operando")
+                raise AssemblerError(line_num, f"{mnemonic}: se espera 1 operando (etiqueta/desplazamiento)")
             
             disp = self.resolve_label_or_immediate(operands[0], line_num, pc)
-            
-            opcodes = {'ba': 20, 'be': 21, 'bne': 22, 'bg': 23, 'bge': 24, 
-                      'bl': 25, 'ble': 26, 'bgu': 27, 'bgeu': 28, 'blu': 29, 'bleu': 30}
-            return codificar_tipo_c(mnemonic.upper(), opcodes[mnemonic], disp, line_num)
+            return codificar_tipo_c(mnemonic.upper(), opcode, disp, line_num)
         
-        else:
-            raise AssemblerError(line_num, f"Instrucción desconocida: '{mnemonic}'")
+        raise AssemblerError(line_num, f"Error al ensamblar instrucción: '{mnemonic}'")
     
     def second_pass(self, lines):
         """Segunda pasada: ensamblar instrucciones"""
@@ -393,7 +418,7 @@ class Assembler:
                 address = 0
                 continue
             
-            # Ignorar directivas en segunda pasada (ya procesadas)
+            # Ignorar directivas en segunda pasada
             if line.startswith('.'):
                 continue
             
@@ -451,6 +476,8 @@ class Assembler:
 def main():
     if len(sys.argv) != 3:
         print("Uso: ensamblador.py archivo.s programa.bin")
+        print("\nEjemplo:")
+        print("  python ensamblador.py programa.s salida.bin")
         return
     
     if not os.path.isfile(sys.argv[1]):
@@ -458,7 +485,7 @@ def main():
         return
     
     try:
-        with open(sys.argv[1], 'r') as file:
+        with open(sys.argv[1], 'r', encoding='utf-8') as file:
             lines = file.readlines()
         
         assembler = Assembler()
@@ -484,6 +511,8 @@ def main():
         sys.exit(1)
     except Exception as e:
         print(f"Error inesperado: {e}")
+        import traceback
+        traceback.print_exc()
         sys.exit(1)
 
 if __name__ == "__main__":
