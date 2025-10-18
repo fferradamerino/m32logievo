@@ -114,40 +114,6 @@ def parse_immediate(token, line_num):
     except ValueError:
         raise AssemblerError(line_num, f"Valor inmediato inválido: '{token}'")
 
-def parse_memory_operand(token, line_num):
-    """
-    Parsea operando de memoria en formato [reg + offset] o [reg + reg] o [reg]
-    Retorna (registro1, valor/registro2, es_registro)
-    """
-    token = token.strip().rstrip(',')
-    if not (token.startswith('[') and token.endswith(']')):
-        raise AssemblerError(line_num, f"Formato de memoria inválido: '{token}'")
-    
-    # Remover corchetes
-    inner = token[1:-1].strip()
-    
-    # Buscar el operador '+'
-    if '+' in inner:
-        parts = inner.split('+')
-        if len(parts) != 2:
-            raise AssemblerError(line_num, f"Formato de memoria inválido: '{token}'")
-        reg1 = parse_register(parts[0].strip(), line_num)
-        
-        # Verificar si el segundo operando es un registro o inmediato
-        second_op = parts[1].strip()
-        if second_op.startswith('r'):
-            # Es un registro - Formato B
-            reg2 = parse_register(second_op, line_num)
-            return reg1, reg2, True
-        else:
-            # Es un inmediato - Formato A
-            offset = parse_immediate(second_op, line_num)
-            return reg1, offset, False
-    else:
-        # Solo registro, offset = 0 (Formato A)
-        reg = parse_register(inner, line_num)
-        return reg, 0, False
-
 class Assembler:
     def __init__(self):
         self.labels = {}
@@ -156,6 +122,8 @@ class Assembler:
         self.data_section = b''
         self.data_address = 0
         self.in_data_section = False
+        # Para seguimiento durante el ensamblado
+        self.current_pc = 0
         
     def first_pass(self, lines):
         """Primera pasada: recolectar etiquetas y procesar directivas de datos"""
@@ -293,7 +261,59 @@ class Assembler:
         
         # Si no, debe ser un valor inmediato
         return parse_immediate(token, line_num)
-    
+
+    def parse_memory_operand(self, token, line_num, pc=0):
+        """
+        Parsea operando de memoria en formato [reg + offset] o [reg + reg] o [reg]
+        Retorna (registro1, valor/registro2, es_registro, es_etiqueta)
+        """
+        token = token.strip().rstrip(',')
+        if not (token.startswith('[') and token.endswith(']')):
+            raise AssemblerError(line_num, f"Formato de memoria inválido: '{token}'")
+        
+        # Remover corchetes
+        inner = token[1:-1].strip()
+        
+        # Buscar el operador '+'
+        if '+' in inner:
+            parts = inner.split('+')
+            if len(parts) != 2:
+                raise AssemblerError(line_num, f"Formato de memoria inválido: '{token}'")
+            reg1 = parse_register(parts[0].strip(), line_num)
+            
+            # Verificar si el segundo operando es un registro o inmediato/etiqueta
+            second_op = parts[1].strip()
+            if second_op.startswith('r'):
+                # Es un registro - Formato B
+                reg2 = parse_register(second_op, line_num)
+                return reg1, reg2, True, False
+            else:
+                # Es un inmediato o etiqueta
+                try:
+                    # Primero intentar como etiqueta
+                    if second_op in self.labels:
+                        return reg1, self.labels[second_op], False, True
+                    else:
+                        # Si no es etiqueta, parsear como inmediato
+                        offset = parse_immediate(second_op, line_num)
+                        return reg1, offset, False, False
+                except AssemblerError:
+                    # Si falla el parsing, podría ser una etiqueta no definida
+                    raise AssemblerError(line_num, f"Etiqueta '{second_op}' no definida")
+        else:
+            # Solo registro, offset = 0 (Formato A)
+            # Pero podría ser una etiqueta directa como [label]
+            if inner.startswith('r'):
+                reg = parse_register(inner, line_num)
+                return reg, 0, False, False
+            else:
+                # Es una etiqueta directa [label]
+                if inner in self.labels:
+                    # Usar r0 como registro base cuando es solo [label]
+                    return 0, self.labels[inner], False, True
+                else:
+                    raise AssemblerError(line_num, f"Etiqueta '{inner}' no definida")    
+
     def assemble_instruction(self, mnemonic, operands, line_num, pc):
         """Ensambla una instrucción individual según la nueva arquitectura"""
         mnemonic = mnemonic.lower()
@@ -324,29 +344,34 @@ class Assembler:
                 raise AssemblerError(line_num, f"{mnemonic}: se esperan 2 operandos (regd, [regs + val/reg])")
             
             regd = parse_register(operands[0], line_num)
-            regs, offset_or_reg, is_reg = parse_memory_operand(operands[1], line_num)
+            regs, offset_or_reg, is_reg, is_label = self.parse_memory_operand(operands[1], line_num, pc)
             
             if is_reg:
                 # Formato B: op regd, [regs1 + regs2]
                 return codificar_tipo_b(mnemonic.upper(), opcode, regd, regs, offset_or_reg, line_num)
             else:
                 # Formato A: op regd, [regs + val]
+                # Si es etiqueta, calcular desplazamiento relativo
+                if is_label:
+                    offset_or_reg = offset_or_reg - pc
                 return codificar_tipo_a(mnemonic.upper(), opcode, regd, regs, offset_or_reg, line_num)
-        
+
         # Instrucciones de almacenamiento: op [regd + val/reg], regs
         elif mnemonic in ['stw', 'sth', 'stb']:
             if len(operands) != 2:
                 raise AssemblerError(line_num, f"{mnemonic}: se esperan 2 operandos ([regd + val/reg], regs)")
             
-            regd, offset_or_reg, is_reg = parse_memory_operand(operands[0], line_num)
+            regd, offset_or_reg, is_reg, is_label = self.parse_memory_operand(operands[0], line_num, pc)
             regs = parse_register(operands[1], line_num)
             
             if is_reg:
                 # Formato B: op [regd + regs1], regs2
-                # Según especificación: Op || Regd || Regs1 || 0 || Regs2
                 return codificar_tipo_b(mnemonic.upper(), opcode, regd, offset_or_reg, regs, line_num)
             else:
                 # Formato A: op [regd + val], regs
+                # Si es etiqueta, calcular desplazamiento relativo
+                if is_label:
+                    offset_or_reg = offset_or_reg - pc
                 return codificar_tipo_a(mnemonic.upper(), opcode, regs, regd, offset_or_reg, line_num)
         
         # Instrucciones aritméticas/lógicas: op regd, regs, val/reg
@@ -369,13 +394,11 @@ class Assembler:
                 return codificar_tipo_a(mnemonic.upper(), opcode, regd, regs, val, line_num)
         
         # JMPL: Sintaxis de almacenamiento según la especificación
-        # Formato A: jmpl [regs + val], regd
-        # Formato B: jmpl [regd + regs1], regs2
         elif mnemonic == 'jmpl':
             if len(operands) != 2:
                 raise AssemblerError(line_num, f"{mnemonic}: se esperan 2 operandos ([regs + val/reg], regd)")
             
-            regs, offset_or_reg, is_reg = parse_memory_operand(operands[0], line_num)
+            regs, offset_or_reg, is_reg, is_label = self.parse_memory_operand(operands[0], line_num, pc)
             regd = parse_register(operands[1], line_num)
             
             if is_reg:
@@ -383,6 +406,9 @@ class Assembler:
                 return codificar_tipo_b("JMPL", opcode, regs, offset_or_reg, regd, line_num)
             else:
                 # Formato A: jmpl [regs + val], regd
+                # Si es etiqueta, calcular desplazamiento relativo
+                if is_label:
+                    offset_or_reg = offset_or_reg - pc
                 return codificar_tipo_a("JMPL", opcode, regd, regs, offset_or_reg, line_num)
         
         # Saltos condicionales (Tipo C): op disp
