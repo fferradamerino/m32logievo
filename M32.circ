@@ -580,7 +580,7 @@
       <a name="incoming" val="7"/>
     </comp>
     <comp lib="0" loc="(1350,190)" name="Constant">
-      <a name="value" val="0x100"/>
+      <a name="value" val="0x8000000"/>
       <a name="width" val="32"/>
     </comp>
     <comp lib="0" loc="(290,250)" name="Clock">
@@ -3070,7 +3070,7 @@
       <a name="appearance" val="logisim_evolution"/>
       <a name="contents">addr/data: 8 64
 1102280 2301008 3000000 4000021 800000 252 2d2 352
-3d2 452 4d2 9d2 952 852 8d2 10000042
+3d2 452 4d2 9d2 952 852 8d2 10000022
 51 61 21 14000000 0 16000000 0 18102050
 195d0194 1a000000 0 1c102050 1d301002 1e000000 0 20106050
 21315002 22000000 0 2410a050 25339002 26000000 0 28106050

@@ -40,7 +40,7 @@ addx:
 	wr_rd sel_reg op_y_sel_2 op_alu_1 wr_sr fetch1
 	
 jmpl:
-	wr_rd op_y_sel_2 .
+	wr_rd op_y_sel_1 .
 	wr_pc sel_reg op_y_sel_2 fetch1
 	
 bcond:
