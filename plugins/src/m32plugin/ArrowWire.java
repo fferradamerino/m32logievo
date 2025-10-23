@@ -107,6 +107,28 @@ public class ArrowWire extends InstanceFactory {
         else return 6;                 // 64-bit+: very thick wire
     }
 
+    private void drawBitWidthText(Graphics g, Bounds bds, Direction facing, BitWidth bitWidth) {
+        String text = String.valueOf(bitWidth.getWidth());
+        int textX, textY;
+        
+        // Calculate text position based on direction
+        if (facing == Direction.EAST || facing == Direction.WEST) {
+            // Horizontal wire - position text slightly above the wire
+            textX = bds.getX() + bds.getWidth() / 2 - 5;
+            textY = bds.getY() + bds.getHeight() / 2 - 8;
+        } else {
+            // Vertical wire - position text slightly to the right of the wire
+            textX = bds.getX() + bds.getWidth() / 2 + 5;
+            textY = bds.getY() + bds.getHeight() / 2;
+        }
+        
+        // Set a contrasting color for better visibility
+        g.setColor(Color.DARK_GRAY);
+        
+        // Draw the text
+        g.drawString(text, textX, textY);
+    }
+
     @Override
     public void paintInstance(InstancePainter painter) {
         Graphics g = painter.getGraphics();
@@ -126,6 +148,9 @@ public class ArrowWire extends InstanceFactory {
         } else if (facing == Direction.SOUTH) {
             drawVerticalWire(g, bds, Color.BLACK, false, bitWidth);
         }
+        
+        // Draw bit width text near the middle of the wire
+        drawBitWidthText(g, bds, facing, bitWidth);
     }
     
     private void drawHorizontalWire(Graphics g, Bounds bds, Color wireColor, boolean leftToRight, BitWidth bitWidth) {
