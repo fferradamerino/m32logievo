@@ -240,10 +240,13 @@ public class QuadByteRam extends InstanceFactory {
             ramData = new RamData32(size, dataBits);
             
             // Programa inicial (ver diapositivas de clase)
-            ramData.setData(0, 0);
-            ramData.setData(4, 0);
-            ramData.setData(8, 0);
-            ramData.setData(12, 0);
+            ramData.setData(0, 19439632);
+            ramData.setData(4, 27303956);
+            ramData.setData(8, 152654848);
+            ramData.setData(12, 102277144);
+            ramData.setData(16, 25);
+            ramData.setData(20, 5);
+            ramData.setData(24, 0);
 
             state.setData(ramData);
         }

@@ -61,7 +61,7 @@ def codificar_tipo_b(nombre, opcode, regd, regs1, regs2, line_num):
     instruccion |= (regd & 0x1F) << 19        # Regd: bits 23-19
     instruccion |= (regs1 & 0x1F) << 14       # Regs1: bits 18-14
     instruccion |= (0 << 13)                  # Bit i: bit 13 (siempre 0 para tipo B)
-    instruccion |= (regs2 & 0x1F) << 7        # Regs2: bits 12-8
+    instruccion |= (regs2 & 0x1F) << 8        # Regs2: bits 12-8
     # Los 7 bits restantes (6-0) quedan en 0
     
     return instruccion
@@ -139,11 +139,11 @@ class Assembler:
             # Detectar secciones
             if line.lower() == '.text':
                 self.in_data_section = False
-                address = 0
+                # address = 0
                 continue
             elif line.lower() == '.data':
                 self.in_data_section = True
-                address = 0
+                # address = 0
                 continue
             
             # Procesar directivas de datos
@@ -351,9 +351,8 @@ class Assembler:
                 return codificar_tipo_b(mnemonic.upper(), opcode, regd, regs, offset_or_reg, line_num)
             else:
                 # Formato A: op regd, [regs + val]
-                # Si es etiqueta, calcular desplazamiento relativo
-                if is_label:
-                    offset_or_reg = offset_or_reg - pc
+                #if is_label:
+                #   offset_or_reg += 4
                 return codificar_tipo_a(mnemonic.upper(), opcode, regd, regs, offset_or_reg, line_num)
 
         # Instrucciones de almacenamiento: op [regd + val/reg], regs
@@ -369,9 +368,8 @@ class Assembler:
                 return codificar_tipo_b(mnemonic.upper(), opcode, regd, offset_or_reg, regs, line_num)
             else:
                 # Formato A: op [regd + val], regs
-                # Si es etiqueta, calcular desplazamiento relativo
-                if is_label:
-                    offset_or_reg = offset_or_reg - pc
+                #if is_label:
+                    #offset_or_reg += 4
                 return codificar_tipo_a(mnemonic.upper(), opcode, regs, regd, offset_or_reg, line_num)
         
         # Instrucciones aritméticas/lógicas: op regd, regs, val/reg
@@ -525,7 +523,7 @@ def main():
         # Escribir archivo binario
         with open(sys.argv[2], 'wb') as output:
             output.write(program)
-        
+
         text_size = len(program) - len(assembler.data_section)
         print(f"✓ Ensamblado exitoso: {len(program)} bytes escritos en '{sys.argv[2]}'")
         print(f"  Sección .text: {text_size} bytes ({text_size // 4} instrucciones)")
