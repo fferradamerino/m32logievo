@@ -98,30 +98,42 @@ public class ArrowWire extends InstanceFactory {
         state.setPort(1, input, 1);
     }
 
+    private int getWireThickness(BitWidth bitWidth) {
+        int bits = bitWidth.getWidth();
+        if (bits <= 1) return 2;      // 1-bit: thin wire
+        else if (bits <= 8) return 3; // 8-bit: medium wire
+        else if (bits <= 16) return 4; // 16-bit: thick wire
+        else if (bits <= 32) return 5; // 32-bit: thicker wire
+        else return 6;                 // 64-bit+: very thick wire
+    }
+
     @Override
     public void paintInstance(InstancePainter painter) {
         Graphics g = painter.getGraphics();
         Bounds bds = painter.getBounds();
         AttributeSet attrs = painter.getAttributeSet();
         Direction facing = attrs.getValue(ATTR_FACING);
+        BitWidth bitWidth = attrs.getValue(ATTR_BITWIDTH);
 
         g.setColor(Color.BLACK);
         
         if (facing == Direction.EAST) {
-            drawHorizontalWire(g, bds, Color.BLACK, false);
+            drawHorizontalWire(g, bds, Color.BLACK, false, bitWidth);
         } else if (facing == Direction.WEST) {
-            drawHorizontalWire(g, bds, Color.BLACK, true);
+            drawHorizontalWire(g, bds, Color.BLACK, true, bitWidth);
         } else if (facing == Direction.NORTH) {
-            drawVerticalWire(g, bds, Color.BLACK, true);
+            drawVerticalWire(g, bds, Color.BLACK, true, bitWidth);
         } else if (facing == Direction.SOUTH) {
-            drawVerticalWire(g, bds, Color.BLACK, false);
+            drawVerticalWire(g, bds, Color.BLACK, false, bitWidth);
         }
     }
     
-    private void drawHorizontalWire(Graphics g, Bounds bds, Color wireColor, boolean leftToRight) {
+    private void drawHorizontalWire(Graphics g, Bounds bds, Color wireColor, boolean leftToRight, BitWidth bitWidth) {
         g.setColor(wireColor);
         int wireY = bds.getY() + bds.getHeight() / 2;
         int wireStartX, wireEndX, arrowX;
+        int thickness = getWireThickness(bitWidth);
+        int halfThickness = thickness / 2;
         
         if (leftToRight) {
             wireStartX = bds.getX() + 5;
@@ -133,15 +145,17 @@ public class ArrowWire extends InstanceFactory {
             arrowX = bds.getX() + bds.getWidth();
         }
         
-        g.fillRect(wireStartX, wireY - 2, wireEndX - wireStartX, 4);
+        g.fillRect(wireStartX, wireY - halfThickness, wireEndX - wireStartX, thickness);
         
-        drawHorizontalArrow(g, arrowX, wireY, leftToRight);
+        drawHorizontalArrow(g, arrowX, wireY, leftToRight, bitWidth);
     }
     
-    private void drawVerticalWire(Graphics g, Bounds bds, Color wireColor, boolean upToDown) {
+    private void drawVerticalWire(Graphics g, Bounds bds, Color wireColor, boolean upToDown, BitWidth bitWidth) {
         g.setColor(wireColor);
         int wireX = bds.getX() + bds.getWidth() / 2;
         int wireStartY, wireEndY, arrowY;
+        int thickness = getWireThickness(bitWidth);
+        int halfThickness = thickness / 2;
         
         if (upToDown) {
             wireStartY = bds.getY() + 5;
@@ -153,13 +167,15 @@ public class ArrowWire extends InstanceFactory {
             arrowY = bds.getY() + bds.getHeight();
         }
         
-        g.fillRect(wireX - 2, wireStartY, 4, wireEndY - wireStartY);
+        g.fillRect(wireX - halfThickness, wireStartY, thickness, wireEndY - wireStartY);
         
-        drawVerticalArrow(g, wireX, arrowY, upToDown);
+        drawVerticalArrow(g, wireX, arrowY, upToDown, bitWidth);
     }
+
     
-    private void drawHorizontalArrow(Graphics g, int arrowX, int arrowY, boolean pointingLeft) {
-        int arrowSize = 12;
+    private void drawHorizontalArrow(Graphics g, int arrowX, int arrowY, boolean pointingLeft, BitWidth bitWidth) {
+        int baseArrowSize = 12;
+        int arrowSize = baseArrowSize + Math.min(6, getWireThickness(bitWidth) - 2); // Scale arrow with thickness
         int[] arrowXPoints, arrowYPoints;
         
         if (pointingLeft) {
@@ -184,9 +200,11 @@ public class ArrowWire extends InstanceFactory {
         
         g.fillPolygon(arrowXPoints, arrowYPoints, 3);
     }
+
     
-    private void drawVerticalArrow(Graphics g, int arrowX, int arrowY, boolean pointingUp) {
-        int arrowSize = 12;
+    private void drawVerticalArrow(Graphics g, int arrowX, int arrowY, boolean pointingUp, BitWidth bitWidth) {
+        int baseArrowSize = 12;
+        int arrowSize = baseArrowSize + Math.min(6, getWireThickness(bitWidth) - 2); // Scale arrow with thickness
         int[] arrowXPoints, arrowYPoints;
         
         arrowXPoints = new int[] {
