@@ -415,6 +415,7 @@ class Assembler:
                 raise AssemblerError(line_num, f"{mnemonic}: se espera 1 operando (etiqueta/desplazamiento)")
             
             disp = self.resolve_label_or_immediate(operands[0], line_num, pc)
+            disp -= 4 # Si esto se vuelve a romper, XD
             return codificar_tipo_c(mnemonic.upper(), opcode, disp, line_num)
         
         raise AssemblerError(line_num, f"Error al ensamblar instrucción: '{mnemonic}'")
