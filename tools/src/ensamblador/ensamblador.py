@@ -139,11 +139,9 @@ class Assembler:
             # Detectar secciones
             if line.lower() == '.text':
                 self.in_data_section = False
-                # address = 0
                 continue
             elif line.lower() == '.data':
                 self.in_data_section = True
-                # address = 0
                 continue
             
             # Procesar directivas de datos
@@ -262,7 +260,7 @@ class Assembler:
         # Si no, debe ser un valor inmediato
         return parse_immediate(token, line_num)
 
-    def parse_memory_operand(self, token, line_num, pc=0):
+    def parse_memory_operand(self, token, line_num):
         """
         Parsea operando de memoria en formato [reg + offset] o [reg + reg] o [reg]
         Retorna (registro1, valor/registro2, es_registro, es_etiqueta)

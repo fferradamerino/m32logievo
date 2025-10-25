@@ -9,3 +9,5 @@ plugins/dist
 M32 Release.circ
 *.log
 .vscode
+sonar-project.properties
+.sonar
