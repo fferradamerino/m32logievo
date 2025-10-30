@@ -48,7 +48,8 @@ bcond:
 	wr_pc op_y_sel_1 fetch1
 	
 stb:
-	.
+	sel_reg op_y_sel_2 wr_ar op_abi_2 en_a .
+	wr rd_dest sel_reg op_alu_2 op_alu_1 op_dbi_3 op_dbi_2 op_dbi_1 en_d op_abi_2 en_a .
 	fetch1
 	
 sth:
