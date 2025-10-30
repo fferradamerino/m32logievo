@@ -362,8 +362,8 @@ class Assembler:
             regs = parse_register(operands[1], line_num)
             
             if is_reg:
-                # Formato B: op [regd + regs1], regs2
-                return codificar_tipo_b(mnemonic.upper(), opcode, regd, offset_or_reg, regs, line_num)
+                # Formato B: op [regs1 + regs2], regd
+                return codificar_tipo_b(mnemonic.upper(), opcode, regs, offset_or_reg, regd, line_num)
             else:
                 # Formato A: op [regd + val], regs
                 #if is_label:

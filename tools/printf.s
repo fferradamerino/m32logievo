@@ -6,6 +6,8 @@
 printf:
     loop:
         ldub r4, [r2 + r0]      # Leer un byte de la string
+        sll r4, r4, 24          # Para colocar el byte a escribir en la parte superior
+                                # de la palabra
         stb [r1 + r0], r4       # Escribir byte a la dirección TTY
         add r2, r2, 1           # Avanzar al siguiente carácter
         ba loop                 # Repetir el bucle
@@ -17,7 +19,7 @@ printf:
 main:
     add r1, r0, 8               # r1 = 0x8
     sll r1, r1, 24              # r1 = 0x08000000
-    add r2, r0, 0x28            # Las instrucciones aritméticas no tienen soporte
+    add r2, r0, 0x2C            # Las instrucciones aritméticas no tienen soporte
                                 # de labels aún :p
     jmpl [r0 + printf], r3
 
