@@ -342,7 +342,7 @@ class Assembler:
                 raise AssemblerError(line_num, f"{mnemonic}: se esperan 2 operandos (regd, [regs + val/reg])")
             
             regd = parse_register(operands[0], line_num)
-            regs, offset_or_reg, is_reg, is_label = self.parse_memory_operand(operands[1], line_num, pc)
+            regs, offset_or_reg, is_reg, is_label = self.parse_memory_operand(operands[1], line_num)
             
             if is_reg:
                 # Formato B: op regd, [regs1 + regs2]
@@ -358,7 +358,7 @@ class Assembler:
             if len(operands) != 2:
                 raise AssemblerError(line_num, f"{mnemonic}: se esperan 2 operandos ([regd + val/reg], regs)")
             
-            regd, offset_or_reg, is_reg, is_label = self.parse_memory_operand(operands[0], line_num, pc)
+            regd, offset_or_reg, is_reg, is_label = self.parse_memory_operand(operands[0], line_num)
             regs = parse_register(operands[1], line_num)
             
             if is_reg:
@@ -394,7 +394,7 @@ class Assembler:
             if len(operands) != 2:
                 raise AssemblerError(line_num, f"{mnemonic}: se esperan 2 operandos ([regs + val/reg], regd)")
             
-            regs, offset_or_reg, is_reg, is_label = self.parse_memory_operand(operands[0], line_num, pc)
+            regs, offset_or_reg, is_reg, is_label = self.parse_memory_operand(operands[0], line_num)
             regd = parse_register(operands[1], line_num)
             
             if is_reg:
@@ -403,8 +403,8 @@ class Assembler:
             else:
                 # Formato A: jmpl [regs + val], regd
                 # Si es etiqueta, calcular desplazamiento relativo
-                if is_label:
-                    offset_or_reg = offset_or_reg - pc
+                #if is_label:
+                #    offset_or_reg = offset_or_reg - pc
                 return codificar_tipo_a("JMPL", opcode, regd, regs, offset_or_reg, line_num)
         
         # Saltos condicionales (Tipo C): op disp
