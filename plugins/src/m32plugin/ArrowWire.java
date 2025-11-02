@@ -34,6 +34,8 @@ class ArrowWireName implements StringGetter{
 public class ArrowWire extends InstanceFactory {
     public static ArrowWireName componentName = new ArrowWireName();
     public TunnelValueFetcher tunnelValueFetcher = new TunnelValueFetcher();
+
+    private AuxWire auxMethods = new AuxWire();
     
     // Add attributes for width and direction
     public static final Attribute<Integer> ATTR_WIDTH = 
@@ -144,9 +146,9 @@ public class ArrowWire extends InstanceFactory {
         } else if (facing == Direction.WEST) {
             drawHorizontalWire(g, bds, Color.BLACK, true, bitWidth);
         } else if (facing == Direction.NORTH) {
-            drawVerticalWire(g, bds, Color.BLACK, true, bitWidth);
+            auxMethods.drawVerticalWire(g, bds, Color.BLACK, true, true, bitWidth);
         } else if (facing == Direction.SOUTH) {
-            drawVerticalWire(g, bds, Color.BLACK, false, bitWidth);
+            auxMethods.drawVerticalWire(g, bds, Color.BLACK, false, true, bitWidth);
         }
         
         // Draw bit width text near the middle of the wire
@@ -175,29 +177,6 @@ public class ArrowWire extends InstanceFactory {
         drawHorizontalArrow(g, arrowX, wireY, leftToRight, bitWidth);
     }
     
-    private void drawVerticalWire(Graphics g, Bounds bds, Color wireColor, boolean upToDown, BitWidth bitWidth) {
-        g.setColor(wireColor);
-        int wireX = bds.getX() + bds.getWidth() / 2;
-        int wireStartY, wireEndY, arrowY;
-        int thickness = getWireThickness(bitWidth);
-        int halfThickness = thickness / 2;
-        
-        if (upToDown) {
-            wireStartY = bds.getY() + 5;
-            wireEndY = bds.getY() + bds.getHeight();
-            arrowY = bds.getY();
-        } else {
-            wireStartY = bds.getY();
-            wireEndY = bds.getY() + bds.getHeight() - 5;
-            arrowY = bds.getY() + bds.getHeight();
-        }
-        
-        g.fillRect(wireX - halfThickness, wireStartY, thickness, wireEndY - wireStartY);
-        
-        drawVerticalArrow(g, wireX, arrowY, upToDown, bitWidth);
-    }
-
-    
     private void drawHorizontalArrow(Graphics g, int arrowX, int arrowY, boolean pointingLeft, BitWidth bitWidth) {
         int baseArrowSize = 12;
         int arrowSize = baseArrowSize + Math.min(6, getWireThickness(bitWidth) - 2); // Scale arrow with thickness
@@ -222,35 +201,6 @@ public class ArrowWire extends InstanceFactory {
             arrowY - arrowSize/2,
             arrowY + arrowSize/2
         };
-        
-        g.fillPolygon(arrowXPoints, arrowYPoints, 3);
-    }
-
-    
-    private void drawVerticalArrow(Graphics g, int arrowX, int arrowY, boolean pointingUp, BitWidth bitWidth) {
-        int baseArrowSize = 12;
-        int arrowSize = baseArrowSize + Math.min(6, getWireThickness(bitWidth) - 2); // Scale arrow with thickness
-        int[] arrowXPoints, arrowYPoints;
-        
-        arrowXPoints = new int[] {
-            arrowX,
-            arrowX - arrowSize/2,
-            arrowX + arrowSize/2
-        };
-        
-        if (pointingUp) {
-            arrowYPoints = new int[] {
-                arrowY,
-                arrowY + arrowSize,
-                arrowY + arrowSize
-            };
-        } else {
-            arrowYPoints = new int[] {
-                arrowY,
-                arrowY - arrowSize,
-                arrowY - arrowSize
-            };
-        }
         
         g.fillPolygon(arrowXPoints, arrowYPoints, 3);
     }

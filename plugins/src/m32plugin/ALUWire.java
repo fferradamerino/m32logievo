@@ -132,9 +132,9 @@ public class ALUWire extends InstanceFactory {
         } else if (facing == Direction.WEST) {
             drawHorizontalWire(g, bds, wireColor, true);
         } else if (facing == Direction.NORTH) {
-            auxMethods.drawVerticalWire(g, bds, wireColor, true);
+            auxMethods.drawVerticalWire(g, bds, wireColor, true, false, null);
         } else if (facing == Direction.SOUTH) {
-            auxMethods.drawVerticalWire(g, bds, wireColor, false);
+            auxMethods.drawVerticalWire(g, bds, wireColor, false, false, null);
         }
         
         g.setColor(Color.BLACK);
