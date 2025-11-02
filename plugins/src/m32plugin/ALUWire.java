@@ -36,6 +36,8 @@ public class ALUWire extends InstanceFactory {
     private InstanceState state;
     public static ALUWireName componentName = new ALUWireName();
     public TunnelValueFetcher tunnelValueFetcher = new TunnelValueFetcher();
+
+    private AuxWire auxMethods = new AuxWire();
     
     // Add attributes for width and direction
     public static final Attribute<Integer> ATTR_WIDTH = 
@@ -130,9 +132,9 @@ public class ALUWire extends InstanceFactory {
         } else if (facing == Direction.WEST) {
             drawHorizontalWire(g, bds, wireColor, true);
         } else if (facing == Direction.NORTH) {
-            drawVerticalWire(g, bds, wireColor, true);
+            auxMethods.drawVerticalWire(g, bds, wireColor, true);
         } else if (facing == Direction.SOUTH) {
-            drawVerticalWire(g, bds, wireColor, false);
+            auxMethods.drawVerticalWire(g, bds, wireColor, false);
         }
         
         g.setColor(Color.BLACK);
@@ -170,26 +172,6 @@ public class ALUWire extends InstanceFactory {
         drawHorizontalArrow(g, arrowX, wireY, leftToRight);
     }
     
-    private void drawVerticalWire(Graphics g, Bounds bds, Color wireColor, boolean upToDown) {
-        g.setColor(wireColor);
-        int wireX = bds.getX() + bds.getWidth() / 2;
-        int wireStartY, wireEndY, arrowY;
-        
-        if (upToDown) {
-            wireStartY = bds.getY();
-            wireEndY = bds.getY() + bds.getHeight() - 5;
-            arrowY = bds.getY();
-        } else {
-            wireStartY = bds.getY();
-            wireEndY = bds.getY() + bds.getHeight() - 5;
-            arrowY = bds.getY() + bds.getHeight();
-        }
-        
-        g.fillRect(wireX - 2, wireStartY, 4, wireEndY - wireStartY);
-        
-        drawVerticalArrow(g, wireX, arrowY, upToDown);
-    }
-    
     private void drawHorizontalArrow(Graphics g, int arrowX, int arrowY, boolean pointingLeft) {
         int arrowSize = 12;
         int[] arrowXPoints, arrowYPoints;
@@ -213,33 +195,6 @@ public class ALUWire extends InstanceFactory {
             arrowY - arrowSize/2,
             arrowY + arrowSize/2
         };
-        
-        g.fillPolygon(arrowXPoints, arrowYPoints, 3);
-    }
-    
-    private void drawVerticalArrow(Graphics g, int arrowX, int arrowY, boolean pointingUp) {
-        int arrowSize = 12;
-        int[] arrowXPoints, arrowYPoints;
-        
-        arrowXPoints = new int[] {
-            arrowX,
-            arrowX - arrowSize/2,
-            arrowX + arrowSize/2
-        };
-        
-        if (pointingUp) {
-            arrowYPoints = new int[] {
-                arrowY,
-                arrowY + arrowSize,
-                arrowY + arrowSize
-            };
-        } else {
-            arrowYPoints = new int[] {
-                arrowY,
-                arrowY - arrowSize,
-                arrowY - arrowSize
-            };
-        }
         
         g.fillPolygon(arrowXPoints, arrowYPoints, 3);
     }
