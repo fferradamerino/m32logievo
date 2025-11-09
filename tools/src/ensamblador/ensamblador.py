@@ -3,6 +3,11 @@ import os.path
 import sys
 import re
 
+class FatalError(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(message)
+
 class AssemblerError(Exception):
     """Excepción para errores de ensamblado"""
     def __init__(self, line_num, message):
@@ -17,7 +22,20 @@ def codificar_tipo_a(nombre, opcode, regd, regs, val, line_num):
     Op: 8 bits, Regd: 5 bits, Regs: 5 bits, bit i: 1, Val: 13 bits
     """
     instruccion = 0
+
+    inputs = [nombre, opcode, regd, regs, val, line_num]
+
+    if None in inputs:
+        raise FatalError("Valores nulos entregados")
     
+    # Validar número de línea
+    if line_num < 0:
+        raise FatalError("Número de línea fuera de rango")
+
+    # Validación de opcode
+    if opcode < 0 or opcode > 255:
+        raise AssemblerError(line_num, f"El {opcode} está fuera de rango")
+
     # Validaciones para val (13 bits con signo: -4096 a 8191)
     if val < -4096 or val > 8191:
         raise AssemblerError(line_num, f"{nombre}: valor inmediato {val} fuera de rango (-4096 a 8191)")
@@ -47,6 +65,19 @@ def codificar_tipo_b(nombre, opcode, regd, regs1, regs2, line_num):
     Op: 8 bits, Regd: 5 bits, Regs1: 5 bits, bit i: 0, Regs2: 5 bits, padding: 7 bits
     """
     instruccion = 0
+
+    inputs = [nombre, opcode, regd, regs1, regs2, line_num]
+
+    # Validar valores nulos
+    if None in inputs:
+        raise FatalError("Valores nulos entregados")
+    
+    if line_num < 0:
+        raise FatalError("Número de línea fuera de rango")
+
+    # Validar opcode
+    if opcode < 0 or opcode > 255:
+        raise AssemblerError(line_num, f"{line_num} opcode está fuera de rango")
     
     # Validaciones
     if regd > 31 or regd < 0:
@@ -73,9 +104,20 @@ def codificar_tipo_c(nombre, opcode, disp, line_num):
     Op: 8 bits, Desplazamiento: 24 bits con signo
     """
     instruccion = 0
+
+    inputs = [nombre, opcode, disp, line_num]
+
+    if None in inputs:
+        raise FatalError("Valores nulos entregados")
     
-    # Validación: 24 bits con signo (-8388608 a 8388607)
-    if disp < -(2**23) or disp >= (2**23):
+    if line_num < 0:
+        raise FatalError("Línea fuera de rango")
+    
+    if opcode < 0 or opcode > 255:
+        raise AssemblerError(line_num, f"{opcode} fuera de rango")
+    
+    # Validación: 24 bits con signo (-8388608 a 16777215)
+    if disp < -8388608 or disp >= 16777215:
         raise AssemblerError(line_num, f"{nombre}: desplazamiento {disp} fuera de rango (-8388608 a 8388607)")
     
     # Convertir a representación de 24 bits
@@ -89,6 +131,12 @@ def codificar_tipo_c(nombre, opcode, disp, line_num):
 
 def parse_register(token, line_num):
     """Parsea un token de registro (r0-r31)"""
+    if None in [token, line_num]:
+        raise FatalError("Valores nulos entregados")
+    
+    if line_num < 0:
+        raise FatalError("Línea fuera de rango")
+
     token = token.strip().rstrip(',')
     if not token.startswith('r'):
         raise AssemblerError(line_num, f"Se esperaba registro, se obtuvo '{token}'")
@@ -103,6 +151,12 @@ def parse_register(token, line_num):
 
 def parse_immediate(token, line_num):
     """Parsea un valor inmediato (decimal o hexadecimal)"""
+    if None in [token, line_num]:
+        raise FatalError("Valores nulos entregados")
+    
+    if line_num < 0:
+        raise FatalError("Línea fuera de rango")
+
     token = token.strip().rstrip(',')
     try:
         if token.startswith('0x') or token.startswith('0X'):

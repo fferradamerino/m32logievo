@@ -12,3 +12,6 @@ M32 Release.circ
 sonar-project.properties
 .sonar
 .scannerwork
+.coverage
+htmlcov
+.pytest_cache

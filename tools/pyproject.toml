@@ -2,3 +2,15 @@
 name = "herramientas-m32"
 version = "1.0.0"
 requires-python = ">=3.12.3"
+
+[project.optional-dependencies]
+dev = [
+    "pytest>=7.0.0",
+    "pytest-cov>=4.0.0",  # for coverage reports
+]
+
+[tool.pytest.ini_options]
+testpaths = ["tests"]
+python_files = ["test_*.py"]
+python_classes = ["Test*"]
+python_functions = ["test_*"]
