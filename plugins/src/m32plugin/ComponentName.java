@@ -1,3 +1,5 @@
+package m32plugin;
+
 import com.cburch.logisim.util.StringGetter;
 
 class ComponentName implements StringGetter{

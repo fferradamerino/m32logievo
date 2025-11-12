@@ -1,3 +1,5 @@
+package m32plugin;
+
 import com.cburch.logisim.data.BitWidth;
 import com.cburch.logisim.data.Bounds;
 

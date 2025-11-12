@@ -1,3 +1,5 @@
+package m32plugin;
+
 import com.cburch.logisim.circuit.CircuitState;
 import com.cburch.logisim.circuit.Circuit;
 import com.cburch.logisim.std.wiring.Tunnel;

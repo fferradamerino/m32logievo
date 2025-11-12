@@ -8,10 +8,59 @@
         <mkdir dir="${build.dir}" />
         <javac srcdir="${src.dir}" destdir="${build.dir}" includeantruntime="false">
             <classpath>
-                <pathelement location="${lib.dir}/logisim-evolution-3.9.0-all.jar" />
+                <fileset dir="${lib.dir}">
+                    <include name="*.jar"/>
+                </fileset>
             </classpath>
         </javac>
     </target>
+
+    <target name="compile-test" depends="compile">
+        <mkdir dir="${build.dir}/test" />
+        <javac srcdir="src/test" destdir="${build.dir}/test" includeantruntime="false">
+            <classpath>
+                <pathelement location="${build.dir}"/>
+                <fileset dir="${lib.dir}">
+                    <include name="*.jar"/>
+                </fileset>
+            </classpath>
+        </javac>
+    </target>
+
+    <target name="test" depends="compile-test">
+        <mkdir dir="${build.dir}/test-results" />
+
+        <junit printsummary="true" haltonfailure="true" fork="true">
+            <classpath>
+                <pathelement location="${build.dir}" />
+                <pathelement location="${build.dir}/test" />
+                <fileset dir="${lib.dir}">
+                    <include name="*.jar" />
+                </fileset>
+            </classpath>
+
+            <formatter type="xml" />
+
+            <batchtest todir="${build.dir}/test-results">
+                <fileset dir="${build.dir}/test">
+                    <include name="**/*Test.class" />
+                </fileset>
+            </batchtest>
+        </junit>
+    </target>
+
+    <target name="test-report" depends="test">
+        <mkdir dir="${build.dir}/test-results/html" />
+
+        <junitreport todir="${build.dir}/test-results">
+            <fileset dir="${build.dir}/test-results">
+                <include name="TEST-*.xml" />
+            </fileset>
+            <report todir="${build.dir}/test-results/html" />
+        </junitreport>
+    </target>
+
+
     <target name="jar" depends="compile">
         <mkdir dir="${dist.dir}" />
         <jar destfile="${dist.dir}/M32Library.jar" basedir="${build.dir}" />

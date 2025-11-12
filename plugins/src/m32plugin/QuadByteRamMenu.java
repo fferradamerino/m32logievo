@@ -1,3 +1,5 @@
+package m32plugin;
+
 import java.awt.Frame;
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;

@@ -21,7 +21,7 @@
   <lib desc="#BFH-Praktika" name="9"/>
   <lib desc="#Input/Output-Extra" name="10"/>
   <lib desc="#Soc" name="11"/>
-  <lib desc="jar#plugins/dist/M32Library.jar#M32Library" name="12"/>
+  <lib desc="jar#plugins/dist/M32Library.jar#m32plugin.M32Library" name="12"/>
   <main name="main"/>
   <options>
     <a name="gateUndefined" val="ignore"/>
