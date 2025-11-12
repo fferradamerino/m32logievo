@@ -2,6 +2,17 @@ import os.path
 import struct
 import sys
 
+class FatalError(Exception):
+    def __init__(self, message):
+        self.message = message
+        super().__init__(message)
+
+class MicroAssemblerError(Exception):
+    """Excepción para errores de micro-ensamblado"""
+    def __init__(self, message):
+        self.message = message
+        super().__init__(message)
+
 # Cada microinstrucción son 8 bytes
 class Microinstruccion:
 	def __init__(self, linea, labels_encontrados, pos_en_memoria):
@@ -71,7 +82,7 @@ class Microinstruccion:
 			if x[0] == label:
 				return x[1]
 			
-		raise Exception("Label no encontrado: " + label)
+		raise MicroAssemblerError("Label no encontrado: " + label)
 	
 	def codificar(self):
 		codificacion = 0
@@ -107,6 +118,9 @@ class Microinstruccion:
 def tokenizar_archivo(archivo):
 	lineas = []
 	linea = ""
+
+	if archivo is None:
+		raise FatalError("Archivo indefinido")
 	
 	for caracter in archivo:
 		match caracter:
@@ -124,6 +138,9 @@ def tokenizar_archivo(archivo):
 def tokenizar_linea(linea):
 	tokens = []
 	token = ""
+
+	if linea is None:
+		raise FatalError("Linea indefinida")
 	
 	for caracter in linea:
 		if (caracter == ' ' or caracter == '\t'):
@@ -139,12 +156,15 @@ def tokenizar_linea(linea):
 	return tokens
 
 def label_addr(label, labels_encontrados):
+	if label is None or labels_encontrados is None:
+		raise FatalError("Valores indefinidos entregados como labels")
+
 	for x in labels_encontrados:
 		if x[0] == label:
 			print("Dirección", label + ":", x[1])
 			return struct.pack('!B', x[1])
 		
-	raise Exception("Label no encontrado: " + label)
+	raise MicroAssemblerError("Label no encontrado: " + label)
 
 def codificar_direcciones(labels_encontrados):
 	direcciones = b''
