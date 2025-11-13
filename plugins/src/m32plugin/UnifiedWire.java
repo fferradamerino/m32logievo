@@ -93,6 +93,10 @@ public class UnifiedWire extends InstanceFactory {
 		);
 	}
 
+	public static String getComponentName() {
+		return componentName.toString();
+	}
+
 	@Override
 	protected void configureNewInstance(Instance instance) {
 		instance.addAttributeListener();
