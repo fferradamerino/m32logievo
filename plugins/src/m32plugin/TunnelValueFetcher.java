@@ -11,6 +11,10 @@ public class TunnelValueFetcher {
     
     public Value getTunnelValue(CircuitState circuitState, String tunnelLabel) {
         Circuit circuit = circuitState.getCircuit();
+        
+        if (tunnelLabel == null || circuitState == null) {
+			return Value.UNKNOWN;
+		}
 
         for (Component comp : circuit.getNonWires()) {
             if (comp.getFactory() instanceof Tunnel) {
