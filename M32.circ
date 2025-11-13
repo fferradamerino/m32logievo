@@ -346,68 +346,72 @@
     <comp lib="1" loc="(1100,970)" name="Controlled Buffer">
       <a name="width" val="4"/>
     </comp>
-    <comp lib="12" loc="(180,180)" name="PCWire">
+    <comp lib="12" loc="(180,180)" name="UnifiedWire">
       <a name="facing" val="south"/>
       <a name="width" val="150"/>
+      <a name="wireType" val="Program Counter Wire"/>
     </comp>
-    <comp lib="12" loc="(180,90)" name="ArrowWire">
+    <comp lib="12" loc="(180,90)" name="UnifiedWire">
       <a name="facing" val="south"/>
       <a name="width" val="20"/>
     </comp>
-    <comp lib="12" loc="(310,430)" name="ArrowWire">
+    <comp lib="12" loc="(310,430)" name="UnifiedWire">
       <a name="facing" val="south"/>
       <a name="width" val="30"/>
     </comp>
-    <comp lib="12" loc="(370,210)" name="RBankWire">
+    <comp lib="12" loc="(370,210)" name="UnifiedWire">
       <a name="facing" val="south"/>
       <a name="width" val="120"/>
+      <a name="wireType" val="R-Bank Wire"/>
     </comp>
-    <comp lib="12" loc="(390,540)" name="ALUWire">
+    <comp lib="12" loc="(390,540)" name="UnifiedWire">
       <a name="facing" val="south"/>
       <a name="width" val="250"/>
+      <a name="wireType" val="ALU Wire"/>
     </comp>
-    <comp lib="12" loc="(420,90)" name="ArrowWire">
+    <comp lib="12" loc="(420,90)" name="UnifiedWire">
       <a name="facing" val="south"/>
       <a name="width" val="20"/>
     </comp>
-    <comp lib="12" loc="(460,210)" name="RBankWire">
+    <comp lib="12" loc="(460,210)" name="UnifiedWire">
       <a name="facing" val="south"/>
       <a name="width" val="90"/>
+      <a name="wireType" val="R-Bank Wire"/>
     </comp>
-    <comp lib="12" loc="(460,410)" name="ArrowWire">
+    <comp lib="12" loc="(460,410)" name="UnifiedWire">
       <a name="facing" val="south"/>
       <a name="width" val="50"/>
     </comp>
-    <comp lib="12" loc="(510,130)" name="ArrowWire">
+    <comp lib="12" loc="(510,130)" name="UnifiedWire">
       <a name="bitwidth" val="5"/>
       <a name="facing" val="west"/>
       <a name="width" val="60"/>
     </comp>
-    <comp lib="12" loc="(510,160)" name="ArrowWire">
+    <comp lib="12" loc="(510,160)" name="UnifiedWire">
       <a name="bitwidth" val="5"/>
       <a name="facing" val="west"/>
       <a name="width" val="60"/>
     </comp>
-    <comp lib="12" loc="(510,190)" name="ArrowWire">
+    <comp lib="12" loc="(510,190)" name="UnifiedWire">
       <a name="bitwidth" val="5"/>
       <a name="facing" val="west"/>
       <a name="width" val="60"/>
     </comp>
-    <comp lib="12" loc="(520,880)" name="ArrowWire">
+    <comp lib="12" loc="(520,880)" name="UnifiedWire">
       <a name="facing" val="south"/>
       <a name="width" val="70"/>
     </comp>
-    <comp lib="12" loc="(580,740)" name="ArrowWire">
+    <comp lib="12" loc="(580,740)" name="UnifiedWire">
       <a name="facing" val="south"/>
       <a name="width" val="50"/>
     </comp>
-    <comp lib="12" loc="(620,950)" name="ArrowWire">
+    <comp lib="12" loc="(620,950)" name="UnifiedWire">
       <a name="width" val="20"/>
     </comp>
-    <comp lib="12" loc="(640,760)" name="ArrowWire">
+    <comp lib="12" loc="(640,760)" name="UnifiedWire">
       <a name="width" val="130"/>
     </comp>
-    <comp lib="12" loc="(940,90)" name="ArrowWire">
+    <comp lib="12" loc="(940,90)" name="UnifiedWire">
       <a name="facing" val="south"/>
       <a name="width" val="20"/>
     </comp>

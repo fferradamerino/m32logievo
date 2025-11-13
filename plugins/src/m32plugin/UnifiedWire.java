@@ -112,7 +112,6 @@ public class UnifiedWire extends InstanceFactory {
 		Direction facing = attrs.getValue(ATTR_FACING);
 		int width = attrs.getValue(ATTR_WIDTH);
 		AttributeOption wireType = attrs.getValue(ATTR_WIRE_TYPE);
-		System.out.println("Hello");
 		BitWidth bitWidth = attrs.getValue(ATTR_BITWIDTH);
 
 		// Arrow Wire uses configurable bit width, others use fixed 32-bit
