@@ -12,11 +12,7 @@ public class M32Library extends Library {
 
     private static final FactoryDescription[] DESCRIPTIONS = {
         new FactoryDescription(DefinedOutputSplitter32.class, DefinedOutputSplitter32.componentName),
-        new FactoryDescription(PCWire.class, PCWire.componentName),
-        new FactoryDescription(RBankWire.class, RBankWire.componentName),
-        new FactoryDescription(ALUWire.class, ALUWire.componentName),
         new FactoryDescription(QuadByteRam.class, QuadByteRam.componentName),
-        new FactoryDescription(ArrowWire.class, ArrowWire.componentName),
         new FactoryDescription(ControlUnitCycle.class, ControlUnitCycle.componentName),
         new FactoryDescription(UnifiedWire.class, UnifiedWire.componentName)
     };
