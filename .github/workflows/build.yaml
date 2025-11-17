@@ -44,6 +44,7 @@ jobs:
       - name: Configurar directorios
         run: |
           mkdir lib
+          mkdir tools/examples
           cp plugins/dist/M32Library.jar lib/M32Library.jar
           cp plugins/lib/logisim-evolution-3.9.0-all.jar logisim-evolution.jar
           cp tools/src/ensamblador/ensamblador.py tools/ensamblador.py
