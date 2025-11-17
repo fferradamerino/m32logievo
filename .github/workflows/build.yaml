@@ -40,6 +40,9 @@ jobs:
           mkdir lib
           cp plugins/dist/M32Library.jar lib/M32Library.jar
           cp plugins/lib/logisim-evolution-3.9.0-all.jar logisim-evolution.jar
+          cp tools/src/ensamblador/ensamblador.py tools/ensamblador.py
+          cp tools/src/microensamblador/microensamblador.py tools/microensamblador.py
+          cp tools/printf.s tools/examples/printf.s
       
       - name: Compresión de archivos
         run: zip release.zip -@ < package.txt
