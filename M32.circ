@@ -21,7 +21,7 @@
   <lib desc="#BFH-Praktika" name="9"/>
   <lib desc="#Input/Output-Extra" name="10"/>
   <lib desc="#Soc" name="11"/>
-  <lib desc="jar#plugins/dist/M32Library.jar#m32plugin.M32Library" name="12"/>
+  <lib desc="jar#plugins\dist\M32Library.jar#m32plugin.M32Library" name="12"/>
   <main name="main"/>
   <options>
     <a name="gateUndefined" val="ignore"/>
@@ -382,6 +382,7 @@
       <a name="facing" val="south"/>
       <a name="width" val="50"/>
     </comp>
+    <comp lib="12" loc="(50,30)" name="ControlUnitCycleMain"/>
     <comp lib="12" loc="(510,130)" name="UnifiedWire">
       <a name="bitwidth" val="5"/>
       <a name="facing" val="west"/>
@@ -2092,7 +2093,7 @@
     <a name="circuitnamedboxfixedsize" val="true"/>
     <a name="simulationFrequency" val="1.0"/>
     <appear>
-      <rect fill="#ffffff" fill-opacity="0.000" height="80" stroke="none" width="269" x="121" y="51"/>
+      <rect fill="#ffffff" fill-opacity="0,000" height="80" stroke="none" width="269" x="121" y="51"/>
       <text dominant-baseline="central" font-family="Times New Roman" font-size="32" font-weight="bold" text-anchor="middle" x="258" y="90">ALU</text>
       <polygon fill="none" points="121,50 180,131 330,131 390,50 300,50 261,69 210,50" stroke="#000000"/>
       <text dominant-baseline="central" font-family="Times New Roman" font-size="12" text-anchor="middle" x="179" y="62">X</text>

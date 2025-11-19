@@ -14,7 +14,8 @@ public class M32Library extends Library {
         new FactoryDescription(DefinedOutputSplitter32.class, DefinedOutputSplitter32.componentName),
         new FactoryDescription(QuadByteRam.class, QuadByteRam.componentName),
         new FactoryDescription(ControlUnitCycle.class, ControlUnitCycle.componentName),
-        new FactoryDescription(UnifiedWire.class, UnifiedWire.componentName)
+        new FactoryDescription(UnifiedWire.class, UnifiedWire.componentName),
+        new FactoryDescription(ControlUnitCycleMain.class, ControlUnitCycleMain.componentName)
     };
 
     public M32Library() {}
