@@ -9,4 +9,6 @@ examples/LDWx2/microensamblador.py
 examples/LDWx2/microprograma.s
 tools/ensamblador.py
 tools/microensamblador.py
-tools/examples/printf.s
+tools/programas/printf.s
+tools/programas/programa_inicial.s
+tools/programas/microprograma.s
