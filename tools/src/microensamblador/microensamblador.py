@@ -189,7 +189,17 @@ def codificar_direcciones(labels_encontrados):
 	direcciones += label_addr("srl", labels_encontrados)
 	direcciones += label_addr("sra", labels_encontrados)
 	direcciones += label_addr("jmpl", labels_encontrados)
-	direcciones += label_addr("bcond", labels_encontrados)
+	direcciones += label_addr("bcond", labels_encontrados) # ba
+	direcciones += label_addr("bcond", labels_encontrados) # be
+	direcciones += label_addr("bcond", labels_encontrados) # bne
+	direcciones += label_addr("bcond", labels_encontrados) # bg
+	direcciones += label_addr("bcond", labels_encontrados) # bge
+	direcciones += label_addr("bcond", labels_encontrados) # bl
+	direcciones += label_addr("bcond", labels_encontrados) # ble
+	direcciones += label_addr("bcond", labels_encontrados) # bgu
+	direcciones += label_addr("bcond", labels_encontrados) # bgeu
+	direcciones += label_addr("bcond", labels_encontrados) # blu
+	direcciones += label_addr("bcond", labels_encontrados) # bleu
 	
 	return direcciones
 
