@@ -26,20 +26,17 @@ main:
     add r3, r3, 0               # Inicializamos r3 en 0 (contador de caracteres leídos)
 	
 procesar_registro:
-    add r6, r0, 2               # Guardaremos de manera temporal el valor 3 en r6
-	stw [r2 + r0], r6           # [0x10000000] = 0b01 (se limpia el teclado y se desactiva la lectura
-								#                      de los demás caracteres)
 	ldw r4, [r1 + r0]           # Cargamos la palabra en el registro 4
 	add r5, r4, r0              # Movemos el registro del teclado a r5 para obtener el bit de available
-	and r5, r5, 0x40            # Filtramos todos los bits excepto el de available
-	or r5, r5, r5               # Verificamos que el registro r5 no sea cero
-	bne fin_loop_teclado        # Comienzo del bucle: si no hay datos
+	and r5, r5, 0x80            # Filtramos todos los bits excepto el de available
+	be fin_loop_teclado         # Comienzo del bucle: si no hay datos
 								# entonces terminamos el bucle
+	nop
 	add r5, r4, r0              # Movemos el caracter leído a r5
     and r5, r5, 0x7F            # Filtramos todos los bits excepto el del carácter
-    stb [r3 + 0x78], r5         # Guardamos el carácter en la variable mensaje
+    stb [r3 + 0x100], r5        # Guardamos el carácter en la variable mensaje
     add r3, r3, 1               # Incrementamos el contador de caracteres leídos
-    add r6, r0, 10              # Guardaremos de manera temporal el valor 10 (read) en r6
+    add r6, r0, 2               # Guardaremos de manera temporal el valor 10 (read) en r6
     stw [r2 + r0], r6           # [0x10000000] = 0b10 (se activa la lectura del siguiente carácter)
 	ba procesar_registro        # Repetimos los pasos anteriores
 	
@@ -47,10 +44,6 @@ fin_loop_teclado:
 	# Acá comienza la siguiente rutina: imprimir el texto en pantalla
     add r1, r0, 8               # r1 = 0x8
     sll r1, r1, 24              # r1 = 0x08000000
-    add r2, r0, 0x78            # Las instrucciones aritméticas no tienen soporte
+    add r2, r0, 0x100           # Las instrucciones aritméticas no tienen soporte
                                 # de labels aún :p
     jmpl [r0 + printf], r3
-
-.data
-    mensaje:
-        .ascii "Hola mundo"
