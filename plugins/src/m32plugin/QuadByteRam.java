@@ -16,6 +16,7 @@ import com.cburch.logisim.util.StringGetter;
 
 import java.io.File;
 import java.io.FileInputStream;
+import java.io.FileOutputStream;
 import java.io.IOException;
 
 class RamData32 implements InstanceData, Cloneable {
@@ -141,6 +142,29 @@ class RamData32 implements InstanceData, Cloneable {
             
         } catch (IOException e) {
             System.err.println("Error loading file: " + e.getMessage());
+            return false;
+        }
+    }
+
+    public boolean dumpToFile(String filepath) {
+        if (filepath == null || filepath.trim().isEmpty()) {
+            return false;
+        }
+        try (FileOutputStream fos = new FileOutputStream(new File(filepath))) {
+            int bytesPerLocation = (dataBits + 7) / 8;
+            int bytesWritten = 0;
+            for (int location = 0; location < data.length; location++) {
+                int value = data[location];
+                for (int byteIndex = bytesPerLocation - 1; byteIndex >= 0; byteIndex--) {
+                    byte byteValue = (byte) ((value >> (byteIndex * 8)) & 0xFF);
+                    fos.write(byteValue);
+                    bytesWritten++;
+                }
+            }
+            System.out.println("RAM32: Dumped " + bytesWritten + " bytes to " + filepath);
+            return true;
+        } catch (IOException e) {
+            System.err.println("Error dumping file: " + e.getMessage());
             return false;
         }
     }

@@ -24,6 +24,7 @@ public class QuadByteRamMenu implements ActionListener, MenuExtender {
 
     private CircuitState circState;
     private JMenuItem load;
+    private JMenuItem dump;
 
     QuadByteRamMenu(Instance instance) {
         this.instance = instance;
@@ -45,8 +46,10 @@ public class QuadByteRamMenu implements ActionListener, MenuExtender {
         var enabled = circState != null;
         load = createItem(enabled, "Cargar imagen binaria");
 
+        dump = createItem(enabled, "Volcar memoria a archivo");
         menu.addSeparator();
         menu.add(load);
+        menu.add(dump);
     }
 
     private void doLoad() {
@@ -142,9 +145,51 @@ public class QuadByteRamMenu implements ActionListener, MenuExtender {
         }
     }
 
+    private void doDump() {
+        if (circState == null) {
+            JOptionPane.showMessageDialog(frame, "No circuit state available", "Dump Error", JOptionPane.ERROR_MESSAGE);
+            return;
+        }
+        JFileChooser fileChooser = new JFileChooser();
+        fileChooser.setDialogTitle("Dump RAM Contents to Binary File");
+        fileChooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        int returnValue = fileChooser.showSaveDialog(frame);
+        if (returnValue == JFileChooser.APPROVE_OPTION) {
+            File selectedFile = fileChooser.getSelectedFile();
+            if (selectedFile != null) {
+                dumpRamToFile(selectedFile.getAbsolutePath());
+            }
+        }
+    }
+
+    private void dumpRamToFile(String filepath) {
+        try {
+            InstanceState instanceState = circState.getInstanceState(instance);
+            Object data = instanceState.getData();
+            if (data instanceof RamData32) {
+                RamData32 ramData = (RamData32) data;
+                boolean success = ramData.dumpToFile(filepath);
+                if (success) {
+                    JOptionPane.showMessageDialog(frame, "Successfully dumped RAM contents to:\n" + filepath, "Dump Successful", JOptionPane.INFORMATION_MESSAGE);
+                } else {
+                    JOptionPane.showMessageDialog(frame, "Failed to dump RAM contents to:\n" + filepath, "Dump Failed", JOptionPane.ERROR_MESSAGE);
+                }
+            } else {
+                JOptionPane.showMessageDialog(frame, "No RAM data available to dump", "Dump Error", JOptionPane.ERROR_MESSAGE);
+            }
+        } catch (Exception e) {
+            JOptionPane.showMessageDialog(frame, "Error dumping RAM: " + e.getMessage(), "Dump Error", JOptionPane.ERROR_MESSAGE);
+            e.printStackTrace();
+        }
+    }
+
     @Override
     public void actionPerformed(ActionEvent evt) {
         Object src = evt.getSource();
-        if (src == load) doLoad();
+        if (src == load) {
+            doLoad();
+        } else if (src == dump) {
+            doDump();
+        }
     }
 }
