@@ -5,11 +5,11 @@
     # r2: dirección de la string
 printf:
     loop:
-        ldub r4, [r2 + r0]      # Leer un byte de la string
+        ldw r4, [r2 + r0]      # Leer un byte de la string
         sll r4, r4, 24          # Para colocar el byte a escribir en la parte superior
                                 # de la palabra
         stb [r1 + r0], r4       # Escribir byte a la dirección TTY
-        add r2, r2, 1           # Avanzar al siguiente carácter
+        add r2, r2, 4           # Avanzar al siguiente carácter
         ba loop                 # Repetir el bucle
         # Preguntar sobre el flag Z en la ALU !!!!
 
@@ -25,6 +25,8 @@ main:
 
     add r3, r3, 0               # Inicializamos r3 en 0 (contador de caracteres leídos)
 	
+	add r7, r0, 0x100           # Dirección donde almacenaremos la string
+	
 procesar_registro:
 	ldw r4, [r1 + r0]           # Cargamos la palabra en el registro 4
 	add r5, r4, r0              # Movemos el registro del teclado a r5 para obtener el bit de available
@@ -34,8 +36,8 @@ procesar_registro:
 	nop
 	add r5, r4, r0              # Movemos el caracter leído a r5
     and r5, r5, 0x7F            # Filtramos todos los bits excepto el del carácter
-    stb [r3 + 0x100], r5        # Guardamos el carácter en la variable mensaje
-    add r3, r3, 1               # Incrementamos el contador de caracteres leídos
+    stw [r3 + r7], r5           # Guardamos el carácter en la variable mensaje
+    add r3, r3, 4               # Incrementamos el contador de caracteres leídos
     add r6, r0, 2               # Guardaremos de manera temporal el valor 10 (read) en r6
     stw [r2 + r0], r6           # [0x10000000] = 0b10 (se activa la lectura del siguiente carácter)
 	ba procesar_registro        # Repetimos los pasos anteriores
