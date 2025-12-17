@@ -387,8 +387,17 @@ public class QuadByteRam extends InstanceFactory {
 
         Integer attrSize = painter.getAttributeValue(ATTR_SIZE);
         Integer attrDataBits = painter.getAttributeValue(ATTR_DATA_BITS).getWidth();
+
+        String sizeLabel;
+        if (attrSize > 1000) {
+            Integer temp = attrSize / 1024;
+            sizeLabel = temp.toString() + "K";
+        } else {
+            sizeLabel = attrSize.toString();
+        }
+
         String info = "RAM " +
-            attrSize.toString() +
+            sizeLabel +
             "x" +
             attrDataBits.toString();
 
