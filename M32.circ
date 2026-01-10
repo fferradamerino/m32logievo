@@ -1178,6 +1178,12 @@
       <a name="appearance" val="logisim_evolution"/>
       <a name="width" val="32"/>
     </comp>
+    <comp lib="8" loc="(502,109)" name="Text">
+      <a name="text" val="de la siguiente instrucción a ejecutar en la memoria del programa."/>
+    </comp>
+    <comp lib="8" loc="(514,81)" name="Text">
+      <a name="text" val="El Contador de Programa (PC) es un registro de 32 bits que mantiene la dirección"/>
+    </comp>
     <comp loc="(340,470)" name="Wait3"/>
     <comp loc="(560,430)" name="Check_On_Machine"/>
     <wire from="(120,400)" to="(120,470)"/>
@@ -1418,6 +1424,15 @@
     <comp lib="4" loc="(930,650)" name="Register">
       <a name="appearance" val="logisim_evolution"/>
       <a name="width" val="32"/>
+    </comp>
+    <comp lib="8" loc="(480,70)" name="Text">
+      <a name="text" val="palabra), permitiendo acceso simultáneo a múltiples registros en un mismo ciclo de reloj"/>
+    </comp>
+    <comp lib="8" loc="(489,27)" name="Text">
+      <a name="text" val="El Banco de Registros es la implementación de un arreglo de registros, que sirven a su vez como registros de propósito general"/>
+    </comp>
+    <comp lib="8" loc="(497,49)" name="Text">
+      <a name="text" val="del procesador. Dicho arreglo se diseña como el conjunto de 32 palabras de 32 bits cada una (donde cada registro representa una"/>
     </comp>
     <wire from="(1000,230)" to="(1000,350)"/>
     <wire from="(1000,230)" to="(2170,230)"/>
@@ -2000,6 +2015,9 @@
     <comp lib="1" loc="(940,730)" name="AND Gate">
       <a name="inputs" val="3"/>
     </comp>
+    <comp lib="8" loc="(688,70)" name="Text">
+      <a name="text" val="La Unidad de Saltos evalúa las condiciones de salto y determina si debe ocurrir una redirección en el flujo de programa."/>
+    </comp>
     <comp loc="(400,580)" name="SELECSALTO"/>
     <wire from="(1030,780)" to="(1030,810)"/>
     <wire from="(1030,810)" to="(1290,810)"/>
@@ -2324,6 +2342,15 @@
     </comp>
     <comp lib="1" loc="(730,810)" name="OR Gate"/>
     <comp lib="1" loc="(730,920)" name="OR Gate"/>
+    <comp lib="8" loc="(469,72)" name="Text">
+      <a name="text" val="de Direcciones (AR) hacia la memoria."/>
+    </comp>
+    <comp lib="8" loc="(491,27)" name="Text">
+      <a name="text" val="Las Interfaces de Bus de Datos (DBI) y Dirección (ABI) constituyen la conexión entre el procesador y el sistema de"/>
+    </comp>
+    <comp lib="8" loc="(492,50)" name="Text">
+      <a name="text" val="memoria externo. La interfaz ABI es unidireccional de 32 bits, transmitiendo la dirección de memoria desde el Registro"/>
+    </comp>
     <wire from="(200,190)" to="(230,190)"/>
     <wire from="(200,300)" to="(270,300)"/>
     <wire from="(230,170)" to="(230,190)"/>
@@ -2575,6 +2602,12 @@
     <comp lib="3" loc="(580,860)" name="Adder">
       <a name="width" val="32"/>
     </comp>
+    <comp lib="8" loc="(632,55)" name="Text">
+      <a name="text" val="aritmético-lógicas sobre datos de 32 bits."/>
+    </comp>
+    <comp lib="8" loc="(640,30)" name="Text">
+      <a name="text" val="La Unidad Aritmético-Lógica es la responsable de ejecutar todas las operaciones"/>
+    </comp>
     <comp loc="(1140,340)" name="NOR32"/>
     <comp loc="(430,190)" name="SUBCARRY"/>
     <comp loc="(740,190)" name="SRA_ALU"/>
@@ -2711,6 +2744,9 @@
       <a name="appearance" val="logisim_evolution"/>
       <a name="width" val="32"/>
     </comp>
+    <comp lib="8" loc="(501,94)" name="Text">
+      <a name="text" val="El Registro de Instrucciones almacena la instrucción actualmente en ejecución dentro del procesador."/>
+    </comp>
     <wire from="(190,320)" to="(200,320)"/>
     <wire from="(200,250)" to="(200,320)"/>
     <wire from="(200,250)" to="(310,250)"/>
@@ -2805,6 +2841,12 @@
     <comp lib="2" loc="(490,370)" name="Multiplexer">
       <a name="facing" val="south"/>
       <a name="width" val="5"/>
+    </comp>
+    <comp lib="8" loc="(454,42)" name="Text">
+      <a name="text" val="registros del R-BANK deben ser accedidos en cada operación."/>
+    </comp>
+    <comp lib="8" loc="(467,21)" name="Text">
+      <a name="text" val="El Selector de Registros es un componente decodificador que interpreta los campos de la instrucción para determinar qué"/>
     </comp>
     <wire from="(120,110)" to="(140,110)"/>
     <wire from="(120,180)" to="(170,180)"/>
@@ -2902,6 +2944,9 @@
     <comp lib="2" loc="(690,370)" name="Multiplexer">
       <a name="select" val="2"/>
       <a name="width" val="32"/>
+    </comp>
+    <comp lib="8" loc="(509,29)" name="Text">
+      <a name="text" val="El Selector de Operando Y es un multiplexor que determina la fuente del segundo operador de la ALU."/>
     </comp>
     <wire from="(210,300)" to="(250,300)"/>
     <wire from="(210,400)" to="(250,400)"/>
@@ -3067,6 +3112,12 @@
       <a name="appearance" val="logisim_evolution"/>
       <a name="width" val="4"/>
     </comp>
+    <comp lib="8" loc="(651,207)" name="Text">
+      <a name="text" val="tomen decisiones basadas en los resultados de cálculos previos"/>
+    </comp>
+    <comp lib="8" loc="(688,185)" name="Text">
+      <a name="text" val="El Registro de Estado almacena las banderas de condición generadas por la ALU, permitiendo que instrucciones posteriores"/>
+    </comp>
     <wire from="(420,350)" to="(430,350)"/>
     <wire from="(430,330)" to="(430,350)"/>
     <wire from="(430,330)" to="(500,330)"/>
@@ -3139,6 +3190,15 @@
     <comp lib="1" loc="(660,620)" name="Controlled Buffer">
       <a name="facing" val="south"/>
       <a name="width" val="32"/>
+    </comp>
+    <comp lib="8" loc="(519,23)" name="Text">
+      <a name="text" val="Las Interfaces de Bus de Datos (DBI) y Dirección (ABI) constituyen la conexión entre el procesador y el sistema de"/>
+    </comp>
+    <comp lib="8" loc="(519,46)" name="Text">
+      <a name="text" val="memoria externo. La interfaz DBI también es bidireccional de 32 bits, transportando datos desde la memoria hacia el"/>
+    </comp>
+    <comp lib="8" loc="(522,70)" name="Text">
+      <a name="text" val="procesador durante operaciones de lectura, y desde el procesador hacia la memoria durante operaciones de escritura."/>
     </comp>
     <comp loc="(410,250)" name="OP_DBI_Select"/>
     <comp loc="(770,250)" name="HALF_WORD_Lee"/>
@@ -3270,6 +3330,12 @@
     <comp lib="4" loc="(530,340)" name="Register">
       <a name="appearance" val="logisim_evolution"/>
       <a name="width" val="32"/>
+    </comp>
+    <comp lib="8" loc="(643,112)" name="Text">
+      <a name="text" val="datos"/>
+    </comp>
+    <comp lib="8" loc="(672,88)" name="Text">
+      <a name="text" val="El Registro de Direcciones almacena la dirección de memoria a ser utilizada en operaciones de carga o almacenamiento de"/>
     </comp>
     <wire from="(450,390)" to="(530,390)"/>
     <wire from="(460,440)" to="(520,440)"/>
@@ -3412,6 +3478,18 @@
 29106050 2a325002 2b000000 0 2d10a050 2e349002 2f000000
 </a>
       <a name="dataWidth" val="64"/>
+    </comp>
+    <comp lib="8" loc="(477,1580)" name="Text">
+      <a name="text" val="de control especifica qué señales deben activarse en un determinado ciclo de reloj."/>
+    </comp>
+    <comp lib="8" loc="(501,1511)" name="Text">
+      <a name="text" val="La Unidad de Control es el componente más complejo del M32, responsable de generar la secuencia correcta de señales de"/>
+    </comp>
+    <comp lib="8" loc="(506,1535)" name="Text">
+      <a name="text" val="control que coordinan todos los demás módulos del procesador. Su implementación se realiza mediante microprogramación,"/>
+    </comp>
+    <comp lib="8" loc="(507,1558)" name="Text">
+      <a name="text" val="una técnica que almacena la lógica de control como un programa en una memoria ROM. Cada microinstrucción en la memoria"/>
     </comp>
     <comp loc="(440,70)" name="OpToAddr"/>
     <wire from="(1050,410)" to="(1050,420)"/>
