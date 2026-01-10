@@ -1,8 +1,17 @@
-<project name="M32Library" default="jar" basedir=".">
+<project name="M32Library" default="jar" basedir="." xmlns:jacoco="antlib:org.jacoco.ant">
     <property name="build.dir" value="build" />
     <property name="src.dir" value="src" />
     <property name="dist.dir" value="dist" />
     <property name="lib.dir" value="lib" />
+
+    <!-- JaCoCo taskdef for coverage -->
+    <taskdef uri="antlib:org.jacoco.ant" resource="org/jacoco/ant/antlib.xml">
+        <classpath>
+            <fileset dir="${lib.dir}">
+                <include name="jacocoant.jar"/>
+            </fileset>
+        </classpath>
+    </taskdef>
 
     <target name="compile">
         <mkdir dir="${build.dir}" />
@@ -29,24 +38,47 @@
 
     <target name="test" depends="compile-test">
         <mkdir dir="${build.dir}/test-results" />
+        <mkdir dir="${build.dir}/coverage" />
 
-        <junit printsummary="true" haltonfailure="true" fork="true">
-            <classpath>
-                <pathelement location="${build.dir}" />
-                <pathelement location="${build.dir}/test" />
-                <fileset dir="${lib.dir}">
-                    <include name="*.jar" />
-                </fileset>
-            </classpath>
+        <!-- Run tests with JaCoCo coverage -->
+        <jacoco:coverage destfile="${build.dir}/coverage/jacoco.exec">
+            <junit printsummary="true" haltonfailure="true" fork="true">
+                <classpath>
+                    <pathelement location="${build.dir}" />
+                    <pathelement location="${build.dir}/test" />
+                    <fileset dir="${lib.dir}">
+                        <include name="*.jar" />
+                    </fileset>
+                </classpath>
 
-            <formatter type="xml" />
+                <formatter type="xml" />
 
-            <batchtest todir="${build.dir}/test-results">
-                <fileset dir="${build.dir}/test">
-                    <include name="**/*Test.class" />
-                </fileset>
-            </batchtest>
-        </junit>
+                <batchtest todir="${build.dir}/test-results">
+                    <fileset dir="${build.dir}/test">
+                        <include name="**/*Test.class" />
+                    </fileset>
+                </batchtest>
+            </junit>
+        </jacoco:coverage>
+
+        <!-- Generate XML coverage report for SonarQube -->
+        <jacoco:report>
+            <executiondata>
+                <file file="${build.dir}/coverage/jacoco.exec"/>
+            </executiondata>
+            <structure name="M32Library">
+                <classfiles>
+                    <fileset dir="${build.dir}">
+                        <exclude name="test/**"/>
+                    </fileset>
+                </classfiles>
+                <sourcefiles encoding="UTF-8">
+                    <fileset dir="${src.dir}"/>
+                </sourcefiles>
+            </structure>
+            <xml destfile="${build.dir}/coverage/jacoco.xml"/>
+            <html destdir="${build.dir}/coverage/html"/>
+        </jacoco:report>
     </target>
 
     <target name="test-report" depends="test">
