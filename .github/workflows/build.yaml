@@ -17,7 +17,7 @@ jobs:
       - uses: actions/checkout@v4
 
       - name: Instalar ANT
-        uses: cedx/setup-ant@v4
+        uses: cedx/setup-ant@v6
 
       - name: Configurar JDK 21
         uses: actions/setup-java@v4
